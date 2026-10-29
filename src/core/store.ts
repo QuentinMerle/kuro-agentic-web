@@ -18,7 +18,7 @@ class ShopStore {
       "KURO-V1-Deep Indigo-41": 5,
       "KURO-V1-Deep Indigo-42": 8,
       "KURO-V1-Deep Indigo-43": 4,
-      "KURO-V1-Deep Indigo-44": 0, // En rupture pour le test
+      "KURO-V1-Deep Indigo-44": 0, // Out of stock test
       "KURO-V1-Raw Chalk-40": 6,
       "KURO-V1-Raw Chalk-41": 9,
       "KURO-V1-Raw Chalk-42": 14,
@@ -91,7 +91,7 @@ class ShopStore {
     if (stock < quantity) {
       return {
         success: false,
-        message: `Rupture de stock pour ${color} en taille ${size}.`,
+        message: `Out of stock for ${color} in size ${size}.`,
       };
     }
 
@@ -120,7 +120,7 @@ class ShopStore {
     return {
       success: true,
       item: newItem,
-      message: `Paire Kuro Runner V1 (${color}, Taille ${size}) ajoutée au panier avec succès.`,
+      message: `Kuro Runner V1 (${color}, Size ${size}) added to cart successfully.`,
     };
   }
 
@@ -133,19 +133,19 @@ class ShopStore {
 
     webmcp.registerTool({
       name: "order_kuro_shoe",
-      description: "Configure et ajoute la paire de Kuro Runner V1 au panier actif",
+      description: "Configure and add the Kuro Runner V1 sneaker to the active cart",
       parameters: {
         type: "object",
         properties: {
           size: {
             type: "number",
             enum: [40, 41, 42, 43, 44],
-            description: "Pointure EU disponible en stock",
+            description: "EU shoe size available in stock",
           },
           color: {
             type: "string",
             enum: ["Obsidian Black", "Deep Indigo", "Raw Chalk"],
-            description: "Coloris officiel de l'empeigne",
+            description: "Official upper colorway",
           },
         },
         required: ["size", "color"],
@@ -159,13 +159,13 @@ class ShopStore {
 
     webmcp.registerTool({
       name: "get_kuro_inventory",
-      description: "Consulte le stock exact pour un SKU Kuro",
+      description: "Query real-time stock levels for a specific Kuro SKU",
       parameters: {
         type: "object",
         properties: {
           sku: {
             type: "string",
-            description: "Identifiant produit (ex: KURO-V1-Deep Indigo-42)",
+            description: "Product identifier (e.g. KURO-V1-Deep-Indigo-42)",
           },
         },
         required: ["sku"],

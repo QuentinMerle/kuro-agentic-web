@@ -2,7 +2,7 @@
   "$schema": "https://json-schemas.org/draft/2020-12/schema",
   "version": "1.0.0",
   "name": "Kuro Footwear Store",
-  "description": "Boutique officielle Kuro Footwear avec exposition d'actions agentiques et de micro-interfaces 3D",
+  "description": "Official Kuro Footwear store exposing agentic actions and interactive 3D micro-interfaces",
   "publisher": {
     "name": "Vibrisse Studio",
     "url": "https://vibrisse-studio.dev"
@@ -10,7 +10,7 @@
   "tools": [
     {
       "name": "order_kuro_shoe",
-      "description": "Configure la paire Kuro Runner V1 et prépare la commande pour validation",
+      "description": "Configure the Kuro Runner V1 sneaker and prepare order for checkout",
       "ui": {
         "type": "web-component",
         "entrypoint": "/components/kuro-configurator.wc.js",
@@ -24,12 +24,12 @@
           "size": {
             "type": "number",
             "enum": [40, 41, 42, 43, 44],
-            "description": "Pointure européenne standard (EU)"
+            "description": "Standard European shoe size (EU)"
           },
           "color": {
             "type": "string",
             "enum": ["Obsidian Black", "Deep Indigo", "Raw Chalk"],
-            "description": "Coloris officiel de l'empeigne technique"
+            "description": "Official knit upper colorway"
           }
         },
         "required": ["size", "color"]
@@ -37,18 +37,18 @@
       "handoff": {
         "type": "checkout-deep-link",
         "template": "/checkout?sku=KURO-V1-{color}-{size}&source=agent_feed",
-        "description": "Redirection sécurisée vers la page de règlement pré-remplie"
+        "description": "Pre-filled secure checkout redirect URL"
       }
     },
     {
       "name": "get_kuro_inventory",
-      "description": "Vérifie les niveaux de stock en temps réel pour un SKU donné",
+      "description": "Query real-time stock levels for a specific SKU",
       "parameters": {
         "type": "object",
         "properties": {
           "sku": {
             "type": "string",
-            "description": "Identifiant produit (ex: KURO-V1-Deep-Indigo-42)"
+            "description": "Product SKU identifier (e.g. KURO-V1-Deep-Indigo-42)"
           }
         },
         "required": ["sku"]

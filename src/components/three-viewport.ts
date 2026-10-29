@@ -177,14 +177,14 @@ export function initThreeViewport(
         const percent = xhr.total ? Math.round((xhr.loaded / xhr.total) * 100) : 0;
         const loaderText = container.querySelector("#three-loader span");
         if (loaderText && percent > 0) {
-          loaderText.textContent = `Chargement du modèle 3D (${percent}%)...`;
+          loaderText.textContent = `Loading 3D asset (${percent}%)...`;
         }
       },
       (err) => {
         console.error("[ThreeViewport] Error loading /models/shoe.glb:", err);
         const loaderText = container.querySelector("#three-loader span");
         if (loaderText) {
-          loaderText.textContent = "Erreur de chargement du modèle 3D.";
+          loaderText.textContent = "Failed to load 3D model.";
         }
         reject(err);
       }

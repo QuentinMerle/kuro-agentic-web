@@ -7,15 +7,15 @@ export function initNavBar(container: HTMLElement): void {
 
     container.innerHTML = `
       <header class="floating-nav" role="banner">
-        <a href="#" class="brand-badge" aria-label="Kuro Footwear Accueil">
+        <a href="#" class="brand-badge" aria-label="Kuro Footwear Home">
           <span class="brand-dot"></span>
           <span>KURO / LAB</span>
         </a>
 
-        <nav class="nav-links" aria-label="Navigation principale">
+        <nav class="nav-links" aria-label="Main Navigation">
           <a href="#solution" class="nav-link">Architecture</a>
-          <a href="#benefits" class="nav-link">Bénéfices</a>
-          <a href="#how-it-works" class="nav-link">Fonctionnement</a>
+          <a href="#benefits" class="nav-link">Benefits</a>
+          <a href="#how-it-works" class="nav-link">How it Works</a>
           <a href="#faq" class="nav-link">FAQ</a>
         </nav>
 
@@ -23,8 +23,8 @@ export function initNavBar(container: HTMLElement): void {
           <button 
             id="open-inspector-btn" 
             class="btn btn-feed-pill"
-            title="Inspecter le flux agent-feed.json et WebMCP"
-            aria-label="Inspecter le flux agent-feed.json"
+            title="Inspect agent-feed.json and WebMCP live registry"
+            aria-label="Inspect agent-feed.json"
           >
             <span style="color: var(--accent-success);">●</span> /agent-feed.json
           </button>
@@ -32,9 +32,9 @@ export function initNavBar(container: HTMLElement): void {
           <button 
             id="open-cart-btn" 
             class="btn btn-secondary" 
-            aria-label="Voir le panier (${cartCount} articles)"
+            aria-label="View shopping cart (${cartCount} items)"
           >
-            <span>Panier</span>
+            <span>Cart</span>
             <span style="
               font-family: var(--font-mono); 
               font-size: var(--text-xs); 

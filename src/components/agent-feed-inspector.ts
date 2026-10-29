@@ -10,13 +10,13 @@ export function initFeedInspector(container: HTMLElement): void {
       const json = await res.json();
       return JSON.stringify(json, null, 2);
     } catch {
-      return "// Impossible de charger /agent-feed.json";
+      return "// Unable to load /agent-feed.json";
     }
   }
 
   function getWebMCPContent(): string {
     if (!navigator.modelContext) {
-      return "// navigator.modelContext non initialisé";
+      return "// navigator.modelContext not initialized";
     }
     const tools = navigator.modelContext.listTools().map((t) => ({
       name: t.name,
@@ -34,15 +34,15 @@ export function initFeedInspector(container: HTMLElement): void {
 
     container.innerHTML = `
       <div class="drawer-backdrop ${isOpen ? "open" : ""}" id="inspector-backdrop"></div>
-      <aside class="drawer-panel ${isOpen ? "open" : ""}" role="dialog" aria-label="Inspecteur de flux agentique">
+      <aside class="drawer-panel ${isOpen ? "open" : ""}" role="dialog" aria-label="Agent Feed Inspector">
         <div class="drawer-header">
           <div>
-            <h2 style="font-size: var(--text-lg); font-weight: 600;">Inspecteur Agentique</h2>
+            <h2 style="font-size: var(--text-lg); font-weight: 600;">Agent Inspector</h2>
             <p style="font-size: var(--text-xs); color: var(--accent-muted); font-family: var(--font-mono);">
-              Ce que l'IA découvre sur cette page
+              What AI discovers on this page
             </p>
           </div>
-          <button id="close-inspector-btn" class="btn btn-secondary" style="padding: var(--space-50) var(--space-100);" aria-label="Fermer l'inspecteur">
+          <button id="close-inspector-btn" class="btn btn-secondary" style="padding: var(--space-50) var(--space-100);" aria-label="Close inspector">
             ✕
           </button>
         </div>
@@ -54,7 +54,7 @@ export function initFeedInspector(container: HTMLElement): void {
               class="btn ${activeTab === "feed" ? "btn-primary" : "btn-secondary"}" 
               style="flex: 1; font-size: var(--text-xs);"
             >
-              1. RSS de l'IA (/agent-feed.json)
+              1. AI RSS (/agent-feed.json)
             </button>
             <button 
               id="tab-webmcp-btn" 
@@ -70,7 +70,7 @@ export function initFeedInspector(container: HTMLElement): void {
               ? `
               <div>
                 <p style="font-size: var(--text-xs); color: var(--accent-muted); margin-bottom: var(--space-100);">
-                  Manifeste statique découvert à froid par les agents externes (IDE, CLI, Desktop) en 15 ms via une requête HTTP simple :
+                  Static manifest discovered cold by external agents (IDE, CLI, Desktop) in 15 ms via a lightweight HTTP fetch with zero headless browser overhead:
                 </p>
                 <pre class="json-viewer"><code>${escapeHtml(feedJson)}</code></pre>
               </div>
@@ -78,7 +78,7 @@ export function initFeedInspector(container: HTMLElement): void {
               : `
               <div>
                 <p style="font-size: var(--text-xs); color: var(--accent-muted); margin-bottom: var(--space-100);">
-                  Outils enregistrés dynamiquement dans <code>navigator.modelContext</code>, exploitables en 0 ms par l'IA native du navigateur :
+                  In-memory tools declared on <code>navigator.modelContext</code>, callable in 0 ms by browser-native models with active user cookies:
                 </p>
                 <pre class="json-viewer"><code>${escapeHtml(webmcpJson)}</code></pre>
 
@@ -88,7 +88,7 @@ export function initFeedInspector(container: HTMLElement): void {
                     class="btn btn-primary" 
                     style="width: 100%;"
                   >
-                    Simuler l'appel Agent (order_kuro_shoe)
+                    Simulate Agent Call (order_kuro_shoe)
                   </button>
                 </div>
 
@@ -96,7 +96,7 @@ export function initFeedInspector(container: HTMLElement): void {
                   executionLog
                     ? `
                   <div style="margin-top: var(--space-200);">
-                    <span class="option-label">Résultat de l'appel execute() :</span>
+                    <span class="option-label">execute() return payload:</span>
                     <pre class="json-viewer" style="margin-top: 4px; color: var(--accent-success);"><code>${escapeHtml(executionLog)}</code></pre>
                   </div>
                 `
@@ -136,7 +136,7 @@ export function initFeedInspector(container: HTMLElement): void {
           });
           executionLog = JSON.stringify(res, null, 2);
         } catch (err) {
-          executionLog = `Erreur: ${String(err)}`;
+          executionLog = `Error: ${String(err)}`;
         }
         render();
       }
