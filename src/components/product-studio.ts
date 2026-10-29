@@ -100,12 +100,19 @@ export function initProductStudio(container: HTMLElement): void {
             </div>
 
             <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
-              <strong>Why doesn't this mount in vanilla ChatGPT or Claude.ai?</strong> Public web chats sanitize arbitrary iframes from LLM responses for security. Tier 2 requires a host application implementing the <strong>MCP Apps specification</strong> (like our IDE Generative UI or our dedicated host runner).
+              <strong>Why doesn't this mount in vanilla ChatGPT or Claude.ai?</strong> Public web chats sanitize arbitrary iframes from LLM responses for security. Tier 2 requires a host application implementing the <strong>MCP Apps specification</strong> (SEP-1865).
             </p>
+
+            <div style="font-size: var(--text-xs); color: #79C0FF; background: rgba(121, 192, 255, 0.06); border: 1px solid rgba(121, 192, 255, 0.2); padding: 8px 12px; border-radius: var(--radius-sm); line-height: 1.5;">
+              💡 <strong>Want to see it render live in your agent chat right now?</strong> Clone the repo locally (<code>git clone https://github.com/QuentinMerle/kuro-agentic-web.git</code>). In an agentic IDE (Cursor, Windsurf, Antigravity with Generative UI), your local agent can serve and mount <code>/widget.html</code> directly into your chat panel!
+            </div>
 
             <div style="margin-top: var(--space-150); display: flex; gap: var(--space-100); align-items: center; flex-wrap: wrap;">
               <a href="/agent.html" class="btn btn-secondary" style="font-family: var(--font-mono); font-size: 11px; padding: 4px 10px;">
                 ▶ Test in Simulated Host Runner (/agent)
+              </a>
+              <a href="https://github.com/QuentinMerle/kuro-agentic-web" target="_blank" rel="noopener" class="btn btn-secondary" style="font-family: var(--font-mono); font-size: 11px; padding: 4px 10px;">
+                📦 Clone Repo for Local IDE Chat
               </a>
               <a href="/widget.html" target="_blank" rel="noopener" class="btn btn-secondary" style="font-family: var(--font-mono); font-size: 11px; padding: 4px 10px;">
                 ↗ Open Raw Widget
