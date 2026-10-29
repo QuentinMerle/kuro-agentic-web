@@ -12,11 +12,12 @@
       "name": "order_kuro_shoe",
       "description": "Configure the Kuro Runner V1 sneaker and prepare order for checkout",
       "ui": {
-        "type": "web-component",
-        "entrypoint": "/components/kuro-configurator.wc.js",
+        "type": "mcp-app",
+        "entrypoint": "/widget.html",
         "tag": "kuro-configurator",
         "height": "480px",
-        "themeable": true
+        "themeable": true,
+        "format": "text/html;profile=mcp-app"
       },
       "parameters": {
         "type": "object",

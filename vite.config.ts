@@ -19,6 +19,7 @@ export default defineConfig({
         main: resolve(__dirname, "index.html"),
         agent: resolve(__dirname, "agent.html"),
         mcpApp: resolve(__dirname, "mcp-app.html"),
+        checkout: resolve(__dirname, "checkout.html"),
       },
     },
   },

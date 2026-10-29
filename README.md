@@ -26,7 +26,7 @@ This laboratory demonstrates how to move beyond brittle Computer Use visual scra
 1. **In-DOM WebMCP (`navigator.modelContext`)**  
    Designed for browser-native agents (extensions, Chrome Built-in AI, Side Panels). The front-end registers its business functions directly into the DOM registry with strict JSON Schemas. Executes in < 1 ms with existing session cookies, CSRF tokens, and reactive stores.
 2. **The « RSS of AI » (`/agent-feed.json`)**  
-   Designed for external agents (IDE, CLI, Desktop). Enables cold discovery of actions and sandboxed 3D micro-interfaces via a lightweight 2.1 KB HTTP GET request, eliminating the need to launch a 500 MB headless Chromium instance.
+   Designed for external agents (IDE, CLI, Desktop). Enables cold discovery of actions and sandboxed 3D micro-interfaces via a lightweight 1.75 KB HTTP GET request (~440 tokens), eliminating the need to launch a 1.2 GB headless Chromium instance.
 
 ---
 
@@ -34,13 +34,13 @@ This laboratory demonstrates how to move beyond brittle Computer Use visual scra
 
 Copy and paste these prompts into **Antigravity**, **Claude Desktop**, **Cursor**, or **Windsurf**:
 
-### Tier 1: Text Schema Elicitation (Zero-UI · 14 ms)
+### Tier 1: Text Schema Elicitation (Zero-UI · ~50 ms)
 ```text
 Hey! Inspect https://kuro-agentic-web.vercel.app/agent-feed.json and order the Kuro Runner V1 using schema text elicitation (no UI).
 ```
 * **Protocol behavior:** The agent reads `/agent-feed.json` via a single HTTP GET (0 MB browser RAM), extracts tool JSON Schemas, and prompts in plain text for size (7-11 US) and colorway enums.
 
-### Tier 2: Resilient Micro-UI Widget (Snapshot Baking · 0 ms WebGL)
+### Tier 2: Resilient Micro-UI Widget (Snapshot Baking · < 10 ms mount · 114 KB · CSP-Safe)
 ```text
 Hey! I want to configure and buy the Kuro Runner V1 from https://kuro-agentic-web.vercel.app/ — mount the interactive configurator widget in this chat!
 ```
@@ -52,12 +52,14 @@ Hey! I want to configure and buy the Kuro Runner V1 from https://kuro-agentic-we
 
 | Metric | 1. Headless Scraping | 2. In-DOM WebMCP | 3. Feed + Micro-UI (Tier 2) |
 | :--- | :--- | :--- | :--- |
-| **Cold Discovery** | 8,400 ms | < 1 ms (Active Tab) | **14 ms (HTTP GET)** |
-| **Memory Footprint** | ~480 MB RAM | 0 MB extra | **0 MB extra** |
-| **Payload Size** | ~4,200 tokens (HTML dump) | 0 tokens (Native JS heap) | **2.1 KB gzip** |
+| **Cold Discovery** | 1,100 – 1,850 ms | < 1 ms (Active Tab) | **45 – 65 ms (HTTP GET)** |
+| **Memory Footprint** | 1,260 – 1,325 MB RAM (Peak RSS) | 0 MB extra | **0 MB extra** |
+| **Payload Size** | ~10,150 tokens (40.6 KB HTML DOM) | 0 tokens (Native JS heap) | **1.75 KB (751 B gzip / ~440 tokens)** |
 | **Deploy Resiliency** | 0% (DOM breaks) | 100% (Typed JSON Schema) | **100% (Strict Action Contract)** |
-| **Visual Rendering** | Static PNG screenshot | Full tab DOM | **Baked 3D PBR (CSP-Safe)** |
+| **Visual Rendering** | Static PNG screenshot | Full tab DOM | **Baked 3D PBR (< 10 ms mount, 114 KB)** |
 | **Payment Security** | Risky (LLM sees tokens) | Native browser session | **Delegated 1-Click Handoff** |
+
+> **Methodology Note:** Empirically benchmarked on Apple M1 Pro (32 GB RAM, macOS Sonoma, Chromium 156 Headless CLI) and Vercel Edge CDN. Headless scraping measures cold browser process spawn, navigation, full DOM serialization (40,634 bytes) and cumulative RSS. Agent feed measures HTTP GET TTFB (~51 ms) and raw payload (1,757 bytes / ~440 tokens).
 
 ---
 
@@ -71,6 +73,15 @@ During empirical stress testing across real agent sandboxes and Edge CDN deploym
 4. **The 3D WebGL Crash & CSP `connect-src 'none'`:** Chat webviews frequently disable hardware acceleration and block multi-megabyte GLTF network streaming. Resolved by **Tier 2 Snapshot Baking** (pre-rendered Three.js PBR angles inlined as data-URIs, 0 ms mount time, 0 MB VRAM).
 5. **VRAM GPU Leaks in Multi-Turn Chats:** Active 3D WebGL scenes across 20+ turns accumulate memory and trigger OS tab discards. Resolved by **Receipt State Transition** (disposing of Three.js textures/geometry and freezing into a static 2D order confirmation receipt).
 6. **The 15,000 SKU Catalog Bloat Trap:** Serializing full database dumps into the JSON feed wastes context tokens and degrades LLM reasoning. Resolved by exposing high-level **Action Contracts** (`order_kuro_shoe`, `search_catalog`) with parametric Just-in-Time hydration.
+
+---
+
+## 📜 Emerging Industry Standards Reference
+
+This PoC directly maps to and validates three emerging standard tracks:
+* **W3C WebML CG WebMCP:** (`webmachinelearning/webmcp`) Incubating `navigator.modelContext` as a W3C Community Group Draft Report, supported by Google and Microsoft for in-DOM tool exposition.
+* **MCP Apps (SEP-1865):** Model Context Protocol extension for interactive UI micro-apps (`ui://` resources and `text/html;profile=mcp-app` inside sandboxed iframes).
+* **Agentic Payment Protocols:** OpenAI & Stripe's **Agentic Commerce Protocol (ACP)** and Google's **Agent Payments Protocol (AP2)** for cryptographic purchase authorization without leaking credentials to the LLM.
 
 ---
 
