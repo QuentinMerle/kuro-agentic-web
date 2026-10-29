@@ -9,14 +9,15 @@ export function initNavBar(container: HTMLElement): void {
       <header class="floating-nav" role="banner">
         <a href="#" class="brand-badge" aria-label="Kuro Footwear Home">
           <span class="brand-dot"></span>
-          <span>KURO / LAB</span>
+          <span>KURO · REX #04</span>
         </a>
 
         <nav class="nav-links" aria-label="Main Navigation">
-          <a href="#solution" class="nav-link">Architecture</a>
-          <a href="#benefits" class="nav-link">Benefits</a>
-          <a href="#how-it-works" class="nav-link">How it Works</a>
-          <a href="#faq" class="nav-link">FAQ</a>
+          <a href="#test-bench" class="nav-link">Test Bench</a>
+          <a href="#configurator-stage" class="nav-link">Storefront Subject</a>
+          <a href="#telemetry" class="nav-link">Telemetry</a>
+          <a href="#frictions" class="nav-link">Frictions Log</a>
+          <a href="#faq" class="nav-link">Technical Q&A</a>
         </nav>
 
         <div class="nav-actions">

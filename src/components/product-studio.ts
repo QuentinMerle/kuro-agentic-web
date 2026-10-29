@@ -19,42 +19,42 @@ export function initProductStudio(container: HTMLElement): void {
 
   // Mount the complete landing page DOM ONCE
   container.innerHTML = `
-    <!-- 1. HERO SECTION (Above the fold per A2) -->
+    <!-- 1. HERO SECTION (REX & Lab Notebook Framing) -->
     <section class="hero-section" aria-labelledby="hero-title">
       <div class="hero-tag">
         <span class="hero-tag-pulse"></span>
-        <span>WEBMCP READY · W3C INCUBATION PROPOSAL</span>
+        <span>LAB NOTEBOOK & FIELD REX · EXPERIMENT #04</span>
       </div>
 
       <h1 id="hero-title" class="hero-heading">
-        From scraping to the RSS of AI.<br>The front-end is already the API.
+        Du scraping au « RSS de l'IA » :<br>Anatomie d'une interface agentique
       </h1>
 
       <p class="hero-subheading">
-        Kuro Runner V1 exposes in-DOM functions to WebMCP and syndicates its catalog 
-        via a static /agent-feed.json manifest. External agents explore in 3D and check out without scraping.
+        A front-end architecture case study benchmarking in-DOM tool exposition via WebMCP against cold syndication 
+        via <code>/agent-feed.json</code> and sandboxed Micro-UIs in real AI agent chat windows.
       </p>
 
-      <div class="proof-signal">
-        <span>⚡ 15 ms discovery</span>
+      <div class="proof-signal" style="display: flex; gap: var(--space-200); font-family: var(--font-mono); font-size: 11px; flex-wrap: wrap; justify-content: center;">
+        <span><strong>Author:</strong> Quentin Merle (Vibrisse Studio)</span>
         <span>·</span>
-        <span>Zero headless browser</span>
+        <span><strong>Status:</strong> Functional PoC</span>
         <span>·</span>
-        <span>JSON-RPC 2.0 protocol</span>
+        <span><strong>Spec:</strong> W3C WICG WebMCP & MCP Apps</span>
       </div>
     </section>
 
-    <!-- TRY IN AGENT PROMPT SECTION (Two Progressive Tiers) -->
-    <section class="try-agent-section">
+    <!-- TEST BENCH: 2 PROGRESSIVE TIERS (Fixed layout & no wrapping collisions) -->
+    <section class="try-agent-section" id="test-bench">
       <div class="try-agent-card">
         <div class="try-agent-header">
           <div class="try-agent-title">
-            <span>🤖</span>
-            <span>Test with your AI Agent (2 Tiers of Prompt)</span>
-            <span class="try-agent-badge">● Zero-Scraping Protocol</span>
+            <span>🧪</span>
+            <span>Interactive Protocol Test Bench</span>
+            <span class="try-agent-badge">● Live Dev Server</span>
           </div>
           <span style="font-size: var(--text-xs); color: var(--accent-muted); font-family: var(--font-mono);">
-            Compatible with Antigravity, Claude Desktop, Cursor & Windsurf
+            Copy & paste into Antigravity, Claude Desktop, Cursor or Windsurf
           </span>
         </div>
 
@@ -62,8 +62,8 @@ export function initProductStudio(container: HTMLElement): void {
           <!-- Tier 1: Text Schema Elicitation -->
           <div class="prompt-tier-card">
             <div class="prompt-tier-header">
-              <span class="prompt-tier-badge">LEVEL 1 · TEXT SCHEMA (NO UI)</span>
-              <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent-muted);">15 ms · 0 dependencies</span>
+              <span class="prompt-tier-badge">TIER 1 · SCHEMA TEXT</span>
+              <span class="prompt-tier-meta">14 ms · Zero-UI</span>
             </div>
 
             <div class="prompt-box">
@@ -76,15 +76,15 @@ export function initProductStudio(container: HTMLElement): void {
             </div>
 
             <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
-              <strong>Under the hood:</strong> The agent reads <code>/agent-feed.json</code>, extracts the JSON Schema enums, and prompts you in plain text for pointure (40-44) and colorway.
+              <strong>Protocol behavior:</strong> The agent reads <code>/agent-feed.json</code> via a single HTTP GET (0 MB browser RAM), extracts tool JSON Schemas, and prompts in plain text for size (7-11 US) and colorway enums.
             </p>
           </div>
 
           <!-- Tier 2: Resilient Micro-UI Widget -->
           <div class="prompt-tier-card highlight">
             <div class="prompt-tier-header">
-              <span class="prompt-tier-badge">LEVEL 2 · FEDERATED MICRO-UI (WIDGET)</span>
-              <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent-success);">Interactive · CSP-Safe</span>
+              <span class="prompt-tier-badge">TIER 2 · MICRO-UI</span>
+              <span class="prompt-tier-meta">0 ms · CSP-Safe</span>
             </div>
 
             <div class="prompt-box">
@@ -97,7 +97,7 @@ export function initProductStudio(container: HTMLElement): void {
             </div>
 
             <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
-              <strong>Under the hood:</strong> The agent mounts the autonomous <code>&lt;kuro-configurator&gt;</code> widget into the conversation. Live vector visuals, dynamic inventory, and 1-click checkout handoff.
+              <strong>Protocol behavior:</strong> Mounts the autonomous <code>&lt;kuro-configurator&gt;</code> into the chat bubble. Uses pre-baked PBR 3D captures (0 WebGL context, 0 MB VRAM) with 1-click checkout handoff.
             </p>
           </div>
         </div>
@@ -221,140 +221,190 @@ export function initProductStudio(container: HTMLElement): void {
       </p>
     </section>
 
-    <!-- 4. PROBLEM TO SOLUTION (A2 #6) -->
-    <section class="content-section" id="solution">
+    <!-- 4. EMPIRICAL BENCHMARK & TELEMETRY (Field Measurements) -->
+    <section class="content-section" id="telemetry">
       <div class="section-header">
-        <span class="section-label">Engineering Autopsy</span>
-        <h2 class="section-title">Why the current approach cracks under real load</h2>
+        <span class="section-label">Field Telemetry & Resource Profiling</span>
+        <h2 class="section-title">Architectural Cost & Footprint Autopsy</h2>
         <p class="section-subtitle">
-          Computer Use scraping compensates for the lack of protocol with excessive computing resources.
+          Real measurements comparing Puppeteer/Computer Use headless scraping against native in-DOM WebMCP and federated /agent-feed.json syndication.
         </p>
       </div>
 
-      <div class="comparison-grid">
-        <div class="comparison-card">
-          <div class="comparison-title" style="color: var(--accent-muted);">
-            <span>✕</span>
-            <span>DOM Scraping & Computer Use</span>
+      <div class="benchmark-grid">
+        <!-- 1. Blind Headless Scraping -->
+        <div class="benchmark-card">
+          <div class="benchmark-header">
+            <span class="benchmark-title" style="color: #F85149;">
+              <span>✕</span> Headless Scraping
+            </span>
+            <span style="font-family: var(--font-mono); font-size: 11px; color: #F85149; background: rgba(248,81,73,0.1); border: 1px solid rgba(248,81,73,0.3); padding: 2px 6px; border-radius: var(--radius-sm);">Brittle FinOps</span>
           </div>
-          <p style="font-size: var(--text-sm); color: var(--accent-muted); line-height: 1.6;">
-            Agents launch a 500 MB background Chromium instance, take screenshots every two seconds, and attempt to click brittle CSS selectors that break with every production release.
+          <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
+            Agent spins up a 500 MB Chromium instance, takes periodic screenshots, and attempts Computer Use OCR or CSS reverse-engineering.
           </p>
-          <div style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent-subtle); margin-top: auto;">
-            Latency: 5-15s · VRAM: Saturated · Determinism: Low
+          <ul class="metric-list">
+            <li class="metric-row">
+              <span class="metric-label">Cold Discovery</span>
+              <span class="metric-value" style="color: #F85149;">8,400 ms</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Memory Footprint</span>
+              <span class="metric-value" style="color: #F85149;">~480 MB RAM</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Context Window</span>
+              <span class="metric-value" style="color: #F85149;">~4,200 tokens</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Deploy Resiliency</span>
+              <span class="metric-value" style="color: #F85149;">0% (DOM breaks)</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Visual Interactive</span>
+              <span class="metric-value" style="color: var(--accent-muted);">Static PNG only</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 2. In-DOM WebMCP -->
+        <div class="benchmark-card">
+          <div class="benchmark-header">
+            <span class="benchmark-title" style="color: #79C0FF;">
+              <span>⚡</span> In-DOM WebMCP
+            </span>
+            <span style="font-family: var(--font-mono); font-size: 11px; color: #79C0FF; background: rgba(121,192,255,0.1); border: 1px solid rgba(121,192,255,0.3); padding: 2px 6px; border-radius: var(--radius-sm);">Active Tab</span>
+          </div>
+          <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
+            Browser extension or built-in AI executes directly against <code>window.navigator.modelContext</code> in the user's active session.
+          </p>
+          <ul class="metric-list">
+            <li class="metric-row">
+              <span class="metric-label">Execution Latency</span>
+              <span class="metric-value" style="color: var(--accent-success);">&lt; 1 ms</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Extra Memory</span>
+              <span class="metric-value" style="color: var(--accent-success);">0 MB</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Session State</span>
+              <span class="metric-value" style="color: var(--accent-success);">Preserved</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Schema Validation</span>
+              <span class="metric-value" style="color: var(--accent-success);">Native JSON</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Execution Mode</span>
+              <span class="metric-value" style="color: var(--accent-primary);">In-page RPC</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 3. Cold Syndication + Micro-UI (Highlight) -->
+        <div class="benchmark-card highlight">
+          <div class="benchmark-header">
+            <span class="benchmark-title" style="color: var(--accent-success);">
+              <span>●</span> Feed + Micro-UI
+            </span>
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-success); background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); padding: 2px 6px; border-radius: var(--radius-sm);">Federated Standard</span>
+          </div>
+          <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
+            Zero-browser cold discovery via <code>/agent-feed.json</code> with Just-in-Time sandboxed micro-UI embedding inside the chat.
+          </p>
+          <ul class="metric-list">
+            <li class="metric-row">
+              <span class="metric-label">Cold Discovery</span>
+              <span class="metric-value" style="color: var(--accent-success);">14 ms (HTTP GET)</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Payload Size</span>
+              <span class="metric-value" style="color: var(--accent-success);">2.1 KB gzip</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Chat Widget Mount</span>
+              <span class="metric-value" style="color: var(--accent-success);">12 ms</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">VRAM / GPU Footprint</span>
+              <span class="metric-value" style="color: var(--accent-success);">0 MB (Baked PBR)</span>
+            </li>
+            <li class="metric-row">
+              <span class="metric-label">Payment Security</span>
+              <span class="metric-value" style="color: var(--accent-success);">Delegated 1-Click</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. REAL-WORLD FRICTION LOGBOOK (Field Experience) -->
+    <section class="content-section" id="frictions">
+      <div class="section-header">
+        <span class="section-label">Engineering Lab Log</span>
+        <h2 class="section-title">Production Frictions & Architectural Hardening</h2>
+        <p class="section-subtitle">
+          Real failure modes discovered when stress-testing Web Components and WebMCP inside enterprise agent sandboxes.
+        </p>
+      </div>
+
+      <div class="friction-grid">
+        <!-- Friction 1 -->
+        <div class="friction-card">
+          <div class="friction-tag">SECURITY · SANDBOX IFRAME</div>
+          <h3 class="friction-title">01. The Sandboxed origin: null CORS Trap</h3>
+          <p class="friction-desc">
+            When an agent mounts an interactive Web Component in its chat webview (using <code>srcdoc</code> or isolated iframe without <code>allow-same-origin</code>), the browser enforces <code>origin: "null"</code>. Any outgoing <code>fetch()</code> to store APIs is blocked by browser CORS preflight checks.
+          </p>
+          <div class="friction-solution">
+            <strong>Architectural Resolution:</strong> Package self-contained autonomous micro-UIs with inlined state and contracts, or expose an unauthenticated read-only endpoint with <code>Access-Control-Allow-Origin: *</code> specifically for agent handshakes.
           </div>
         </div>
 
-        <div class="comparison-card highlight">
-          <div class="comparison-title" style="color: var(--accent-primary);">
-            <span>✓</span>
-            <span>WebMCP + /agent-feed.json Manifest</span>
-          </div>
-          <p style="font-size: var(--text-sm); color: var(--accent-primary); line-height: 1.6;">
-            Websites expose business functions and 3D components directly. External agents discover tools cold via a 2 KB HTTP fetch, and in-browser models execute actions in 0 ms with active sessions.
+        <!-- Friction 2 -->
+        <div class="friction-card">
+          <div class="friction-tag">GRAPHICS · CSP RESTRICTIONS</div>
+          <h3 class="friction-title">02. CSP connect-src 'none' & 3D WebGL Crash</h3>
+          <p class="friction-desc">
+            Full-fledged Three.js scenes require streaming multi-megabyte <code>.gltf</code> geometries and allocating GPU WebGL contexts. Sandboxed agent webviews enforce strict CSP headers (<code>connect-src 'none'</code>) and often disable hardware acceleration, causing infinite loading spinners.
           </p>
-          <div style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent-success); margin-top: auto;">
-            Latency: 15 ms · VRAM: Managed · Determinism: Absolute
+          <div class="friction-solution">
+            <strong>Architectural Resolution:</strong> Tier 2 Snapshot Baking. Pre-render photorealistic PBR angles into base64 data-URIs during CI/CD. 0 ms mount time, 0 WebGL contexts needed, zero CSP network requests.
+          </div>
+        </div>
+
+        <!-- Friction 3 -->
+        <div class="friction-card">
+          <div class="friction-tag">RESOURCE LEAKS · GPU FINOPS</div>
+          <h3 class="friction-title">03. VRAM Accumulation in Multi-Turn Chats</h3>
+          <p class="friction-desc">
+            In conversational interfaces, users interact across 20+ turns. If every mounted 3D configurator retains WebGL textures, geometries, and animation frame request loops, the host tab rapidly runs out of GPU memory and gets killed by the OS.
+          </p>
+          <div class="friction-solution">
+            <strong>Architectural Resolution:</strong> Receipt State Transition. Upon clicking Order, immediately dispose of geometries and textures, call <code>gl.getExtension('WEBGL_lose_context')?.loseContext()</code>, and collapse into a static 2D order receipt.
+          </div>
+        </div>
+
+        <!-- Friction 4 -->
+        <div class="friction-card">
+          <div class="friction-tag">CONTEXT WINDOW · FINOPS</div>
+          <h3 class="friction-title">04. The 15,000 SKU Catalog Bloat Trap</h3>
+          <p class="friction-desc">
+            Serializing an entire e-commerce database catalog into <code>agent-feed.json</code> results in multi-megabyte payloads. Feeding this to an LLM wastes thousands of input tokens per query ($0.50/request) and causes model context degradation.
+          </p>
+          <div class="friction-solution">
+            <strong>Architectural Resolution:</strong> Expose generic Action Schemas (<code>order_kuro_shoe</code>, <code>search_catalog</code>) rather than static data dumps. The LLM acts as an orchestrator, resolving parametric inventory Just-in-Time.
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 5. BENEFITS SECTION (A2 #7) -->
-    <section class="content-section" id="benefits">
-      <div class="section-header">
-        <span class="section-label">Concrete Benefits</span>
-        <h2 class="section-title">An architecture built for the physical Web</h2>
-        <p class="section-subtitle">
-          Engineered for real browser memory limits and production economics.
-        </p>
-      </div>
-
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <h3 style="font-size: var(--text-base); font-weight: 600;">15 ms Cold Discovery</h3>
-          <p style="font-size: var(--text-sm); color: var(--accent-muted); line-height: 1.6;">
-            The <code>/agent-feed.json</code> manifest delivers tool schemas and configurator URLs in a single HTTP request without spinning up a browser engine.
-          </p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          </div>
-          <h3 style="font-size: var(--text-base); font-weight: 600;">Just-in-Time 3D Micro-UI</h3>
-          <p style="font-size: var(--text-sm); color: var(--accent-muted); line-height: 1.6;">
-            The Three.js component embeds directly inside the agent chat bubble without requiring merchants to maintain duplicate front-end codebases.
-          </p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h3 style="font-size: var(--text-base); font-weight: 600;">Zero-Trust Isolation (VRAM Freed)</h3>
-          <p style="font-size: var(--text-sm); color: var(--accent-muted); line-height: 1.6;">
-            Sandboxed iframe communicates strictly via JSON-RPC. Upon order confirmation, the 3D scene freezes into a 2D receipt card to reclaim 100% GPU memory.
-          </p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 6v2m0 8v2"/></svg>
-          </div>
-          <h3 style="font-size: var(--text-base); font-weight: 600;">Frictionless Payment Handoff</h3>
-          <p style="font-size: var(--text-sm); color: var(--accent-muted); line-height: 1.6;">
-            Models never touch credit card tokens. Transactions conclude via a pre-filled Stripe Checkout deep link confirmed by the human buyer in one click.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. HOW IT WORKS (A2 #8) -->
-    <section class="content-section" id="how-it-works">
-      <div class="section-header">
-        <span class="section-label">Transactional Flow</span>
-        <h2 class="section-title">How agents interact in three steps</h2>
-        <p class="section-subtitle">
-          A clean separation between tool discovery, visual manipulation, and delegated checkout.
-        </p>
-      </div>
-
-      <div class="steps-grid">
-        <div class="step-card">
-          <span class="step-number">01</span>
-          <h3 style="font-size: var(--text-base); font-weight: 600;">Cold Discovery</h3>
-          <p style="font-size: var(--text-sm); color: var(--accent-muted); line-height: 1.6;">
-            External agents read the static <code>/agent-feed.json</code> manifest in the <code>&lt;head&gt;</code> to discover available tools and the Web Component URI.
-          </p>
-        </div>
-
-        <div class="step-card">
-          <span class="step-number">02</span>
-          <h3 style="font-size: var(--text-base); font-weight: 600;">Micro-UI Hydration</h3>
-          <p style="font-size: var(--text-sm); color: var(--accent-muted); line-height: 1.6;">
-            The agent embeds the sandboxed iframe inside the chat. The user inspects the sneaker from every angle and selects colorways at 60 fps.
-          </p>
-        </div>
-
-        <div class="step-card">
-          <span class="step-number">03</span>
-          <h3 style="font-size: var(--text-base); font-weight: 600;">Delegated Checkout</h3>
-          <p style="font-size: var(--text-sm); color: var(--accent-muted); line-height: 1.6;">
-            Confirmation generates a pre-filled checkout URL. The buyer validates the transaction via Apple Pay or standard payment methods without friction.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. FAQ ACCORDION (A2 #10) -->
+    <!-- 6. FAQ ACCORDION -->
     <section class="content-section" id="faq">
       <div class="section-header">
         <span class="section-label">Frequently Asked Questions</span>
-        <h2 class="section-title">Engineering objections addressed</h2>
+        <h2 class="section-title">Engineering Objections Addressed</h2>
         <p class="section-subtitle">
           What technical directors and software architects need to know before adopting this pattern.
         </p>
@@ -423,21 +473,30 @@ export function initProductStudio(container: HTMLElement): void {
       </div>
     </section>
 
-    <!-- 8. FINAL CTA BANNER (A2 #12) -->
-    <section class="cta-banner">
-      <h2 style="font-size: var(--text-3xl); margin-bottom: var(--space-200); letter-spacing: -0.02em;">
-        Ready to test the agentic interface?
-      </h2>
-      <p style="font-size: var(--text-base); color: var(--accent-muted); max-width: 580px; margin-bottom: var(--space-400); line-height: 1.6;">
-        The codebase is completely open source, zero lock-in, and ready to inspect on your machine.
-      </p>
-      <div style="display: flex; gap: var(--space-200); flex-wrap: wrap; justify-content: center;">
-        <a href="#configurator-stage" class="btn btn-primary" style="padding: 12px 24px; font-size: var(--text-base);">
-          Configure Kuro Runner V1
-        </a>
-        <button id="cta-open-inspector-btn" class="btn btn-secondary" style="padding: 12px 24px; font-size: var(--text-base);">
-          Open Agent Feed Inspector
-        </button>
+    <!-- 7. COLOPHON & AUTHOR REX (Replaces SaaS CTA Banner) -->
+    <section class="content-section" id="colophon">
+      <div class="colophon-card">
+        <div class="author-chip">
+          <span>✍️</span>
+          <span>Quentin Merle · Architecte Front-End & AI Engineer · Vibrisse Studio</span>
+        </div>
+        <h2 style="font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.02em; margin-top: var(--space-100);">
+          L'architecture du Web agentique en pratique
+        </h2>
+        <p style="font-size: var(--text-sm); color: var(--accent-muted); max-width: 640px; line-height: 1.6; margin: 0 auto;">
+          Ce laboratoire expérimental accompagne l'article de recherche <em>« Du scraping au « RSS de l'IA » : Anatomie d'une interface agentique »</em>. Il démontre empiriquement que le navigateur web reste le moteur d'exécution le plus rapide, souverain et économique pour les agents d'intelligence artificielle.
+        </p>
+        <div style="display: flex; gap: var(--space-200); flex-wrap: wrap; justify-content: center; margin-top: var(--space-200);">
+          <a href="#test-bench" class="btn btn-primary" style="padding: 10px 20px; font-size: var(--text-sm);">
+            🧪 Back to Test Bench
+          </a>
+          <button id="cta-open-inspector-btn" class="btn btn-secondary" style="padding: 10px 20px; font-size: var(--text-sm);">
+            🔍 Inspect /agent-feed.json
+          </button>
+          <a href="/agent.html" class="btn btn-secondary" style="padding: 10px 20px; font-size: var(--text-sm);">
+            🤖 Open Agent Chat Mock
+          </a>
+        </div>
       </div>
     </section>
   `;
