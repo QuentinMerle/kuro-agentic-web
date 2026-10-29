@@ -497,6 +497,16 @@ export function initProductStudio(container: HTMLElement): void {
             The API is in exploratory incubation within the W3C Web Incubator Community Group (WICG) and Chrome Built-in AI initiatives. This demonstrator uses a 25-line Vanilla JS polyfill to prove ergonomics today before the native standard finalizes.
           </div>
         </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Doesn't leaving the chat for checkout break the seamless agentic experience?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            It protects it. Autonomous LLM payments risk prompt injections and strict PCI-DSS violations. The true agentic horizon is friction-free biometric handoff: the agent prepares the basket via declarative schemas, while the user confirms the transaction in 1 click via Touch ID, Apple Pay, or Passkeys without typing passwords or filling forms.
+          </div>
+        </div>
       </div>
     </section>
 
@@ -513,6 +523,10 @@ export function initProductStudio(container: HTMLElement): void {
         <p style="font-size: var(--text-sm); color: var(--accent-muted); max-width: 640px; line-height: 1.6; margin: 0 auto;">
           This experimental lab accompanies the research paper <em>« Du scraping au « RSS de l'IA » : Anatomie d'une interface agentique »</em>. It empirically demonstrates that the web browser remains the fastest, most sovereign, and cost-effective execution engine for AI agents.
         </p>
+        <div style="display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; color: #79C0FF; background: rgba(121, 192, 255, 0.08); border: 1px solid rgba(121, 192, 255, 0.2); padding: 4px 10px; border-radius: var(--radius-sm); margin-top: 4px;">
+          <span>🔮</span>
+          <span>Next Research Frontier: Identity Continuity & Biometric Handoff (Passkeys & OS Wallets)</span>
+        </div>
         <div style="display: flex; gap: var(--space-200); flex-wrap: wrap; justify-content: center; margin-top: var(--space-200);">
           <a href="#test-bench" class="btn btn-primary" style="padding: 10px 20px; font-size: var(--text-sm);">
             🧪 Back to Test Bench

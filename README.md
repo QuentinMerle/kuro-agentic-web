@@ -109,3 +109,4 @@ npm run build
 * **Author:** Quentin Merle — Front-End Architect & AI Engineer at [Vibrisse Studio](https://www.vibrisse-studio.dev/)
 * **Repository:** [https://github.com/QuentinMerle/kuro-agentic-web](https://github.com/QuentinMerle/kuro-agentic-web)
 * **Specification:** W3C WICG WebMCP & MCP Apps (`@modelcontextprotocol/ext-apps`)
+* **Next Research Frontier:** Identity Continuity & Biometric Handoff — Bridging the gap between declarative AI basket preparation and frictionless Touch ID / Apple Pay authorization.
