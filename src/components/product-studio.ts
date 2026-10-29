@@ -27,7 +27,7 @@ export function initProductStudio(container: HTMLElement): void {
       </div>
 
       <h1 id="hero-title" class="hero-heading">
-        Du scraping au « RSS de l'IA » :<br>Anatomie d'une interface agentique
+        From Scraping to the « RSS of AI » :<br>Anatomy of an Agentic Interface
       </h1>
 
       <p class="hero-subheading">
@@ -478,13 +478,13 @@ export function initProductStudio(container: HTMLElement): void {
       <div class="colophon-card">
         <div class="author-chip">
           <span>✍️</span>
-          <span>Quentin Merle · Architecte Front-End & AI Engineer · Vibrisse Studio</span>
+          <span>Quentin Merle · Front-End Architect & AI Engineer · Vibrisse Studio</span>
         </div>
         <h2 style="font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.02em; margin-top: var(--space-100);">
-          L'architecture du Web agentique en pratique
+          The Agentic Web Architecture in Practice
         </h2>
         <p style="font-size: var(--text-sm); color: var(--accent-muted); max-width: 640px; line-height: 1.6; margin: 0 auto;">
-          Ce laboratoire expérimental accompagne l'article de recherche <em>« Du scraping au « RSS de l'IA » : Anatomie d'une interface agentique »</em>. Il démontre empiriquement que le navigateur web reste le moteur d'exécution le plus rapide, souverain et économique pour les agents d'intelligence artificielle.
+          This experimental lab accompanies the research paper <em>« Du scraping au « RSS de l'IA » : Anatomie d'une interface agentique »</em>. It empirically demonstrates that the web browser remains the fastest, most sovereign, and cost-effective execution engine for AI agents.
         </p>
         <div style="display: flex; gap: var(--space-200); flex-wrap: wrap; justify-content: center; margin-top: var(--space-200);">
           <a href="#test-bench" class="btn btn-primary" style="padding: 10px 20px; font-size: var(--text-sm);">

@@ -22,6 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Visual toast for WebMCP tool invocations
   window.addEventListener("webmcp:tool-called", (e) => {
     const detail = (e as CustomEvent).detail;
-    console.info(`[WebMCP] ⚡ Tool exécuté par l'agent :`, detail);
+    console.info(`[WebMCP] ⚡ Tool executed by agent:`, detail);
   });
 });
