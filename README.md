@@ -102,6 +102,7 @@ Hey! I want to configure and buy the Kuro Runner V1 from https://kuro-agentic-we
 ```
 * **Why doesn't this mount in vanilla ChatGPT or Claude.ai?** Public web chats sanitize arbitrary iframes from LLM responses for security (preventing phishing and session hijacking). Tier 2 requires a host application implementing the **MCP Apps specification** (like our IDE Generative UI or our dedicated host runner).
 * **Where to test Tier 2 live:**
+  - **In your IDE Agent Chat (Real rendering):** Clone this repo locally (`git clone https://github.com/QuentinMerle/kuro-agentic-web.git`). In an agentic IDE (Cursor, Windsurf, Antigravity with Generative UI), your local agent can serve and mount `widget.html` directly into your chat panel without hitting public SaaS chat CSP barriers!
   - In our **Simulated Host Runner**: [https://kuro-agentic-web.vercel.app/agent.html](https://kuro-agentic-web.vercel.app/agent.html) (fully implements host iframe sandboxing and JSON-RPC 2.0).
   - Open the standalone widget directly: [https://kuro-agentic-web.vercel.app/widget.html](https://kuro-agentic-web.vercel.app/widget.html).
 
