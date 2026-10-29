@@ -47,7 +47,7 @@ export function initProductStudio(container: HTMLElement): void {
       </div>
     </section>
 
-    <!-- TEST BENCH: 2 PROGRESSIVE TIERS (Fixed layout & no wrapping collisions) -->
+    <!-- TEST BENCH: 2 PROGRESSIVE TIERS (With Honest Runtime Boundaries) -->
     <section class="try-agent-section" id="test-bench">
       <div class="try-agent-card">
         <div class="try-agent-header">
@@ -57,16 +57,16 @@ export function initProductStudio(container: HTMLElement): void {
             <span class="try-agent-badge">● Live Dev Server</span>
           </div>
           <span style="font-size: var(--text-xs); color: var(--accent-muted); font-family: var(--font-mono);">
-            Copy & paste into Antigravity, Claude Desktop, Cursor or Windsurf
+            Tier 1 is Universal (any LLM chat). Tier 2 requires an MCP Apps host container (SEP-1865).
           </span>
         </div>
 
         <div class="prompt-grid">
-          <!-- Tier 1: Text Schema Elicitation -->
+          <!-- Tier 1: Text Schema Elicitation (Universal) -->
           <div class="prompt-tier-card">
             <div class="prompt-tier-header">
               <span class="prompt-tier-badge">TIER 1 · SCHEMA TEXT</span>
-              <span class="prompt-tier-meta">~50 ms · Zero-UI</span>
+              <span class="prompt-tier-meta" style="color: var(--accent-success);">● Universal (Any Agent)</span>
             </div>
 
             <div class="prompt-box">
@@ -79,15 +79,15 @@ export function initProductStudio(container: HTMLElement): void {
             </div>
 
             <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
-              <strong>Protocol behavior:</strong> The agent reads <code>/agent-feed.json</code> via a single HTTP GET (0 MB browser RAM), extracts tool JSON Schemas, and prompts in plain text for size (7-11 US) and colorway enums.
+              <strong>Universal compatibility:</strong> Works out-of-the-box in ChatGPT, Claude, Cursor, Windsurf, Antigravity, or terminal CLI. The agent reads <code>/agent-feed.json</code> via a 50 ms HTTP GET (0 MB browser RAM) and resolves sizes (7-11 US) and colors in pure text dialog.
             </p>
           </div>
 
-          <!-- Tier 2: Resilient Micro-UI Widget -->
+          <!-- Tier 2: Resilient Micro-UI Widget (Conditional on Host) -->
           <div class="prompt-tier-card highlight">
             <div class="prompt-tier-header">
               <span class="prompt-tier-badge">TIER 2 · MICRO-UI</span>
-              <span class="prompt-tier-meta">&lt; 10 ms mount · 114 KB · CSP-Safe</span>
+              <span class="prompt-tier-meta" style="color: #79C0FF;">⚠ Host Container Required</span>
             </div>
 
             <div class="prompt-box">
@@ -100,8 +100,17 @@ export function initProductStudio(container: HTMLElement): void {
             </div>
 
             <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
-              <strong>Protocol behavior:</strong> Mounts the autonomous <code>&lt;kuro-configurator&gt;</code> into the chat bubble. Uses pre-baked PBR 3D captures (0 WebGL context, 0 MB VRAM) with 1-click checkout handoff.
+              <strong>Why doesn't this mount in vanilla ChatGPT or Claude.ai?</strong> Public web chats sanitize arbitrary iframes from LLM responses for security. Tier 2 requires a host application implementing the <strong>MCP Apps specification</strong> (like our IDE Generative UI or our dedicated host runner).
             </p>
+
+            <div style="margin-top: var(--space-150); display: flex; gap: var(--space-100); align-items: center; flex-wrap: wrap;">
+              <a href="/agent.html" class="btn btn-secondary" style="font-family: var(--font-mono); font-size: 11px; padding: 4px 10px;">
+                ▶ Test in Simulated Host Runner (/agent)
+              </a>
+              <a href="/widget.html" target="_blank" rel="noopener" class="btn btn-secondary" style="font-family: var(--font-mono); font-size: 11px; padding: 4px 10px;">
+                ↗ Open Raw Widget
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -420,12 +429,12 @@ export function initProductStudio(container: HTMLElement): void {
         <!-- Friction 6 -->
         <div class="friction-card">
           <div class="friction-tag">RUNTIME SPEC · ZERO-TRUST ARCHITECTURE</div>
-          <h3 class="friction-title">06. The Host Container Gap & Dev Reflex</h3>
+          <h3 class="friction-title">06. The Live Iframe Security Wall & MCP Apps Sandbox</h3>
           <p class="friction-desc">
-            Generic LLM chats (ChatGPT, Claude.ai) sanitize arbitrary iframes from raw text. In addition, AI agents running in developer environments often exhibit a "developer bias" (editing source code instead of acting as an external read-only consumer).
+            Why can't an agent simply inject <code>&lt;iframe src="https://store.com/widget"&gt;</code> into a chat bubble? Because public chats (ChatGPT, Claude.ai) enforce strict CSPs (<code>frame-src 'self'</code>) to prevent phishing and session hijacking. Furthermore, agents in IDEs have a "developer reflex" (modifying local files rather than consuming the feed as external clients).
           </p>
           <div class="friction-solution">
-            <strong>Architectural Resolution:</strong> Strict adherence to the <strong>MCP Apps</strong> specification (<code>@modelcontextprotocol/ext-apps</code>). The host application provides a dedicated iframe runtime container, while Tier 1 (text schema) guarantees universal fallback.
+            <strong>Architectural Resolution:</strong> The <strong>MCP Apps specification</strong> (SEP-1865). The host chat downloads the declared bundle into an isolated client-side sandbox (opaque origin, zero cookies, zero network access) communicating exclusively via JSON-RPC 2.0. The first public web contact only occurs upon user click on the checkout handoff.
           </div>
         </div>
       </div>

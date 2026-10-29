@@ -32,19 +32,22 @@ This laboratory demonstrates how to move beyond brittle Computer Use visual scra
 
 ## 🧪 Live Protocol Test Bench
 
-Copy and paste these prompts into **Antigravity**, **Claude Desktop**, **Cursor**, or **Windsurf**:
+The test bench demonstrates the progressive enhancement boundary between universal text schemas and sandboxed micro-interfaces:
 
-### Tier 1: Text Schema Elicitation (Zero-UI · ~50 ms)
+### Tier 1: Text Schema Elicitation (Universal · Works in ANY Agent)
 ```text
 Hey! Inspect https://kuro-agentic-web.vercel.app/agent-feed.json and order the Kuro Runner V1 using schema text elicitation (no UI).
 ```
-* **Protocol behavior:** The agent reads `/agent-feed.json` via a single HTTP GET (0 MB browser RAM), extracts tool JSON Schemas, and prompts in plain text for size (7-11 US) and colorway enums.
+* **Universal protocol behavior:** Works out-of-the-box in **ChatGPT, Claude.ai, Cursor, Windsurf, Antigravity, or terminal CLI**. The agent reads `/agent-feed.json` via a single HTTP GET (0 MB browser RAM), extracts tool JSON Schemas, and prompts in plain text for size (7-11 US) and colorway enums.
 
-### Tier 2: Resilient Micro-UI Widget (Snapshot Baking · < 10 ms mount · 114 KB · CSP-Safe)
+### Tier 2: Resilient Micro-UI Widget (Host Container Required · MCP Apps SEP-1865)
 ```text
 Hey! I want to configure and buy the Kuro Runner V1 from https://kuro-agentic-web.vercel.app/ — mount the interactive configurator widget in this chat!
 ```
-* **Protocol behavior:** Mounts the autonomous `<kuro-configurator>` into the chat bubble. Uses pre-baked Three.js PBR 3D captures (0 WebGL context, 0 MB VRAM) with 1-click checkout handoff.
+* **Why doesn't this mount in vanilla ChatGPT or Claude.ai?** Public web chats sanitize arbitrary iframes from LLM responses for security (preventing phishing and session hijacking). Tier 2 requires a host application implementing the **MCP Apps specification** (like our IDE Generative UI or our dedicated host runner).
+* **Where to test Tier 2 live:**
+  - In our **Simulated Host Runner**: [https://kuro-agentic-web.vercel.app/agent.html](https://kuro-agentic-web.vercel.app/agent.html) (fully implements host iframe sandboxing and JSON-RPC 2.0).
+  - Open the standalone widget directly: [https://kuro-agentic-web.vercel.app/widget.html](https://kuro-agentic-web.vercel.app/widget.html).
 
 ---
 
@@ -68,7 +71,7 @@ Hey! I want to configure and buy the Kuro Runner V1 from https://kuro-agentic-we
 During empirical stress testing across real agent sandboxes and Edge CDN deployments, six critical frictions were discovered and hardened:
 
 1. **The 700 KB Inline Webview Parse Ceiling:** Inlining uncompressed base64 PNGs (704 KB) causes chat webview parsers to silently drop the iframe embed. Resolved by aggressive build-time asset optimization (converting to 82% quality PBR JPEGs, dropping total weight to **112 KB**).
-2. **The Host Container Gap & Developer Reflex:** General-purpose LLM chats sanitize raw iframes unless the host client implements the **MCP Apps specification** (`@modelcontextprotocol/ext-apps`). Furthermore, agents running in developer environments tend to edit local source code instead of acting as external read-only consumers.
+2. **The Live Iframe Security Wall & MCP Apps Sandbox:** Why can't an agent simply inject `<iframe src="https://store.com/widget">` into a chat bubble? Because public chats (ChatGPT, Claude.ai) enforce strict CSPs (`frame-src 'self'`) to prevent phishing and session hijacking. MCP Apps (SEP-1865) standardizes downloading the declared bundle into an isolated client-side sandbox (opaque origin, zero cookies, zero network access) communicating via JSON-RPC 2.0. In addition, agents in IDEs have a "developer reflex" (modifying local files rather than consuming the feed as external clients).
 3. **The Sandboxed `origin: null` CORS Trap:** Sandboxed chat iframes enforce `origin: "null"`. Standard `fetch()` calls fail with CORS preflight errors. Resolved via universal open CORS headers (`Access-Control-Allow-Origin: *`) in `vercel.json`.
 4. **The 3D WebGL Crash & CSP `connect-src 'none'`:** Chat webviews frequently disable hardware acceleration and block multi-megabyte GLTF network streaming. Resolved by **Tier 2 Snapshot Baking** (pre-rendered Three.js PBR angles inlined as data-URIs, 0 ms mount time, 0 MB VRAM).
 5. **VRAM GPU Leaks in Multi-Turn Chats:** Active 3D WebGL scenes across 20+ turns accumulate memory and trigger OS tab discards. Resolved by **Receipt State Transition** (disposing of Three.js textures/geometry and freezing into a static 2D order confirmation receipt).
