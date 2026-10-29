@@ -14,6 +14,7 @@ export function initNavBar(container: HTMLElement): void {
         </a>
 
         <nav class="nav-links" aria-label="Main Navigation">
+          <a href="#storyline" class="nav-link">Storyline</a>
           <a href="#test-bench" class="nav-link">Bench</a>
           <a href="#configurator-stage" class="nav-link nav-secondary">Storefront</a>
           <a href="#telemetry" class="nav-link">Telemetry</a>

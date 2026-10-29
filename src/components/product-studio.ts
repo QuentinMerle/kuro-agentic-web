@@ -116,6 +116,76 @@ export function initProductStudio(container: HTMLElement): void {
       </div>
     </section>
 
+    <!-- 1.5 ARCHITECTURAL STORYLINE: THE 3-STEP EMPIRICAL PROGRESSION -->
+    <section class="content-section" id="storyline">
+      <div class="section-header">
+        <span class="section-label">Empirical REX & Architecture</span>
+        <h2 class="section-title">The 3-Step Empirical Storyline : From Blind Prompts to Resilient UIs</h2>
+        <p class="section-subtitle">
+          A progressive engineering journey testing how far an AI agent can interact with a web store without scraping — 
+          documenting the physical failures, cognitive limits, and architectural pivots at each stage.
+        </p>
+      </div>
+
+      <div class="friction-grid">
+        <!-- Step 1 -->
+        <div class="friction-card">
+          <div class="friction-tag" style="color: var(--accent-success); background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.25);">
+            STEP 01 · THE RSS OF AI
+          </div>
+          <h3 class="friction-title">01. Schema Text Elicitation (The Universal Tier)</h3>
+          <p class="friction-desc">
+            The store exposes its action contracts via a static 1.75 KB JSON manifest (<code>/agent-feed.json</code>). Any external agent (ChatGPT, Claude, Cursor, CLI) discovers actions in 50 ms via a simple HTTP GET with 0 MB browser RAM, prompting the user for size and colorway.
+          </p>
+          <div class="friction-solution" style="color: #fbbf24; border-left-color: #fbbf24;">
+            <strong>The Cognitive Ceiling:</strong> Buying a $185 pair of technical sneakers without ever seeing them is absurd. Pure text breaks down for aesthetic and spatial decisions; we need visual UI on demand.
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="friction-card">
+          <div class="friction-tag" style="color: #79C0FF; background: rgba(121,192,255,0.08); border-color: rgba(121,192,255,0.25);">
+            STEP 02 · IN-CHAT MICRO-UI
+          </div>
+          <h3 class="friction-title">02. The Host Container Gap & MCP Apps (SEP-1865)</h3>
+          <p class="friction-desc">
+            To provide visuals, the feed declares a UI entrypoint (<code>/widget.html</code>). In local IDE webviews, the widget mounts smoothly. But public web chats (ChatGPT, Claude.ai) sanitize arbitrary iframes (<code>frame-src 'self'</code>) to prevent phishing and session hijacking.
+          </p>
+          <div class="friction-solution" style="color: #79C0FF; border-left-color: #79C0FF;">
+            <strong>Architectural Resolution:</strong> MCP Apps (SEP-1865). The host chat downloads the bundle and mounts it inside an isolated sandbox (opaque <code>null</code> origin, zero direct network access) communicating exclusively via typed <code>postMessage</code> JSON-RPC 2.0.
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="friction-card">
+          <div class="friction-tag" style="color: #F85149; background: rgba(248,81,73,0.08); border-color: rgba(248,81,73,0.25);">
+            STEP 03 · THE 3D CRASH
+          </div>
+          <h3 class="friction-title">03. The Physical 3D WebGL Crash & Snapshot Baking</h3>
+          <p class="friction-desc">
+            We attempted to bring the merchant's full Three.js 3D engine (8 MB GLTF) into the chat. It crashed against reality: GPU disabled in agent sandboxes, CSP <code>connect-src 'none'</code> blocking geometry fetch, and VRAM leaks exhausting tab memory across 20-turn chats.
+          </p>
+          <div class="friction-solution" style="color: var(--accent-success); border-left-color: var(--accent-success);">
+            <strong>Architectural Pivot:</strong> Snapshot Baking PBR. Pre-rendered photorealistic hero angles inlined into an autonomous 112 KB bundle (0 ms WebGL, 0 MB VRAM, 100% CSP compliant). Three.js is demoted to conditional Tier 3 progressive enhancement.
+          </div>
+        </div>
+
+        <!-- Step 4 / Frontier -->
+        <div class="friction-card">
+          <div class="friction-tag" style="color: #A371F7; background: rgba(163,113,247,0.08); border-color: rgba(163,113,247,0.25);">
+            THE ULTIMATE FRONTIER · SOVEREIGN PAYMENT
+          </div>
+          <h3 class="friction-title">04. Who Holds the Credit Card? (ACP, AP2 & Passkeys)</h3>
+          <p class="friction-desc">
+            Confiding raw payment cards to an LLM prompt is a strict PCI-DSS violation and a prompt injection nightmare. Conversely, redirecting to a 15-field traditional checkout form completely destroys the agentic speed advantage.
+          </p>
+          <div class="friction-solution" style="color: #A371F7; border-left-color: #A371F7;">
+            <strong>Cryptographic Delegation:</strong> Emerging protocols (OpenAI/Stripe ACP, Google AP2, WebAuthn Passkeys). The agent locks the basket URL, and the human confirms with Touch ID / Apple Pay. <em>« The agent prepares the basket, the human validates the signature. »</em>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 2. STUDIO 3D HERO INTERACTIVE (Three.js WebGL) -->
     <div class="studio-grid" id="configurator-stage">
       <!-- 3D WebGL Viewport -->

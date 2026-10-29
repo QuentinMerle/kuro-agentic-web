@@ -16,17 +16,73 @@
 * **Live Action Syndication Feed:** [https://kuro-agentic-web.vercel.app/agent-feed.json](https://kuro-agentic-web.vercel.app/agent-feed.json)
 * **Sandboxed Micro-UI Configurator (Widget):** [https://kuro-agentic-web.vercel.app/widget.html](https://kuro-agentic-web.vercel.app/widget.html)
 * **Standalone Agent Chat Mock:** [https://kuro-agentic-web.vercel.app/agent.html](https://kuro-agentic-web.vercel.app/agent.html)
+* **Interactive Checkout Handoff:** [https://kuro-agentic-web.vercel.app/checkout?sku=KURO-V1-Deep-Indigo-9&source=agent_feed](https://kuro-agentic-web.vercel.app/checkout?sku=KURO-V1-Deep-Indigo-9&source=agent_feed)
 
 ---
 
-## 🎯 The Two Architectural Pillars
+## 🧭 The Core Architectural Question
 
-This laboratory demonstrates how to move beyond brittle Computer Use visual scraping and text-only prompts to seamlessly connect AI agents with e-commerce stores and web applications.
+> **How far can we go inside an AI agent chat window to interact with a website without scraping?**
 
-1. **In-DOM WebMCP (`navigator.modelContext`)**  
-   Designed for browser-native agents (extensions, Chrome Built-in AI, Side Panels). The front-end registers its business functions directly into the DOM registry with strict JSON Schemas. Executes in < 1 ms with existing session cookies, CSRF tokens, and reactive stores.
-2. **The « RSS of AI » (`/agent-feed.json`)**  
-   Designed for external agents (IDE, CLI, Desktop). Enables cold discovery of actions and sandboxed 3D micro-interfaces via a lightweight 1.75 KB HTTP GET request (~440 tokens), eliminating the need to launch a 1.2 GB headless Chromium instance.
+Today, agentic web integration suffers from a deep architectural divide:
+1. **Headless Scraping & Computer Use:** Spawning a 1.2 GB Chromium instance, waiting seconds for DOM rendering, and running OCR screenshot click loops. Brittle, expensive, breaks at the first CSS class change.
+2. **Text-Only Prompts:** Forcing every interaction into a plain text prompt.
+
+Between the illusion that every merchant will build a custom OAuth public API and the absurdity of visual DOM scraping, this repository documents an empirical **3-step progression** testing how far we can push native web front-ends inside agent environments.
+
+---
+
+## 🪜 The 3-Step Empirical Storyline (Hypothesis, Frictions & Architectural Pivots)
+
+```
+[The Progressive Architecture Arc]
+
+  Step 1: The « RSS of AI » (/agent-feed.json)
+     │    Universal text elicitation (50 ms · 0 MB browser RAM)
+     ▼
+  Reflection 1: The Cognitive Ceiling of Text
+     │    Buying a $185 pair of shoes blindly through 15 prompts is absurd. Need visual UI.
+     ▼
+  Step 2: The Micro-UI & The Host Container Gap (MCP Apps SEP-1865)
+     │    Works locally, but blocked by public chat CSP (frame-src 'self').
+     │    Host must isolate bundles into sandboxed containers with postMessage JSON-RPC.
+     ▼
+  Reflection 2: Pushing to the Limit — Why Not Full 3D WebGL?
+     │    Can we bring the merchant's Three.js 3D engine (8 MB GLTF) into the chat?
+     ▼
+  Step 3: The 3D WebGL Crash in Real Sandboxes & The Snapshot Baking Pivot
+     │    GPU disabled in agent webviews, CSP connect-src 'none', VRAM leaks across 20 turns.
+     │    Architectural Pivot: Snapshot Baking PBR (112 KB, 0 ms WebGL, 0 MB VRAM, 100% CSP).
+     ▼
+  The Ultimate Frontier: Who Holds the Credit Card?
+          ACP (OpenAI/Stripe), AP2 (Google), Passkeys FIDO2 & Biometric OS Wallets.
+          « The agent prepares the basket, the human validates the signature. »
+```
+
+### 1. Step 1: The « RSS of AI » (`/agent-feed.json`) & Text Schema Elicitation
+- **The Concept:** Just as RSS allowed aggregators to index blog articles without scraping HTML, an e-commerce site exposes its action contracts in a lightweight static JSON manifest (`/agent-feed.json`) declared in `<head>`.
+- **The Protocol Test:** An external agent performs a single 1.75 KB HTTP GET request (50 ms on Edge CDN, 0 MB browser RAM) and extracts the tool JSON Schema.
+- **The Verdict:** **100% Universal today.** Works out-of-the-box in ChatGPT, Claude, Cursor, Windsurf, Antigravity, or terminal CLI. The agent triggers standard MCP text elicitation: *"Which size (7-11 US) and color (Obsidian Black, Deep Indigo, Raw Chalk) do you want?"*
+- **Reflection 1 (The Cognitive Ceiling of Pure Text):** Functionally, the integration works in 30 lines of code. But from a product UX perspective: **buying technical sneakers without ever seeing them is absurd.** Natural language excels at high-level intent; it fails completely at evaluating spatial proportions, textures, and color harmonies. We need visual UI on demand (*Just-in-Time UI*).
+
+### 2. Step 2: The Micro-UI in Chat & The Host Container Gap (MCP Apps SEP-1865)
+- **The Concept:** Associate the action schema with a UI entrypoint (`"entrypoint": "/widget.html"`) so the agent can mount an interactive configurator directly in the conversation.
+- **The Reality Check & The Security Wall:** In a local IDE or test harness, the widget mounts. **But paste this prompt into ChatGPT or Claude.ai web, and no widget will appear.**
+- **Why?** Public web chats enforce strict Content Security Policies (`frame-src 'self'`). If an LLM could inject `<iframe src="https://attacker.com/fake-login">` into a chat bubble, prompt injection attacks would cause catastrophic phishing and session hijacking.
+- **The Industry Response (MCP Apps SEP-1865):** The host chat client cannot stream live external iframes. Instead, the host downloads the declared bundle into an isolated client-side sandbox (`origin: null`, zero cookies, zero direct network access) communicating exclusively via typed `postMessage` JSON-RPC 2.0.
+
+### 3. Step 3: The 3D WebGL Crash in Real Sandboxes & The Snapshot Baking Pivot
+- **The Temptation:** Having secured a sandboxed container, why settle for a flat 2D widget? Why not bring the complete Three.js 3D orbital viewer (high-poly mesh, PBR textures, 8 MB GLTF) into the chat?
+- **The Physical Crash in Agent Webviews:**
+  1. **GPU Acceleration Disabled:** In enterprise/sandboxed Chromium webviews, WebGL2 is disabled or software-emulated (`canvas.getContext('webgl2') === null`), freezing on endless loading spinners.
+  2. **CSP `connect-src 'none'`:** Host sandboxes block outbound network requests, preventing runtime `fetch()` of the 8 MB `.gltf` binary.
+  3. **VRAM Saturation Across Multi-Turn Chats:** In a 20-turn chat, spawning multiple WebGL contexts exhausts system GPU memory, triggering OS tab discards.
+- **The Architectural Pivot (Snapshot Baking PBR):**
+  We extract photorealistic PBR renders under hero angles at build time, compress them into 82% quality JPEGs, and inline them as data-URIs into an autonomous **112 KB component**:
+  - **0 ms WebGL loading latency**
+  - **0 MB VRAM consumed**
+  - **0 outbound network requests (100% CSP-compliant)**
+  - Full Three.js orbital 3D is demoted to a conditional progressive enhancement (Tier 3).
 
 ---
 
@@ -81,7 +137,30 @@ Embedding an interactive front-end component inside a conversational agent is no
 
 ---
 
-## ⚠️ Real-World Frictions & Architectural Hardening (Field Log)
+## ⚠️ Macro Frictions & The Payment Frontier
+
+Beyond code ergonomics and webview sandboxes, three systemic barriers govern agentic web deployment:
+
+### 1. The Economic Barrier: The "Google My Business" Effect
+Why would an e-commerce merchant allow users to configure and buy products directly inside an agent chat without visiting the store? Traditional online retail relies heavily on captive attention, cross-selling, and tracking pixels.  
+Yet, the precedent of **Google My Business** and **Google Shopping** demonstrates that merchants inexorably adapt to the lowest friction point for the buyer. Marketing mutates: from passive cookie tracking to **direct intent telemetry** within the widget (which colors, sizes, and price points are tested in chat prior to checkout).
+
+### 2. The Security Risk: The "Confused Deputy" & Indirect Prompt Injection
+Granting an agent JavaScript execution capabilities on tabs where users are logged in creates a critical attack surface. If an agent visits an untrusted page with an invisible prompt injection, it could attempt to place fraudulent orders on an open merchant session.  
+Explicit human confirmation (a physical click in the isolated sandbox or a biometric authorization) is non-negotiable.
+
+### 3. The Ultimate Frontier: Who Holds the Credit Card?
+Confiding a raw credit card number to an LLM prompt is a severe PCI-DSS violation and a legal disaster. Conversely, forcing the user into a traditional 15-field shipping and billing form breaks the speed advantage of agentic commerce.  
+The solution lies in emerging delegated payment standards:
+- **Agentic Commerce Protocol (ACP):** OpenAI & Stripe's specification for delegated session tokens.
+- **Agent Payments Protocol (AP2):** Google's mandate protocol with cryptographically signed buyer authorizations.
+- **WebAuthn / Passkeys FIDO2 / OS Wallets:** The agent prepares and locks the basket URL (`/checkout?sku=...`), and the user confirms the transaction in a single sovereign biometric gesture (Touch ID / Face ID).
+
+> **« The agent prepares the basket, the human validates the signature. »**
+
+---
+
+## 🛠️ Real-World Engineering Frictions (Field Log)
 
 During empirical stress testing across real agent sandboxes and Edge CDN deployments, six critical frictions were discovered and hardened:
 
