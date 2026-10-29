@@ -12,6 +12,13 @@ export function initNavBar(container: HTMLElement): void {
           <span>KURO / LAB</span>
         </a>
 
+        <nav class="nav-links" aria-label="Navigation principale">
+          <a href="#solution" class="nav-link">Architecture</a>
+          <a href="#benefits" class="nav-link">Bénéfices</a>
+          <a href="#how-it-works" class="nav-link">Fonctionnement</a>
+          <a href="#faq" class="nav-link">FAQ</a>
+        </nav>
+
         <div class="nav-actions">
           <button 
             id="open-inspector-btn" 
