@@ -209,6 +209,25 @@ button:focus-visible, a:focus-visible {
   flex-shrink: 0;
 }
 
+.nav-label-desktop {
+  display: inline;
+}
+
+.nav-label-mobile {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .nav-label-desktop,
+  .brand-tag.nav-tag-desktop {
+    display: none !important;
+  }
+
+  .nav-label-mobile {
+    display: inline !important;
+  }
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -1145,5 +1164,153 @@ button:focus-visible, a:focus-visible {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Mobile Ergonomics & Responsive Facelift (<= 640px)
+   ========================================================================== */
+@media (max-width: 640px) {
+  .floating-nav {
+    top: 8px;
+    width: calc(100% - 16px);
+    padding: 4px 8px;
+    gap: 4px;
+  }
+
+  .brand-badge {
+    gap: 4px;
+    font-size: 13px;
+  }
+
+  .nav-actions {
+    gap: 4px;
+  }
+
+  .btn-feed-pill {
+    padding: 3px 6px;
+    font-size: 11px;
+    gap: 3px;
+  }
+
+  .cart-btn {
+    padding: 3px 8px;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .cart-badge {
+    padding: 0 4px;
+    font-size: 10px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding-top: 84px;
+    padding-bottom: var(--space-400);
+    padding-inline: var(--space-200);
+  }
+
+  .hero-heading {
+    font-size: 1.85rem;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-150);
+  }
+
+  .hero-subheading {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: var(--space-200);
+  }
+
+  .proof-signal {
+    font-size: 10px !important;
+    gap: 4px !important;
+  }
+
+  /* Test Bench */
+  .try-agent-section {
+    padding-inline: var(--space-200);
+    margin-bottom: var(--space-400);
+  }
+
+  .try-agent-card {
+    padding: 14px;
+    gap: 14px;
+    border-radius: var(--radius-lg);
+  }
+
+  .prompt-box {
+    padding: 10px;
+  }
+
+  .prompt-text {
+    font-size: 11px;
+    word-break: break-all;
+  }
+
+  /* 3D Studio Stage */
+  .studio-grid {
+    padding-inline: var(--space-200);
+    gap: var(--space-200);
+    margin-bottom: var(--space-600);
+  }
+
+  .viewport-area {
+    min-height: 250px;
+    height: 260px;
+  }
+
+  .studio-card {
+    border-radius: var(--radius-lg);
+  }
+
+  .sidebar-panel {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  /* Sections */
+  .content-section {
+    padding: var(--space-500) var(--space-200);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-300);
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+  }
+
+  .section-subtitle {
+    font-size: 12px;
+  }
+
+  /* Friction, Storyline & Benchmark Cards */
+  .friction-card, .benchmark-card {
+    padding: 14px;
+    border-radius: var(--radius-md);
+    gap: 10px;
+  }
+
+  .friction-title {
+    font-size: 14px;
+  }
+
+  .friction-desc {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .friction-solution {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .colophon-card {
+    padding: 24px 16px;
+    border-radius: var(--radius-lg);
   }
 }
