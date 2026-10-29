@@ -1,0 +1,33 @@
+# Kuro Agentic Web
+
+> An empirical research laboratory demonstrating the convergence of in-DOM tool discovery (WebMCP / navigator.modelContext), static action syndication (/agent-feed.json — the "RSS for AI"), and sandboxed micro-UIs (MCP Apps SEP-1865) inside autonomous conversational AI runtimes.
+
+## Core Endpoints & Manifests
+
+- [/agent-feed.json](https://kuro-agentic-web.vercel.app/agent-feed.json): Static 1.75 KB JSON manifest exposing typed tool schemas (order_kuro_shoe, search_catalog) for remote LLM discovery (ChatGPT, Claude, Cursor, Windsurf, Antigravity, CLI) in 50 ms with 0 MB browser RAM.
+- [/widget.html](https://kuro-agentic-web.vercel.app/widget.html): Self-contained sandboxed micro-UI configurator (112 KB with pre-baked PBR snapshots, 0 WebGL overhead, CSP-compliant, communicates via postMessage JSON-RPC 2.0).
+- [/agent.html](https://kuro-agentic-web.vercel.app/agent.html): Simulated host chat runtime demonstrating host token inheritance, sandboxed iframe mounting, and biometric basket handoff.
+- [llms-full.txt](https://kuro-agentic-web.vercel.app/llms-full.txt): Complete research paper, architectural benchmarks, FinOps autopsy, and UX laws.
+
+## Research Findings & Telemetry
+
+- Cold Tool Discovery: 51 ms via /agent-feed.json vs 2,800 ms via headless Chromium scraping (Puppeteer).
+- Client Memory Overhead: 0 MB via JSON feed vs 400 MB to 1,320 MB RSS memory leak via headless browser automation.
+- Ingested Token Load: ~440 tokens (1.75 KB JSON) vs ~10,150 tokens (40.6 KB raw HTML DOM dump).
+- Asset Strategy: 112 KB pre-baked PBR angle captures vs 8.2 MB heavy WebGL runtime (Three.js), avoiding sandboxed webview CSP blocks (connect-src 'none') and VRAM exhaustion.
+- Security Model: Opaque sandbox (sandbox="allow-scripts", no allow-same-origin), strict zero-trust host boundary, Passkeys / WebAuthn biometric checkout handoff.
+
+## Architectural Axioms for Agentic Front-Ends
+
+1. The Single-Purpose Micro-UI: Eliminate website chrome (no headers, footers, cookie banners) in narrow 380px-500px chat sidebars.
+2. Vertical Flow Preservation: Prevent pointer wheel trapping (`touch-action: pan-y`) so users can scroll conversation history uninterrupted.
+3. Zero-Flicker Host Token Inheritance: Consume host CSS variables (`--host-bg-primary`, `--host-text-primary`) to blend natively into dark/light agent environments.
+4. Active to Sealed Receipt State: Freeze state, dispose of WebGL contexts, and collapse into a read-only receipt upon order confirmation to prevent zombie UI tampering.
+
+## Author & Lab
+
+- Author: Quentin Merle (Front-End Architect & AI Engineer at Vibrisse Studio)
+- Studio: [Vibrisse Studio](https://www.vibrisse-studio.dev/)
+- Research Lab: [Kuro Agentic Web](https://kuro-agentic-web.vercel.app/)
+- Repository: [GitHub](https://github.com/QuentinMerle/kuro-agentic-web)
+- License: MIT

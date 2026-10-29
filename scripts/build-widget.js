@@ -522,10 +522,10 @@ const html = `<!DOCTYPE html>
           <span style="color: #34d399;">Ready</span>
         </div>
         <div class="handoff-url" id="receipt-url-box">
-          http://localhost:5173/checkout?sku=KURO-V1-Deep-Indigo-9&source=mcp_agent
+          https://kuro-agentic-web.vercel.app/checkout?sku=KURO-V1-Deep-Indigo-9&source=mcp_agent
         </div>
         <a 
-          href="http://localhost:5173/checkout?sku=KURO-V1-Deep-Indigo-9&source=mcp_agent" 
+          href="https://kuro-agentic-web.vercel.app/checkout?sku=KURO-V1-Deep-Indigo-9&source=mcp_agent" 
           target="_blank"
           class="checkout-btn"
           id="checkout-action-btn"
@@ -634,7 +634,7 @@ const html = `<!DOCTYPE html>
 
       confirmBtn.addEventListener("click", () => {
         const sku = "KURO-V1-" + selectedColor.replace(/ /g, "-") + "-" + selectedSize;
-        const checkoutUrl = "http://localhost:5173/checkout?sku=" + sku + "&source=mcp_agent";
+        const checkoutUrl = "https://kuro-agentic-web.vercel.app/checkout?sku=" + sku + "&source=mcp_agent";
 
         receiptImg.src = images[selectedColor] || images["Deep Indigo"];
         receiptSkuText.textContent = selectedColor + " · Size " + selectedSize + " US";

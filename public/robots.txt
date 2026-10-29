@@ -1,0 +1,8 @@
+# Robots.txt for Kuro Agentic Web
+User-agent: *
+Allow: /
+
+# Agentic Discovery & LLM Context
+Sitemap: https://kuro-agentic-web.vercel.app/agent-feed.json
+LLMs-Txt: https://kuro-agentic-web.vercel.app/llms.txt
+LLMs-Full-Txt: https://kuro-agentic-web.vercel.app/llms-full.txt

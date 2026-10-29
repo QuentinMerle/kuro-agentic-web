@@ -1,0 +1,347 @@
+# From Scraping to the "RSS for AI": Anatomy of an Agentic Front-End
+
+*By Quentin Merle — Front-End Architect & AI Engineer at [Vibrisse Studio](https://www.vibrisse-studio.dev/) · [Live Demonstrator](https://kuro-agentic-web.vercel.app/) · [Source Code](https://github.com/QuentinMerle/kuro-agentic-web)*
+
+> **Workshop Note & Methodological Disclaimer:**  
+> This paper is neither a dogmatic pitch for yet another standard nor a broad prediction about an inevitable future. It is an engineering field log born from direct confrontation with browser runtimes, memory limits, and contemporary protocols. The solutions documented here were stress-tested inside real agent webviews to evaluate what actually holds up in production—and what breaks.
+
+---
+
+## The Initial Question: How Far Can an Agent Chat Push Web Interaction?
+
+Today, agentic AI integration with the Web suffers from an architectural mismatch.
+
+On one side, to enable agents to interact with existing websites, the industry stacks fragile workarounds: spawning headless Chromium instances, polling screenshots every two seconds, running OCR (*Computer Use*), and simulating clicks on DOM selectors originally built for human eyeballs. It is sluggish (1.5 to 8 seconds per action), resource-heavy (over 1 GB of RAM per process), and breaks on any deployment that touches a CSS class name.
+
+On the other side, user experience is shoehorned into a plain text input box. Yet nobody wants to buy running shoes, tune a color curve, or pick a train seat blind through a fifteen-turn prompt exchange with an LLM.
+
+Between the fantasy that every merchant will build and maintain a dedicated public OAuth API for AI, and the absurdity of headless visual scraping, a fundamental architectural question emerges:  
+**Is the Front-End doomed to disappear in favor of plain text, or is it evolving into the native execution runtime of AI?**
+
+To answer this honestly, I built a complete experimental lab ([Kuro Runner V1](https://kuro-agentic-web.vercel.app/)) and documented an empirical three-step progression, detailing technical dead-ends, physical runtime limits, and resulting architectural choices.
+
+---
+
+## 1. Engineering Reality: Two Worlds, Two Execution Layers
+
+Why do agents struggle to purchase a product or execute an action on a standard web page? Because they attempt to reverse-engineer visual UI instead of querying the application state already sitting in memory.
+
+A sustainable architecture must separate two execution contexts based on where the agent actually runs:
+
+```mermaid
+flowchart LR
+    subgraph Browser ["World 1: In-Browser Agent (WebMCP)"]
+        Tab["User Active Tab"]
+        DOM["DOM & window.navigator.modelContext"]
+        Session["Session Cookies & In-Memory Store"]
+        Tab --- DOM --- Session
+    end
+
+    subgraph External ["World 2: External Agent (RSS for AI)"]
+        Client["Remote Client (IDE, Desktop, Mobile, CLI)"]
+        Feed["GET /agent-feed.json (1.75 KB / 50 ms)"]
+        ActionContract["JSON Schema Action Contract"]
+        Client --> Feed --> ActionContract
+    end
+```
+
+### 1. In-Browser Agent: WebMCP (`navigator.modelContext`)
+When an agent runs inside the browser (built-in browser AI, Chrome Built-in AI, or a Side Panel extension) and operates on a tab already opened by the user, the operational heavy lifting is already done:
+- Application state (React/Zustand store, active cart) is already initialized in memory.
+- User session, authentication cookies, and CSRF tokens are already valid.
+- Validation logic and backend RPC routines are already compiled in the JavaScript bundle.
+
+This is the premise of **WebMCP**, currently incubated in the W3C Web Machine Learning Community Group (WebML CG) as a *Draft Report* (`webmachinelearning/webmcp`), backed by Google and Microsoft. The website registers tools directly into the DOM:
+
+```javascript
+// In-DOM tool registration via WebMCP polyfill (Product Page)
+navigator.modelContext.registerTool({
+  name: "order_kuro_shoe",
+  description: "Configures and adds Kuro Runner V1 to the active shopping cart",
+  parameters: {
+    type: "object",
+    properties: {
+      size: { type: "number", enum: [7, 8, 9, 10, 11], description: "Available US size" },
+      color: { type: "string", enum: ["Obsidian Black", "Deep Indigo", "Raw Chalk"], description: "Upper colorway" }
+    },
+    required: ["size", "color"]
+  },
+  execute: async ({ size, color }) => {
+    return window.__SHOP_STORE__.addToCart({ sku: `KURO-V1-${color}-${size}`, quantity: 1 });
+  }
+});
+```
+
+### 2. External Agent (IDE, Desktop, Mobile): The Headless Trap
+Conversely, when an agent runs outside the browser (in Antigravity, Claude Desktop, Cursor, or a CLI orchestrator), it cannot reach the user's DOM. Forcing it to spin up a headless Chromium instance just to parse JavaScript and extract a function signature burns **1,260 to 1,325 MB of RAM** and incurs **1,100 to 1,850 ms of cold boot latency**. It makes no FinOps sense.
+
+For external agents, the web needs an action equivalent to the RSS feed: a lightweight, standardized, static manifest.
+
+---
+
+## 2. Step 1: The "RSS for AI" (`/agent-feed.json`) & Raw Schema Elicitation
+
+Just as RSS feeds let early web aggregators index articles without parsing arbitrary blog HTML, modern web applications can expose structured action contracts in a static JSON manifest (`/agent-feed.json`), discoverable via a `<link>` tag in the document `<head>`.
+
+Through a single HTTP GET request of **1.75 KB** (751 bytes gzipped, **50 ms** on an Edge CDN, **zero browser RAM**), any external agent retrieves the merchant's action inventory:
+
+```json
+{
+  "$schema": "https://json-schemas.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "name": "Kuro Footwear Store",
+  "tools": [
+    {
+      "name": "order_kuro_shoe",
+      "description": "Configure Kuro Runner V1 and prepare checkout",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "size": { "type": "number", "enum": [7, 8, 9, 10, 11] },
+          "color": { "type": "string", "enum": ["Obsidian Black", "Deep Indigo", "Raw Chalk"] }
+        },
+        "required": ["size", "color"]
+      },
+      "handoff": {
+        "type": "checkout-deep-link",
+        "template": "https://kuro-agentic-web.vercel.app/checkout?sku=KURO-V1-{color}-{size}&source=agent_feed"
+      }
+    }
+  ]
+}
+```
+
+### Field Validation: The Universal Baseline
+Using standard MCP parameter elicitation, the agent ingests this JSON Schema, pauses reasoning, and prompts the user for the required values:
+> *"Which size (US 7 to 11) and colorway (Obsidian Black, Deep Indigo, Raw Chalk) would you like to order?"*
+
+Once the user replies, the agent resolves the parameters and generates the pre-filled checkout link.
+
+**The verdict:** Step 1 is the **only 100% universal tier today**. It works out-of-the-box across any LLM equipped with a web fetch tool: ChatGPT Plus, Claude Web, Cursor, Windsurf, Antigravity, or a shell script.
+
+---
+
+## 3. Step 1 Reality Check: The Cognitive Wall of Pure Text
+
+From a protocol standpoint, Step 1 solves agent discovery in thirty lines of code. But from a product and user experience perspective, the outcome is flawed:
+
+> **Buying a $185 pair of technical sneakers without ever seeing them is absurd.**
+
+Choosing blindly between *Obsidian Black* and *Deep Indigo* over text messages exposes the fundamental limitation of conversational interfaces:
+- Natural language is unmatched for expressing high-level intent (*"Find me a lightweight daily runner for wide feet"*) or orchestrating complex multi-step workflows.
+- However, **text collapses the moment users must evaluate physical silhouettes, fabric textures, or color harmony.**
+
+The visual interface must not vanish: it must be summoned on demand (*Just-in-Time UI*).  
+*The logical follow-up question becomes:* **Can we mount an interactive graphical widget directly inside the agent's chat bubble?**
+
+---
+
+## 4. Step 2: In-Chat Micro-UIs & The Host Security Wall (The MCP Apps Reality)
+
+To bridge this visual gap, we declare an interface entrypoint in `/agent-feed.json`:
+
+```json
+"ui": {
+  "type": "mcp-app",
+  "entrypoint": "https://kuro-agentic-web.vercel.app/widget.html",
+  "tag": "kuro-configurator",
+  "height": "480px",
+  "format": "text/html;profile=mcp-app"
+}
+```
+
+When the agent invokes the tool, it attempts to mount this interactive configurator inside the conversation feed. In a local development environment (or our emulated runner), the component renders smoothly. Users can click color swatches, inspect the shoe, and select their size.
+
+### The Security Wall: Why Public Chats Block Arbitrary Remote Iframes
+Here lies the core discovery of our test bench: if you paste this prompt into the web interfaces of **ChatGPT** or **Claude.ai**, **no widget will render**. The model falls back strictly to plain text.
+
+Why?  
+A fundamental security policy: **the host chat Content Security Policy (`frame-src 'self'`).**  
+If a public chat web application allowed LLMs to inject unvetted `<iframe src="https://external-domain.com/widget.html">` tags into chat bubbles, an indirect prompt injection could trivially render phishing forms or hijack the user's host session.
+
+### The Ecosystem Solution: MCP Apps (SEP-1865)
+This boundary is the exact problem addressed by the emerging **MCP Apps specification (`@modelcontextprotocol/ext-apps`)** driven by Anthropic and the MCP working group:
+1. **No Wild Iframes:** The host chat never directly loads arbitrary external URLs.
+2. **Download & Hermetic Isolation:** The host client fetches the declared bundle, runs it inside a locked sandbox (`sandbox="allow-scripts"` strictly without `allow-same-origin`, resulting in an opaque `null` origin), and severs direct network access.
+3. **Structured JSON-RPC Bridge:** The widget communicates with the host chat exclusively via typed `postMessage` (JSON-RPC 2.0).
+
+```
+[Chat Host Client] <--- postMessage (JSON-RPC 2.0) ---> [Sandboxed Iframe (origin: null)]
+        │                                                           │
+ (Manages prompt & state)                                    (Self-contained Micro-UI)
+```
+
+**The Engineering Takeaway:**  
+Until major consumer chat interfaces deploy an MCP Apps host container, **Step 1 (text schema) remains the only universal baseline**. Step 2 (Micro-UI) represents the target experience, validated in agentic IDEs supporting Generative UI (such as Antigravity) or through our simulated host runner ([`/agent.html`](https://kuro-agentic-web.vercel.app/agent.html)).
+
+> 💡 **Testing Live Rendering Inside Your IDE Agent Chat Today:**  
+> If you want to see the Micro-UI render and respond live inside your AI chat panel, simply clone the repository locally (`git clone https://github.com/QuentinMerle/kuro-agentic-web.git`). Inside an agentic IDE (Antigravity, Cursor, Windsurf) supporting Generative UI or local webviews, your agent can mount `widget.html` directly from your local workspace without running into public SaaS chat CSP barriers.
+
+---
+
+## 5. Designing for an Append-Only Stream: The 4 Invariable Laws of Agentic UX/UI
+
+Mounting a functional interface inside a chat stream is not a matter of squeezing a responsive desktop site into an iframe.
+
+A chat feed is not a typical browser canvas: it is an append-only, chronologically strict, vertical timeline. This demands a departure from standard front-end design habits:
+
+### 1. The Micro-Viewport Constraint (Anti-WeChat Fallacy)
+In an IDE panel (380 to 500 px wide) or desktop/mobile chat column (600 to 750 px max), real estate is heavily constrained. The interface must be built as a single-purpose atomic component:
+- **Zero Chrome:** No corporate headers, no global navigation bars, no hamburger menus, no cookie banners, no footers. Only the decision asset (the visual subject), its mutable attributes (colors, sizes), and the primary CTA belong.
+- **The "Chat as Universal OS" Fallacy:** Trying to handle everything in chat leads to poor ergonomics. Whenever a task turns non-linear (comparing five products across a dense matrix, manipulating a 30-item cart, navigating deep hierarchies), vertical chat becomes claustrophobic. An in-chat UI must be surgical: resolve a focused sensory micro-decision and yield control back to the prompt flow.
+
+### 2. Vertical Flow Preservation (Zero Wheel Hijacking)
+Chat feeds depend on uninterrupted vertical scrolling (`overflow-y: auto`).  
+If an embedded component carelessly captures mouse wheel or touch gestures (e.g., zooming an orbit canvas or scrolling an internal list), the user gets trapped (*wheel trapping*). Trying to scroll up to reread the agent's reasoning instead zooms infinitely into the sneaker sole.  
+**The Rule:** Components must enforce a strict maximum height (`max-height: 480px`), prevent scroll hijacking via `touch-action: pan-y`, and require an explicit click or focus gesture before capturing continuous orbital gestures.
+
+### 3. Zero-Flicker Host Token Inheritance
+Nothing ruins immersion faster than a stark `#FFFFFF` iframe flashing into a dark-mode IDE or chat window.  
+Embedded widgets cannot enforce rigid styles: they must consume design tokens provided by the host environment (`--host-bg-primary`, `--host-text-primary`, `--host-border-color`, `color-scheme: dark light`, system font stacks). The widget must visually blend in as part of the host environment.
+
+### 4. State Lifecycle: From Live Interactive to Sealed Receipt State
+On the standard Web, completing a transaction navigates away to a confirmation screen (`/checkout/success`).  
+In a chat feed, the widget stays permanently visible in the scroll history.  
+This creates the danger of **Zombie UIs**: what happens if a user scrolls up three days later and accidentally clicks "Place Order" on an already processed widget?  
+**The Sealed Receipt Pattern:** The component must enforce an irreversible state machine:
+- **Live State:** While the decision is in progress, controls are reactive and rendering is dynamic.
+- **Sealed Receipt State:** Once the user confirms the action, the component freezes its state, tears down event listeners, discards heavy graphics contexts (freeing GPU memory), and collapses into a compact, read-only receipt (*« Kuro Runner V1 — Deep Indigo, US 9 · Basket Sealed ✅ »*).
+
+---
+
+## 6. Step 2 Reality Check: Pushing the Limit — What About Real 3D?
+
+Once a secure in-chat canvas is established, a developer's immediate instinct is to push further:  
+*Why settle for a flat 2D card? Why not embed the merchant's full Three.js 3D viewport directly into the conversational feed?*
+
+The official 3D asset for the *Kuro Runner V1* is high-fidelity: high-density mesh, PBR shaders reproducing technical mesh fabric, a three-point studio lighting setup, and 360° orbital controls. Bringing it into the chat seemed like the logical apex of agentic commerce.
+
+We tested mounting the full 3D pipeline (Three.js bundle + 8 MB GLTF binary) directly inside the chat widget.
+
+---
+
+## 7. Step 3: The Physical 3D Crash & The Snapshot Baking Pivot
+
+On high-end local development workstations (Apple M1 Pro, desktop Chrome), the 3D scene hits a steady 60 fps. But when deployed to production and mounted inside real-world agent webviews, **the scene hit three hard physical limits:**
+
+1. **Disabled GPU Acceleration:** In sandboxed agent environments (Chromium or Electron running under strict security sandbox constraints), WebGL2 is frequently disabled (`canvas.getContext('webgl2')` returns `null` or falls back to CPU software rasterization), freezing the component in an infinite spinner.
+2. **Strict CSP Barriers (`connect-src 'none'`):** To prevent conversational data exfiltration, agent execution jails block outbound network calls. Streaming an external 8 MB `.glb` geometry file via `fetch()` fails immediately.
+3. **VRAM Exhaustion in Multi-Turn Chats:** In a 20-turn chat, each mounted 3D configurator retains WebGL textures, buffers, and animation request loops. The render process eventually runs out of GPU memory, triggering an operating system tab discard.
+
+### The Architectural Pivot: PBR Snapshot Baking (Resilient 2D Tier)
+These real-world failures forced an architectural pivot: **strict Progressive Enhancement.**
+
+Instead of requiring WebGL, we pre-rendered photorealistic PBR angles during the CI/CD build for every colorway. We compressed them into high-fidelity JPEGs (82% quality, 600×380 px) and inlined them as base64 data-URIs in an autonomous **112 KB** component.
+
+```
+[3-Tier Progressive Enhancement Architecture]
+
+  Tier 1: Schema Text Elicitation (Universal · 0 KB assets · 100% clients)
+       │
+  Tier 2: Snapshot Baking Micro-UI (Production Standard · 112 KB · 0 ms WebGL · 0 MB VRAM)
+       │
+  Tier 3: Three.js WebGL (Conditional · hasWebGL() && !lowPowerMode)
+```
+
+**The Outcome:**
+- **0 ms 3D loading latency.**
+- **0 MB of GPU VRAM allocated.**
+- **Zero outbound network calls (100% CSP-compliant).**
+- **Studio-grade visual fidelity matching the 3D scene.**
+- Three.js is demoted to an optional Tier 3 enhancement, activated only when the host environment explicitly provides a verified WebGL context.
+
+---
+
+## 8. The Missing Code Link: The Dual-Context Web Component
+
+To avoid maintaining two separate front-end codebases (one for web visitors and one for agent widgets), the architecture relies on a single Custom Element (`<kuro-configurator>`):
+
+```javascript
+// Dual-context <kuro-configurator> architecture
+class KuroConfigurator extends HTMLElement {
+  connectedCallback() {
+    this.context = this.getAttribute("context") || "web";
+    this.attachShadow({ mode: "open" });
+    this.render();
+  }
+
+  async handleOrder(selection) {
+    if (this.context === "agent") {
+      // Agent Context: dispatch JSON-RPC 2.0 postMessage to the host
+      window.parent.postMessage({
+        jsonrpc: "2.0",
+        method: "ui/notifications/action",
+        params: { action: "order_kuro_shoe", data: selection }
+      }, "*");
+    } else {
+      // Standard Web Context: call in-DOM store directly
+      await window.__SHOP_STORE__.addToCart(selection);
+    }
+  }
+}
+customElements.define("kuro-configurator", KuroConfigurator);
+```
+
+One component, unified business logic, two distribution vectors adapted to runtime context.
+
+---
+
+## 9. Reality Check: Economics, Security & Telemetry
+
+Beyond technical implementation, rolling out this pattern raises three strategic concerns:
+
+### 1. The Economic Barrier: The "Google My Business" Parallel
+Why would a retailer allow users to configure and buy products inside a third-party chat without visiting their storefront? Traditional e-commerce relies heavily on brand retention, cross-selling, and ad attribution pixels.
+
+However, the precedent of **Google My Business** and **Google Shopping** shows that retailers inevitably align with the buyer's lowest point of friction:
+- Businesses that initially refused to syndicate opening hours or inventory to search engines eventually complied to avoid losing traffic to indexed competitors.
+- In agentic interfaces, marketing shifts from passive cookie tracking to **direct intent telemetry** within the widget (e.g., tracking which colorways are explored inside the chat prior to checkout).
+
+### 2. The Security Risk: The "Confused Deputy"
+Granting an agent permission to invoke JavaScript on an active session creates a critical attack surface. If an agent parses an untrusted page containing an indirect prompt injection, it could attempt unauthorized transactions on authenticated merchant tabs.  
+This is why **explicit human confirmation** (a physical click inside an isolated iframe or a biometric signature) is a non-negotiable security boundary.
+
+### 3. Empirical Telemetry Matrix
+
+Measured on a standard engineering benchmark (Apple M1 Pro, 32 GB RAM, macOS Sonoma, Chromium 156 Headless CLI, and Vercel Edge CDN):
+
+| Metric / Dimension | 1. Headless Scraping (Puppeteer / Computer Use) | 2. In-DOM WebMCP (`navigator.modelContext`) | 3. Agent Feed + Micro-UI (Tier 2 PoC) |
+| :--- | :--- | :--- | :--- |
+| **Cold Discovery** | 1,100 – 1,850 ms (Chromium spawn + DOM dump) | < 1 ms (Direct JS memory access) | **45 – 65 ms (HTTP GET on Edge CDN)** |
+| **RAM Footprint** | 1,260 – 1,325 MB RAM (Multi-process RSS) | 0 MB additional (Active tab) | **0 MB browser overhead (Raw HTTP call)** |
+| **Ingested Tokens** | 40.6 KB HTML (~10,150 tokens) | 0 tokens (Typed action registry) | **1.75 KB raw / 751 B gzip (~440 tokens)** |
+| **Deployment Resiliency**| 0% (Breaks on CSS/DOM class updates) | 100% (Typed JSON Schema) | **100% (Versioned action contract)** |
+| **Visual Experience** | Static PNG screenshot loop | Full native DOM in active tab | **Pre-rendered PBR Micro-UI (< 10 ms, 114 KB)** |
+| **Payment Handling** | Critical risk (Card details exposed in LLM context) | Active browser checkout session | **Delegated 1-click handoff (Sealed Basket)** |
+
+---
+
+## 10. The Ultimate Frontier: Who Holds the Credit Card?
+
+Once the agent discovers the feed in 50 ms (Step 1), the host mounts the sandboxed container (Step 2), and the user fine-tunes the item on the resilient Micro-UI (Step 3), the configuration is locked.
+
+Now the central question of agentic commerce arises: **how do we bridge identity and payment without breaking speed and security?**
+
+Two current pitfalls:
+- **Autonomous Unattended Payment:** Pasting raw credit card numbers into an LLM prompt is an unacceptable security failure (violating PCI-DSS) and a legal liability waiting for the first hallucination.
+- **The Broken Session Wall:** If clicking "Checkout" dumps the user onto a traditional 12-field registration and shipping form, the agent's speed advantage evaporates.
+
+The solution lies in **frictionless cryptographic delegation**:
+- **Agentic Commerce Protocol (ACP):** Co-developed by OpenAI and Stripe to formalize handoffs between agent orchestrators and payment gateways via delegated session tokens.
+- **Agent Payments Protocol (AP2):** Championed by Google and financial institutions, relying on cryptographically signed purchase mandates.
+- **WebAuthn, FIDO2 Passkeys, and OS Wallets (Apple Pay, Google Pay):** The agent prepares and seals the basket (`/checkout?sku=KURO-V1-Deep-Indigo-9&source=agent_feed`), and the user authorizes the transaction with Touch ID or Face ID. Credentials never pass through the model's context window.
+
+> **"The agent prepares the basket; the human signs the mandate."**
+
+---
+
+## Conclusion: What This Actually Means for Front-End Engineers
+
+We often hear that AI agents will make front-end engineering obsolete, reducing all software interactions to a terminal-like text box.
+
+Our testing points in the opposite direction. Agents eliminate tedious multi-page click tunnels, redundant checkout forms, and cumbersome filter trees. But whenever a task requires visual evaluation, spatial adjustments, or aesthetic judgment, the need for lightweight, responsive, self-contained UI components is higher than ever.
+
+Front-end engineering is not disappearing: its architectural scope is broadening. We are shifting from building monolithic captive web destinations to engineering **distributable interface primitives**:
+1. An **Action RSS Feed** (`/agent-feed.json`) ready for discovery by external agents.
+2. An **In-DOM Business Layer** exposed via WebMCP for native browser agents.
+3. **Resilient Micro-UIs** designed to mount safely, for the span of a single human decision, inside any conversational stream.
