@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schemas.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "name": "Kuro Footwear Store",
+  "description": "Boutique officielle Kuro Footwear avec exposition d'actions agentiques et de micro-interfaces 3D",
+  "publisher": {
+    "name": "Vibrisse Studio",
+    "url": "https://vibrisse-studio.dev"
+  },
+  "tools": [
+    {
+      "name": "order_kuro_shoe",
+      "description": "Configure la paire Kuro Runner V1 et prépare la commande pour validation",
+      "ui": {
+        "type": "web-component",
+        "entrypoint": "/components/kuro-configurator.wc.js",
+        "tag": "kuro-configurator",
+        "height": "480px",
+        "themeable": true
+      },
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "number",
+            "enum": [40, 41, 42, 43, 44],
+            "description": "Pointure européenne standard (EU)"
+          },
+          "color": {
+            "type": "string",
+            "enum": ["Obsidian Black", "Deep Indigo", "Raw Chalk"],
+            "description": "Coloris officiel de l'empeigne technique"
+          }
+        },
+        "required": ["size", "color"]
+      },
+      "handoff": {
+        "type": "checkout-deep-link",
+        "template": "/checkout?sku=KURO-V1-{color}-{size}&source=agent_feed",
+        "description": "Redirection sécurisée vers la page de règlement pré-remplie"
+      }
+    },
+    {
+      "name": "get_kuro_inventory",
+      "description": "Vérifie les niveaux de stock en temps réel pour un SKU donné",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string",
+            "description": "Identifiant produit (ex: KURO-V1-Deep-Indigo-42)"
+          }
+        },
+        "required": ["sku"]
+      }
+    }
+  ]
+}

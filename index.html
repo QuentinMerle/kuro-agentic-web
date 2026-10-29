@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kuro Footwear — PoC WebMCP & RSS de l'IA</title>
+    <meta name="description" content="Démonstrateur d'architecture agentique : découverte d'outils via WebMCP et syndication d'actions par /agent-feed.json" />
+
+    <!-- RSS de l'IA : Découverte standardisée de niveau <head> -->
+    <link rel="alternate" type="application/json" href="/agent-feed.json" title="Kuro Agent Actions Feed" />
+
+    <!-- Favicon minimaliste -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><circle cx='12' cy='12' r='8'/></svg>" />
+  </head>
+  <body>
+    <!-- Floating Navbar -->
+    <div id="nav-root"></div>
+
+    <!-- Main Content Area -->
+    <main id="studio-root" role="main"></main>
+
+    <!-- Side Drawers (Cart & Agent Inspector) -->
+    <div id="cart-root"></div>
+    <div id="inspector-root"></div>
+
+    <!-- Footer de laboratoire -->
+    <footer style="
+      margin-top: auto; 
+      padding: var(--space-400) var(--space-300); 
+      text-align: center; 
+      border-top: 1px solid var(--border-subtle); 
+      color: var(--accent-subtle); 
+      font-size: var(--text-xs); 
+      font-family: var(--font-mono);
+    ">
+      <div>KURO AGENTIC WEB · POC LAB</div>
+      <div style="margin-top: 4px;">
+        Fièrement conçu avec les principes de <a href="https://github.com/elayadesign/ai-design-skills" target="_blank" rel="noopener" style="color: var(--accent-muted); text-decoration: underline;">ai-design-skills</a>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
