@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuro Runner V1 · Resilient 2D Micro-UI</title>
+  <style>
+    /* CSS Reset & Tokens strictly aligned with ai-design-skills */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #09090b;
+      --card: #141416;
+      --card-inner: #1c1c1f;
+      --border: #27272a;
+      --border-subtle: #1f1f23;
+      --border-active: #ffffff;
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --text-faint: #71717a;
+      --accent-emerald: #10b981;
+      --accent-sky: #38bdf8;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    body {
+      background: transparent;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.4;
+      padding: 8px;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .widget-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      max-width: 440px;
+      margin: 0 auto;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Top Bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px var(--accent-emerald);
+    }
+
+    .protocol-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 2px 7px;
+      border-radius: 9999px;
+    }
+
+    /* Resilient Architecture Banner */
+    .resilience-banner {
+      background: rgba(16, 185, 129, 0.08);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: #34d399;
+    }
+
+    /* Shoe Stage */
+    .stage {
+      position: relative;
+      height: 220px;
+      background: radial-gradient(circle at 50% 60%, #1f1f24 0%, #0d0d0f 80%);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 10px 20px;
+    }
+
+    .stage-badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Sneaker SVG Vector Dynamic Styling */
+    .sneaker-svg {
+      width: 100%;
+      max-height: 190px;
+      filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.65));
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .sneaker-svg:hover {
+      transform: scale(1.02) translateY(-2px);
+    }
+
+    /* Theme-driven palette variables for the SVG */
+    .widget-container[data-color="Deep Indigo"] {
+      --shoe-upper: #1d3557;
+      --shoe-upper-dark: #122238;
+      --shoe-overlay: #2a4365;
+      --shoe-midsole: #f8fafc;
+      --shoe-midsole-lines: #cbd5e1;
+      --shoe-outsole: #0f172a;
+      --shoe-accent: #38bdf8;
+      --shoe-laces: #0f172a;
+      --shoe-collar: #1e293b;
+      --shoe-tongue: #1d3557;
+      --shoe-swoosh: #60a5fa;
+    }
+
+    .widget-container[data-color="Obsidian Black"] {
+      --shoe-upper: #18181b;
+      --shoe-upper-dark: #0f0f11;
+      --shoe-overlay: #27272a;
+      --shoe-midsole: #1c1c20;
+      --shoe-midsole-lines: #3f3f46;
+      --shoe-outsole: #09090b;
+      --shoe-accent: #a1a1aa;
+      --shoe-laces: #27272a;
+      --shoe-collar: #18181b;
+      --shoe-tongue: #27272a;
+      --shoe-swoosh: #ffffff;
+    }
+
+    .widget-container[data-color="Raw Chalk"] {
+      --shoe-upper: #e4e0d5;
+      --shoe-upper-dark: #cfcac0;
+      --shoe-overlay: #b8b2a5;
+      --shoe-midsole: #ffffff;
+      --shoe-midsole-lines: #e2e8f0;
+      --shoe-outsole: #78716c;
+      --shoe-accent: #57534e;
+      --shoe-laces: #f5f5f4;
+      --shoe-collar: #d6d1c4;
+      --shoe-tongue: #e4e0d5;
+      --shoe-swoosh: #292524;
+    }
+
+    /* SVG Component fills */
+    .p-upper { fill: var(--shoe-upper); transition: fill 0.3s ease; }
+    .p-upper-dark { fill: var(--shoe-upper-dark); transition: fill 0.3s ease; }
+    .p-overlay { fill: var(--shoe-overlay); transition: fill 0.3s ease; }
+    .p-midsole { fill: var(--shoe-midsole); transition: fill 0.3s ease; }
+    .p-midsole-lines { stroke: var(--shoe-midsole-lines); transition: stroke 0.3s ease; }
+    .p-outsole { fill: var(--shoe-outsole); transition: fill 0.3s ease; }
+    .p-accent { fill: var(--shoe-accent); transition: fill 0.3s ease; }
+    .p-laces { stroke: var(--shoe-laces); transition: stroke 0.3s ease; }
+    .p-collar { fill: var(--shoe-collar); transition: fill 0.3s ease; }
+    .p-tongue { fill: var(--shoe-tongue); transition: fill 0.3s ease; }
+    .p-swoosh { fill: var(--shoe-swoosh); transition: fill 0.3s ease; }
+
+    /* Control Panel */
+    .controls {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--card);
+    }
+
+    .product-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .product-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-main);
+    }
+
+    .product-price {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .label-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    /* Color Grid */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .color-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 7px 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .color-btn:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .color-btn.active {
+      border: 2px solid var(--border-active);
+      background: var(--card-inner);
+    }
+
+    .color-swatch {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Size Grid */
+    .size-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+
+    .size-btn {
+      padding: 7px 0;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+
+    .size-btn:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .size-btn.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Stock & Submit */
+    .stock-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #34d399;
+      padding-top: 2px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 10px 14px;
+      background: #ffffff;
+      color: #000000;
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: opacity 0.15s ease, transform 0.1s ease;
+    }
+
+    .submit-btn:hover {
+      opacity: 0.92;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.99);
+    }
+
+    /* Receipt State View */
+    .receipt-view {
+      display: none;
+      padding: 18px 14px;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      background: var(--card);
+    }
+
+    .receipt-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 4px 10px;
+      border-radius: 9999px;
+    }
+
+    .receipt-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .receipt-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .receipt-sku {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .perf-pill {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-faint);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .handoff-box {
+      width: 100%;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: left;
+    }
+
+    .handoff-url {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--accent-sky);
+      word-break: break-all;
+      user-select: all;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 10px;
+      background: #ffffff;
+      color: #000000;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      transition: opacity 0.15s ease;
+      cursor: pointer;
+    }
+
+    .checkout-btn:hover {
+      opacity: 0.9;
+    }
+
+    .back-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .back-btn:hover {
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="widget-container" id="widget-root" data-color="Deep Indigo">
+    
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span>KURO RUNNER V1 · TIER 2 MICRO-UI</span>
+      </div>
+      <span class="protocol-tag">JSON-RPC 2.0</span>
+    </div>
+
+    <!-- Resilience Note -->
+    <div class="resilience-banner">
+      <span>⚡ Progressive 2D Fallback: 0ms load</span>
+      <span>100% CSP-Safe (0 WebGL)</span>
+    </div>
+
+    <!-- Active View -->
+    <div id="active-view">
+      <!-- 2D High-Definition Vector Stage -->
+      <div class="stage">
+        <span class="stage-badge">Vector Silo · 0 MB VRAM</span>
+
+        <svg class="sneaker-svg" viewBox="0 0 520 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Drop Shadow underneath -->
+          <ellipse cx="270" cy="245" rx="200" ry="12" fill="black" fill-opacity="0.55" filter="blur(8px)"/>
+
+          <!-- Outsole (Bottom rubber tread) -->
+          <path class="p-outsole" d="M75 220C90 232 140 236 210 236C290 236 370 234 430 220C450 215 470 205 478 194C479 193 475 191 468 193C425 208 360 216 260 216C170 216 110 210 70 200C67 205 70 216 75 220Z" />
+
+          <!-- Midsole Cushion (Sculpted wedge with geometric air flex grooves) -->
+          <path class="p-midsole" d="M68 185C66 195 68 205 73 216C110 224 175 228 260 228C360 228 425 220 468 205C478 200 482 192 480 186C475 184 455 186 430 188C350 194 250 194 150 184C105 180 78 182 68 185Z" />
+          <path class="p-midsole-lines" stroke-width="2.5" stroke-linecap="round" d="M120 205C150 210 190 212 240 212M280 212C330 212 380 209 420 202" />
+
+          <!-- Upper Main Body Chassis -->
+          <path class="p-upper" d="M68 185C65 170 70 140 85 115C100 90 125 78 150 78C165 78 178 85 192 100C215 125 250 135 290 142C345 150 410 160 450 174C468 180 478 184 480 186C460 188 420 190 350 190C250 190 140 184 68 185Z" />
+
+          <!-- Heel Counter & Collar Padding -->
+          <path class="p-collar" d="M85 115C95 100 115 85 140 85C155 85 168 92 180 106C170 115 155 122 135 124C110 126 95 120 85 115Z" />
+          <path class="p-overlay" d="M68 185C65 160 70 135 88 120C105 108 128 112 142 124C150 132 150 148 145 165C138 180 115 184 68 185Z" />
+
+          <!-- Rear Pull Tab -->
+          <path class="p-accent" d="M78 108C72 95 72 82 78 74C83 68 90 68 94 74C98 80 94 94 88 105L78 108Z" />
+
+          <!-- Eyestay Saddle & Midfoot Structural Overlay -->
+          <path class="p-overlay" d="M180 106C200 112 235 124 270 135C295 142 320 152 335 164C315 174 275 178 225 178C185 178 155 172 145 165C150 148 152 132 180 106Z" />
+
+          <!-- Tongue & Throat -->
+          <path class="p-tongue" d="M180 104C190 85 208 70 228 66C238 64 245 68 248 76C252 86 248 102 240 116L180 104Z" />
+
+          <!-- Kuro High-Speed Dynamic Slash / Logo Accent -->
+          <path class="p-swoosh" d="M195 152C240 150 300 142 355 128C370 124 380 126 372 134C350 152 290 166 230 170C210 171 198 165 195 152Z" />
+
+          <!-- Forefoot Reinforcement / Mudguard -->
+          <path class="p-upper-dark" d="M335 164C365 162 410 166 450 174C465 177 475 182 480 186C450 188 410 190 350 190C342 180 338 171 335 164Z" />
+
+          <!-- Technical Laces (Precision crisp cross-stitch) -->
+          <path class="p-laces" stroke-width="3" stroke-linecap="round" d="M192 108L215 124M210 98L238 116M228 88L262 108M245 80L285 102" />
+          
+          <!-- Ventilation Micro-Pores on Vamp -->
+          <circle cx="370" cy="172" r="1.5" fill="rgba(0,0,0,0.3)"/>
+          <circle cx="385" cy="174" r="1.5" fill="rgba(0,0,0,0.3)"/>
+          <circle cx="400" cy="176" r="1.5" fill="rgba(0,0,0,0.3)"/>
+          <circle cx="415" cy="178" r="1.5" fill="rgba(0,0,0,0.3)"/>
+        </svg>
+      </div>
+
+      <!-- Control Panel -->
+      <div class="controls">
+        <div class="product-header">
+          <span class="product-title">Kuro Runner V1</span>
+          <span class="product-price">$185</span>
+        </div>
+
+        <!-- Colorway Selector -->
+        <div>
+          <div class="label-meta">
+            <span>Colorway</span>
+            <span id="color-label" style="color: var(--text-main); font-weight: 600;">Deep Indigo</span>
+          </div>
+          <div class="color-grid" id="color-picker">
+            <button class="color-btn" data-color="Obsidian Black">
+              <span class="color-swatch" style="background: #18181b;"></span>
+              <span>Obsidian</span>
+            </button>
+            <button class="color-btn active" data-color="Deep Indigo">
+              <span class="color-swatch" style="background: #2a4365;"></span>
+              <span>Indigo</span>
+            </button>
+            <button class="color-btn" data-color="Raw Chalk">
+              <span class="color-swatch" style="background: #d8d4c7;"></span>
+              <span>Chalk</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Size Selector -->
+        <div>
+          <div class="label-meta">
+            <span>Size (EU)</span>
+            <span id="size-label" style="color: var(--text-main); font-weight: 600;">42 EU</span>
+          </div>
+          <div class="size-grid" id="size-picker">
+            <button class="size-btn" data-size="40">40</button>
+            <button class="size-btn" data-size="41">41</button>
+            <button class="size-btn active" data-size="42">42</button>
+            <button class="size-btn" data-size="43">43</button>
+            <button class="size-btn" data-size="44">44</button>
+          </div>
+        </div>
+
+        <!-- Live Stock & Confirmation -->
+        <div class="stock-row">
+          <span id="stock-count">● 8 pairs available in stock</span>
+          <span style="color: var(--text-faint);">SKU: <span id="sku-preview" style="font-family: var(--font-mono); color: var(--text-muted);">KURO-V1-INDIGO-42</span></span>
+        </div>
+
+        <button class="submit-btn" id="confirm-btn">
+          <span>Confirm Selection in Chat</span>
+          <span>→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Receipt State View -->
+    <div class="receipt-view" id="receipt-view">
+      <div class="receipt-badge">
+        <span>✓</span>
+        <span>Action Dispatched via JSON-RPC 2.0</span>
+      </div>
+
+      <div class="receipt-summary">
+        <span class="receipt-title">Kuro Runner V1</span>
+        <span class="receipt-sku" id="receipt-sku-text">Deep Indigo · Size 42 EU</span>
+      </div>
+
+      <div class="perf-pill">
+        0 MB VRAM · 0ms load · 100% CSP-Safe
+      </div>
+
+      <div class="handoff-box">
+        <div class="label-meta">
+          <span>Delegated 1-Click Checkout Deep-Link</span>
+          <span style="color: #34d399;">Ready</span>
+        </div>
+        <div class="handoff-url" id="receipt-url-box">
+          http://localhost:5173/checkout?sku=KURO-V1-Deep-Indigo-42&source=mcp_agent
+        </div>
+        <a 
+          href="http://localhost:5173/checkout?sku=KURO-V1-Deep-Indigo-42&source=mcp_agent" 
+          target="_blank"
+          class="checkout-btn"
+          id="checkout-action-btn"
+          onclick="alert('Delegated Handoff: Redirecting to Stripe / Shopify Checkout with locked SKU.'); return false;"
+        >
+          Proceed to 1-Click Checkout ($185)
+        </a>
+      </div>
+
+      <button class="back-btn" id="back-btn">← Modify Configuration</button>
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      // State
+      let selectedColor = "Deep Indigo";
+      let selectedSize = 42;
+
+      const inventory = {
+        "KURO-V1-Obsidian Black-40": 4,
+        "KURO-V1-Obsidian Black-41": 7,
+        "KURO-V1-Obsidian Black-42": 12,
+        "KURO-V1-Obsidian Black-43": 3,
+        "KURO-V1-Obsidian Black-44": 1,
+        "KURO-V1-Deep Indigo-40": 2,
+        "KURO-V1-Deep Indigo-41": 5,
+        "KURO-V1-Deep Indigo-42": 8,
+        "KURO-V1-Deep Indigo-43": 4,
+        "KURO-V1-Deep Indigo-44": 0,
+        "KURO-V1-Raw Chalk-40": 6,
+        "KURO-V1-Raw Chalk-41": 9,
+        "KURO-V1-Raw Chalk-42": 14,
+        "KURO-V1-Raw Chalk-43": 5,
+        "KURO-V1-Raw Chalk-44": 2,
+      };
+
+      // DOM Elements
+      const root = document.getElementById("widget-root");
+      const colorLabel = document.getElementById("color-label");
+      const sizeLabel = document.getElementById("size-label");
+      const stockCount = document.getElementById("stock-count");
+      const skuPreview = document.getElementById("sku-preview");
+      const activeView = document.getElementById("active-view");
+      const receiptView = document.getElementById("receipt-view");
+      const confirmBtn = document.getElementById("confirm-btn");
+      const backBtn = document.getElementById("back-btn");
+      const receiptSkuText = document.getElementById("receipt-sku-text");
+      const receiptUrlBox = document.getElementById("receipt-url-box");
+      const checkoutActionBtn = document.getElementById("checkout-action-btn");
+
+      function updateUI() {
+        // Update Root data-color for CSS SVG theming
+        root.setAttribute("data-color", selectedColor);
+        colorLabel.textContent = selectedColor;
+        sizeLabel.textContent = selectedSize + " EU";
+
+        const sku = `KURO-V1-${selectedColor.replace(" ", "-")}-${selectedSize}`;
+        skuPreview.textContent = sku;
+
+        const count = inventory[`KURO-V1-${selectedColor}-${selectedSize}`] ?? 0;
+        if (count > 0) {
+          stockCount.innerHTML = `● ${count} pairs available in stock`;
+          stockCount.style.color = "#34d399";
+          confirmBtn.disabled = false;
+          confirmBtn.style.opacity = "1";
+          confirmBtn.style.cursor = "pointer";
+          confirmBtn.innerHTML = `<span>Confirm Selection in Chat</span><span>→</span>`;
+        } else {
+          stockCount.innerHTML = `✕ Out of stock in this size`;
+          stockCount.style.color = "#f87171";
+          confirmBtn.disabled = true;
+          confirmBtn.style.opacity = "0.5";
+          confirmBtn.style.cursor = "not-allowed";
+          confirmBtn.innerHTML = `<span>Size Unavailable</span>`;
+        }
+      }
+
+      // Color click handlers
+      document.querySelectorAll(".color-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".color-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          selectedColor = btn.getAttribute("data-color");
+          updateUI();
+        });
+      });
+
+      // Size click handlers
+      document.querySelectorAll(".size-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          selectedSize = parseInt(btn.getAttribute("data-size"), 10);
+          updateUI();
+        });
+      });
+
+      // Confirm button -> Receipt State
+      confirmBtn.addEventListener("click", () => {
+        const sku = `KURO-V1-${selectedColor.replace(" ", "-")}-${selectedSize}`;
+        const checkoutUrl = `http://localhost:5173/checkout?sku=${sku}&source=mcp_agent`;
+
+        receiptSkuText.textContent = `${selectedColor} · Size ${selectedSize} EU`;
+        receiptUrlBox.textContent = checkoutUrl;
+        checkoutActionBtn.href = checkoutUrl;
+
+        activeView.style.display = "none";
+        receiptView.style.display = "flex";
+
+        // JSON-RPC 2.0 Dispatch Simulation to parent host
+        try {
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({
+              jsonrpc: "2.0",
+              method: "ui/notifications/action",
+              params: {
+                action: "order_kuro_shoe",
+                data: {
+                  color: selectedColor,
+                  size: selectedSize,
+                  sku: sku,
+                  checkoutUrl: checkoutUrl
+                }
+              }
+            }, "*");
+          }
+        } catch(e) {
+          console.warn("[KuroWidget] postMessage dispatch failed:", e);
+        }
+      });
+
+      // Back button
+      backBtn.addEventListener("click", () => {
+        receiptView.style.display = "none";
+        activeView.style.display = "block";
+      });
+
+      // Initial update
+      updateUI();
+    })();
+  </script>
+</body>
+</html>
