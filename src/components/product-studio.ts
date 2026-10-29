@@ -20,34 +20,34 @@ export function initProductStudio(container: HTMLElement): void {
 
   // Mount the complete landing page DOM ONCE
   container.innerHTML = `
-    <!-- 1. HERO SECTION (REX & Lab Notebook Framing) -->
+    <!-- 1. HERO SECTION (Editorial Engineering Journal) -->
     <section class="hero-section" aria-labelledby="hero-title">
       <div class="hero-tag">
         <span class="hero-tag-pulse"></span>
-        <span>LAB NOTEBOOK & FIELD REX · EXPERIMENT #04</span>
+        <span>FIELD REX #04 · ARCHITECTURAL LABORATORY</span>
       </div>
 
       <h1 id="hero-title" class="hero-heading">
-        From Scraping to the « RSS of AI » :<br>Anatomy of an Agentic Interface
+        From Scraping to the « RSS of AI » :<br><span style="color: var(--accent-muted); font-weight: 400; font-style: italic;">Anatomy of an Agentic Interface</span>
       </h1>
 
       <p class="hero-subheading">
-        A front-end architecture case study benchmarking in-DOM tool exposition via WebMCP against cold syndication 
-        via <code>/agent-feed.json</code> and sandboxed Micro-UIs in real AI agent chat windows.
+        An engineering study benchmarking in-DOM tool exposition via WebMCP against cold action syndication 
+        via <code>/agent-feed.json</code> and sandboxed Micro-UIs inside real AI agent webviews.
       </p>
 
-      <div class="proof-signal" style="display: flex; gap: var(--space-200); font-family: var(--font-mono); font-size: 11px; flex-wrap: wrap; justify-content: center;">
+      <div class="proof-signal" style="display: flex; gap: var(--space-200); font-family: var(--font-mono); font-size: 11px; flex-wrap: wrap; justify-content: center; align-items: center;">
         <span><strong>Author:</strong> Quentin Merle (<a href="https://www.vibrisse-studio.dev/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Vibrisse Studio</a>)</span>
         <span>·</span>
-        <span><strong>Status:</strong> Functional PoC</span>
+        <span><strong>Spec:</strong> W3C WebMCP & MCP Apps SEP-1865</span>
         <span>·</span>
-        <span><strong>Spec:</strong> W3C WICG WebMCP & MCP Apps</span>
+        <span><strong>Runtime:</strong> Production Edge CDN</span>
         <span>·</span>
-        <span><a href="https://github.com/QuentinMerle/kuro-agentic-web" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline;">GitHub</a></span>
+        <span><a href="https://github.com/QuentinMerle/kuro-agentic-web" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline;">GitHub Repo</a></span>
       </div>
     </section>
 
-    <!-- TEST BENCH: 2 PROGRESSIVE TIERS (With Honest Runtime Boundaries) -->
+    <!-- TEST BENCH: 2 PROGRESSIVE TIERS -->
     <section class="try-agent-section" id="test-bench">
       <div class="try-agent-card">
         <div class="try-agent-header">
@@ -116,73 +116,100 @@ export function initProductStudio(container: HTMLElement): void {
       </div>
     </section>
 
-    <!-- 1.5 ARCHITECTURAL STORYLINE: THE 3-STEP EMPIRICAL PROGRESSION -->
+    <!-- ARCHITECTURAL STORYLINE: THE 3-STEP EMPIRICAL PROGRESSION -->
     <section class="content-section" id="storyline">
       <div class="section-header">
         <span class="section-label">Empirical REX & Architecture</span>
-        <h2 class="section-title">The 3-Step Empirical Storyline : From Blind Prompts to Resilient UIs</h2>
+        <h2 class="section-title">The 3-Step Empirical Storyline</h2>
         <p class="section-subtitle">
           A progressive engineering journey testing how far an AI agent can interact with a web store without scraping — 
           documenting the physical failures, cognitive limits, and architectural pivots at each stage.
         </p>
       </div>
 
-      <div class="friction-grid">
+      <div class="storyline-spine">
         <!-- Step 1 -->
-        <div class="friction-card">
-          <div class="friction-tag" style="color: var(--accent-success); background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.25);">
-            STEP 01 · THE RSS OF AI
+        <article class="spine-item">
+          <div class="spine-marker">
+            <span class="spine-index">01</span>
+            <span class="spine-line"></span>
           </div>
-          <h3 class="friction-title">01. Schema Text Elicitation (The Universal Tier)</h3>
-          <p class="friction-desc">
-            The store exposes its action contracts via a static 1.75 KB JSON manifest (<code>/agent-feed.json</code>). Any external agent (ChatGPT, Claude, Cursor, CLI) discovers actions in 50 ms via a simple HTTP GET with 0 MB browser RAM, prompting the user for size and colorway.
-          </p>
-          <div class="friction-solution" style="color: #fbbf24; border-left-color: #fbbf24;">
-            <strong>The Cognitive Ceiling:</strong> Buying a $185 pair of technical sneakers without ever seeing them is absurd. Pure text breaks down for aesthetic and spatial decisions; we need visual UI on demand.
+          <div class="spine-content">
+            <div class="spine-meta">STEP 01 · THE RSS OF AI</div>
+            <h3 class="spine-title">Schema Text Elicitation <span class="spine-badge spine-badge-emerald">100% Universal</span></h3>
+            <p class="spine-lead">
+              The store exposes its action contracts via a static 1.75 KB JSON manifest (<code>/agent-feed.json</code>). Any external agent (ChatGPT, Claude, Cursor, CLI) discovers actions in 50 ms via a simple HTTP GET with 0 MB browser RAM, prompting the user for size and colorway.
+            </p>
+            <div class="spine-callout spine-callout-amber">
+              <span>⚠</span>
+              <div>
+                <strong>The Cognitive Ceiling :</strong> Buying a $185 pair of technical sneakers without seeing them is absurd. Pure text breaks down for aesthetic and spatial decisions; we need visual UI on demand.
+              </div>
+            </div>
           </div>
-        </div>
+        </article>
 
         <!-- Step 2 -->
-        <div class="friction-card">
-          <div class="friction-tag" style="color: #79C0FF; background: rgba(121,192,255,0.08); border-color: rgba(121,192,255,0.25);">
-            STEP 02 · IN-CHAT MICRO-UI
+        <article class="spine-item">
+          <div class="spine-marker">
+            <span class="spine-index">02</span>
+            <span class="spine-line"></span>
           </div>
-          <h3 class="friction-title">02. The Host Container Gap & MCP Apps (SEP-1865)</h3>
-          <p class="friction-desc">
-            To provide visuals, the feed declares a UI entrypoint (<code>/widget.html</code>). In local IDE webviews, the widget mounts smoothly. But public web chats (ChatGPT, Claude.ai) sanitize arbitrary iframes (<code>frame-src 'self'</code>) to prevent phishing and session hijacking.
-          </p>
-          <div class="friction-solution" style="color: #79C0FF; border-left-color: #79C0FF;">
-            <strong>Architectural Resolution:</strong> MCP Apps (SEP-1865). The host chat downloads the bundle and mounts it inside an isolated sandbox (opaque <code>null</code> origin, zero direct network access) communicating exclusively via typed <code>postMessage</code> JSON-RPC 2.0.
+          <div class="spine-content">
+            <div class="spine-meta">STEP 02 · IN-CHAT MICRO-UI</div>
+            <h3 class="spine-title">The Host Container Gap <span class="spine-badge spine-badge-cyan">MCP Apps SEP-1865</span></h3>
+            <p class="spine-lead">
+              Declaring a UI entrypoint (<code>/widget.html</code>) mounts smoothly in local IDE webviews. But public web chats (ChatGPT, Claude.ai) sanitize arbitrary iframes (<code>frame-src 'self'</code>) to prevent phishing and session hijacking.
+            </p>
+            <div class="spine-callout spine-callout-cyan">
+              <span>⚡</span>
+              <div>
+                <strong>The Architectural Resolution :</strong> MCP Apps standardizes host-isolated sandboxes (opaque <code>null</code> origin, zero direct network access) communicating exclusively via typed <code>postMessage</code> JSON-RPC 2.0.
+              </div>
+            </div>
           </div>
-        </div>
+        </article>
 
         <!-- Step 3 -->
-        <div class="friction-card">
-          <div class="friction-tag" style="color: #F85149; background: rgba(248,81,73,0.08); border-color: rgba(248,81,73,0.25);">
-            STEP 03 · THE 3D CRASH
+        <article class="spine-item">
+          <div class="spine-marker">
+            <span class="spine-index">03</span>
+            <span class="spine-line"></span>
           </div>
-          <h3 class="friction-title">03. The Physical 3D WebGL Crash & Snapshot Baking</h3>
-          <p class="friction-desc">
-            We attempted to bring the merchant's full Three.js 3D engine (8 MB GLTF) into the chat. It crashed against reality: GPU disabled in agent sandboxes, CSP <code>connect-src 'none'</code> blocking geometry fetch, and VRAM leaks exhausting tab memory across 20-turn chats.
-          </p>
-          <div class="friction-solution" style="color: var(--accent-success); border-left-color: var(--accent-success);">
-            <strong>Architectural Pivot:</strong> Snapshot Baking PBR. Pre-rendered photorealistic hero angles inlined into an autonomous 112 KB bundle (0 ms WebGL, 0 MB VRAM, 100% CSP compliant). Three.js is demoted to conditional Tier 3 progressive enhancement.
+          <div class="spine-content">
+            <div class="spine-meta">STEP 03 · THE PHYSICAL 3D CRASH</div>
+            <h3 class="spine-title">WebGL Failure & Snapshot Baking Pivot <span class="spine-badge spine-badge-rose">Hardware Limit</span></h3>
+            <p class="spine-lead">
+              We attempted to bring the merchant's full Three.js 3D engine (8 MB GLTF) into the chat. It crashed in real agent sandboxes: GPU acceleration disabled, CSP <code>connect-src 'none'</code> blocking geometry fetch, and VRAM leaks exhausting tab memory across 20-turn chats.
+            </p>
+            <div class="spine-callout spine-callout-emerald">
+              <span>●</span>
+              <div>
+                <strong>The Architectural Pivot :</strong> Snapshot Baking PBR. Pre-rendered photorealistic hero angles inlined in an autonomous 112 KB bundle (0 ms WebGL, 0 MB VRAM, 100% CSP compliant). Three.js is demoted to conditional Tier 3.
+              </div>
+            </div>
           </div>
-        </div>
+        </article>
 
-        <!-- Step 4 / Frontier -->
-        <div class="friction-card">
-          <div class="friction-tag" style="color: #A371F7; background: rgba(163,113,247,0.08); border-color: rgba(163,113,247,0.25);">
-            THE ULTIMATE FRONTIER · SOVEREIGN PAYMENT
+        <!-- Step 4 -->
+        <article class="spine-item">
+          <div class="spine-marker">
+            <span class="spine-index">04</span>
           </div>
-          <h3 class="friction-title">04. Who Holds the Credit Card? (ACP, AP2 & Passkeys)</h3>
-          <p class="friction-desc">
-            Confiding raw payment cards to an LLM prompt is a strict PCI-DSS violation and a prompt injection nightmare. Conversely, redirecting to a 15-field traditional checkout form completely destroys the agentic speed advantage.
-          </p>
-          <div class="friction-solution" style="color: #A371F7; border-left-color: #A371F7;">
-            <strong>Cryptographic Delegation:</strong> Emerging protocols (OpenAI/Stripe ACP, Google AP2, WebAuthn Passkeys). The agent locks the basket URL, and the human confirms with Touch ID / Apple Pay. <em>« The agent prepares the basket, the human validates the signature. »</em>
+          <div class="spine-content">
+            <div class="spine-meta">THE ULTIMATE FRONTIER · SOVEREIGN TRANSACTION</div>
+            <h3 class="spine-title">Who Holds the Credit Card? <span class="spine-badge spine-badge-purple">ACP · AP2 · Passkeys</span></h3>
+            <p class="spine-lead">
+              Confiding raw payment cards to an LLM prompt is a strict PCI-DSS violation and a prompt injection nightmare. Conversely, redirecting to a 15-field traditional checkout form completely destroys the agentic speed advantage.
+            </p>
+            <div class="spine-callout spine-callout-purple">
+              <span>✦</span>
+              <div>
+                <strong>Cryptographic Delegation :</strong> Emerging protocols (OpenAI/Stripe ACP, Google AP2, WebAuthn Passkeys). The agent locks the basket URL, and the human confirms with Touch ID / Apple Pay. <em>« The agent prepares the basket, the human validates the signature. »</em>
+              </div>
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
@@ -313,111 +340,55 @@ export function initProductStudio(container: HTMLElement): void {
         </p>
       </div>
 
-      <div class="benchmark-grid">
-        <!-- 1. Blind Headless Scraping -->
-        <div class="benchmark-card">
-          <div class="benchmark-header">
-            <span class="benchmark-title" style="color: #F85149;">
-              <span>✕</span> Headless Scraping
-            </span>
-            <span style="font-family: var(--font-mono); font-size: 11px; color: #F85149; background: rgba(248,81,73,0.1); border: 1px solid rgba(248,81,73,0.3); padding: 2px 6px; border-radius: var(--radius-sm);">Brittle FinOps</span>
-          </div>
-          <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
-            Agent launches a multi-process Chromium instance, waits for JS execution, dumps DOM, or loops Computer Use screenshots.
-          </p>
-          <ul class="metric-list">
-            <li class="metric-row">
-              <span class="metric-label">Cold Discovery</span>
-              <span class="metric-value" style="color: #F85149;">1,100 – 1,850 ms</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Memory Footprint</span>
-              <span class="metric-value" style="color: #F85149;">1,260 – 1,325 MB RAM</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Context Window</span>
-              <span class="metric-value" style="color: #F85149;">~10,150 tokens</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Deploy Resiliency</span>
-              <span class="metric-value" style="color: #F85149;">0% (DOM breaks)</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Visual Interactive</span>
-              <span class="metric-value" style="color: var(--accent-muted);">Static PNG only</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- 2. In-DOM WebMCP -->
-        <div class="benchmark-card">
-          <div class="benchmark-header">
-            <span class="benchmark-title" style="color: #79C0FF;">
-              <span>⚡</span> In-DOM WebMCP
-            </span>
-            <span style="font-family: var(--font-mono); font-size: 11px; color: #79C0FF; background: rgba(121,192,255,0.1); border: 1px solid rgba(121,192,255,0.3); padding: 2px 6px; border-radius: var(--radius-sm);">Active Tab</span>
-          </div>
-          <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
-            Browser extension or built-in AI executes directly against <code>window.navigator.modelContext</code> in the user's active session.
-          </p>
-          <ul class="metric-list">
-            <li class="metric-row">
-              <span class="metric-label">Execution Latency</span>
-              <span class="metric-value" style="color: var(--accent-success);">&lt; 1 ms</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Extra Memory</span>
-              <span class="metric-value" style="color: var(--accent-success);">0 MB</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Session State</span>
-              <span class="metric-value" style="color: var(--accent-success);">Preserved</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Schema Validation</span>
-              <span class="metric-value" style="color: var(--accent-success);">Native JSON</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Execution Mode</span>
-              <span class="metric-value" style="color: var(--accent-primary);">In-page RPC</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- 3. Cold Syndication + Micro-UI (Highlight) -->
-        <div class="benchmark-card highlight">
-          <div class="benchmark-header">
-            <span class="benchmark-title" style="color: var(--accent-success);">
-              <span>●</span> Feed + Micro-UI
-            </span>
-            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-success); background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); padding: 2px 6px; border-radius: var(--radius-sm);">Federated Standard</span>
-          </div>
-          <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
-            Zero-browser cold discovery via <code>/agent-feed.json</code> with Just-in-Time sandboxed micro-UI embedding inside the chat.
-          </p>
-          <ul class="metric-list">
-            <li class="metric-row">
-              <span class="metric-label">Cold Discovery</span>
-              <span class="metric-value" style="color: var(--accent-success);">45 – 65 ms (HTTP GET)</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Payload Size</span>
-              <span class="metric-value" style="color: var(--accent-success);">1.75 KB (751 B gzip)</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Chat Widget Mount</span>
-              <span class="metric-value" style="color: var(--accent-success);">&lt; 10 ms (PBR Baked)</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">VRAM / GPU Footprint</span>
-              <span class="metric-value" style="color: var(--accent-success);">0 MB (0 WebGL Contexts)</span>
-            </li>
-            <li class="metric-row">
-              <span class="metric-label">Payment Security</span>
-              <span class="metric-value" style="color: var(--accent-success);">Delegated 1-Click Handoff</span>
-            </li>
-          </ul>
-        </div>
+      <div class="matrix-table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Metric / Dimension</th>
+              <th style="width: 26%;">Headless Scraping (Puppeteer)</th>
+              <th style="width: 26%;">In-DOM WebMCP (Active Tab)</th>
+              <th class="matrix-highlight" style="width: 26%;">Feed + Sandboxed Micro-UI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Cold Discovery</strong></td>
+              <td class="text-rose font-bold">1,100 – 1,850 ms</td>
+              <td class="text-cyan font-bold">&lt; 1 ms (DOM memory)</td>
+              <td class="matrix-highlight text-emerald font-bold">45 – 65 ms (HTTP GET)</td>
+            </tr>
+            <tr>
+              <td><strong>Payload / Memory</strong></td>
+              <td class="text-rose">1,260 – 1,325 MB RAM</td>
+              <td class="text-cyan">0 MB overhead</td>
+              <td class="matrix-highlight text-emerald">1.75 KB (751 B gzip)</td>
+            </tr>
+            <tr>
+              <td><strong>Context Window Cost</strong></td>
+              <td class="text-rose">~10,150 tokens / query</td>
+              <td class="text-cyan">Typed JSON schema</td>
+              <td class="matrix-highlight text-emerald">~440 tokens</td>
+            </tr>
+            <tr>
+              <td><strong>Deploy Resiliency</strong></td>
+              <td class="text-rose">0% (Brittle selectors break)</td>
+              <td class="text-cyan">100% (Declared typed contract)</td>
+              <td class="matrix-highlight text-emerald">100% (SemVer schema spec)</td>
+            </tr>
+            <tr>
+              <td><strong>Visual Interaction</strong></td>
+              <td>Static PNG capture</td>
+              <td>Direct active webpage</td>
+              <td class="matrix-highlight text-emerald">JIT Micro-UI in chat bubble</td>
+            </tr>
+            <tr>
+              <td><strong>Execution Layer</strong></td>
+              <td>Remote compute cluster</td>
+              <td>Host browser session</td>
+              <td class="matrix-highlight text-emerald">Client-side isolated webview</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <div style="margin-top: var(--space-300); padding: var(--space-200); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 11px; color: var(--accent-muted); line-height: 1.6;">
@@ -436,61 +407,77 @@ export function initProductStudio(container: HTMLElement): void {
         </p>
       </div>
 
-      <div class="friction-grid">
-        <!-- Law 1 -->
-        <div class="friction-card">
-          <div class="friction-tag" style="color: #79C0FF; background: rgba(121,192,255,0.08); border-color: rgba(121,192,255,0.25);">
-            RULE 01 · MICRO-VIEWPORT & FOCUS
-          </div>
-          <h3 class="friction-title">The Single-Purpose UI (Anti-WeChat Fallacy)</h3>
-          <p class="friction-desc">
-            In an IDE side panel (380–500px) or desktop chat (600–750px), real estate is heavily constrained. Eliminate all traditional website chrome: no giant brand headers, no global navigation bars, no cookie banners, no footers.
+      <div class="ux-laws-layout">
+        <aside class="ux-laws-aside">
+          <div style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-subtle);">Interface Axioms</div>
+          <p style="font-size: 14px; color: var(--accent-muted); line-height: 1.6; margin: 0;">
+            A conversational interface is fundamentally an append-only timeline. Every pixel injected must respect the host environment's focus, gesture cascade, and finite lifecycle.
           </p>
-          <div class="friction-solution" style="color: #79C0FF; border-left-color: #79C0FF;">
-            <strong>Architectural Rule:</strong> Reject the fantasy of "Chat as universal OS". Chats excel at linear intent convergence, but fail at non-linear tasks (comparing 5 tables, dense carts). The in-chat UI must be surgical: resolve a sensory micro-decision (color, size, fit) and immediately yield control back to the prompt flow.
+          <div style="padding: 14px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 11px; color: var(--accent-muted); line-height: 1.6;">
+            <div style="color: var(--accent-cyan); font-weight: 600; margin-bottom: 4px;">Host Constraint Reality:</div>
+            • Panel width: 380px – 680px<br>
+            • Wheel gestures pass through<br>
+            • Indefinite scroll retention<br>
+            • Strict CSP execution jails
           </div>
-        </div>
+        </aside>
 
-        <!-- Law 2 -->
-        <div class="friction-card">
-          <div class="friction-tag" style="color: #F85149; background: rgba(248,81,73,0.08); border-color: rgba(248,81,73,0.25);">
-            RULE 02 · VERTICAL FLOW PRESERVATION
-          </div>
-          <h3 class="friction-title">Zero Scroll Hijacking (Wheel Trapping)</h3>
-          <p class="friction-desc">
-            Chat feeds rely on continuous vertical scrolling (<code>overflow-y: auto</code>). If an embedded component captures pointer wheel or touch gestures carelessly (e.g. 3D orbit zoom or internal list scroll), the user gets trapped and cannot scroll up to read the agent's prompt reasoning.
-          </p>
-          <div class="friction-solution" style="color: #F85149; border-left-color: #F85149;">
-            <strong>Architectural Rule:</strong> Enforce strict bounded height (<code>max-height: 480px</code>), disable unprompted scroll trapping via <code>touch-action: pan-y</code>, and require an explicit click or focus gesture before capturing continuous orbital gestures.
-          </div>
-        </div>
+        <div class="ux-laws-content">
+          <!-- Law 1 -->
+          <article class="ux-law-item">
+            <div class="ux-law-head">
+              <span class="ux-law-num">01</span>
+              <h3 class="ux-law-title">The Single-Purpose Micro-UI (Anti-WeChat Fallacy)</h3>
+            </div>
+            <p class="ux-law-desc">
+              In an IDE side panel (380–500px) or desktop chat (600–750px), real estate is heavily constrained. Eliminate all traditional website chrome: no giant brand headers, no global navigation bars, no cookie banners, no footers.
+            </p>
+            <div class="ux-law-rule">
+              <strong>Architectural Rule:</strong> Reject the fantasy of "Chat as universal OS". Chats excel at linear intent convergence, but fail at non-linear tasks (comparing 5 tables, dense carts). The in-chat UI must be surgical: resolve a sensory micro-decision (color, size, fit) and immediately yield control back to the prompt flow.
+            </div>
+          </article>
 
-        <!-- Law 3 -->
-        <div class="friction-card">
-          <div class="friction-tag" style="color: #A371F7; background: rgba(163,113,247,0.08); border-color: rgba(163,113,247,0.25);">
-            RULE 03 · SEAMLESS HOST THEMING
-          </div>
-          <h3 class="friction-title">Zero-Flicker Host Token Inheritance</h3>
-          <p class="friction-desc">
-            Nothing destroys conversational immersion faster than an iframe flashing a stark <code>#FFFFFF</code> background inside a deeply styled Dark Mode IDE or chat application. An embedded micro-UI cannot impose rigid isolated styles.
-          </p>
-          <div class="friction-solution" style="color: #A371F7; border-left-color: #A371F7;">
-            <strong>Architectural Rule:</strong> Consume host-injected CSS variables and design tokens (<code>--host-bg-primary</code>, <code>--host-text-primary</code>, <code>--host-border-color</code>, <code>color-scheme: dark light</code>, system typography) to blend natively into the host agent's environment.
-          </div>
-        </div>
+          <!-- Law 2 -->
+          <article class="ux-law-item">
+            <div class="ux-law-head">
+              <span class="ux-law-num">02</span>
+              <h3 class="ux-law-title">Vertical Flow Preservation (Zero Wheel Hijacking)</h3>
+            </div>
+            <p class="ux-law-desc">
+              Chat feeds rely on continuous vertical scrolling (<code>overflow-y: auto</code>). If an embedded component captures pointer wheel or touch gestures carelessly (e.g. 3D orbit zoom or internal list scroll), the user gets trapped and cannot scroll up to read the agent's prompt reasoning.
+            </p>
+            <div class="ux-law-rule">
+              <strong>Architectural Rule:</strong> Enforce strict bounded height (<code>max-height: 480px</code>), disable unprompted scroll trapping via <code>touch-action: pan-y</code>, and require an explicit click or focus gesture before capturing continuous orbital gestures.
+            </div>
+          </article>
 
-        <!-- Law 4 -->
-        <div class="friction-card">
-          <div class="friction-tag" style="color: var(--accent-success); background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.25);">
-            RULE 04 · PERSISTENT STATE LIFECYCLE
-          </div>
-          <h3 class="friction-title">Active to Sealed Receipt State (No Zombie UIs)</h3>
-          <p class="friction-desc">
-            On the classic web, completing a purchase navigates away to a new URL. In a chat, the widget remains forever visible in the scroll history. This creates the danger of "Zombie UIs": an accidental click 3 days later re-triggering an order on a stale card.
-          </p>
-          <div class="friction-solution" style="color: var(--accent-success); border-left-color: var(--accent-success);">
-            <strong>Architectural Rule:</strong> Implement an irreversible state transition. Once confirmed, the component destroys its event listeners and heavy graphics contexts (freeing VRAM) and collapses into a compact, read-only "Sealed Receipt" (<em>« Kuro Runner V1 · Deep Indigo, US 9 · Basket Sealed ✅ »</em>).
-          </div>
+          <!-- Law 3 -->
+          <article class="ux-law-item">
+            <div class="ux-law-head">
+              <span class="ux-law-num">03</span>
+              <h3 class="ux-law-title">Zero-Flicker Host Token Inheritance</h3>
+            </div>
+            <p class="ux-law-desc">
+              Nothing destroys conversational immersion faster than an iframe flashing a stark <code>#FFFFFF</code> background inside a deeply styled Dark Mode IDE or chat application. An embedded micro-UI cannot impose rigid isolated styles.
+            </p>
+            <div class="ux-law-rule">
+              <strong>Architectural Rule:</strong> Consume host-injected CSS variables and design tokens (<code>--host-bg-primary</code>, <code>--host-text-primary</code>, <code>--host-border-color</code>, <code>color-scheme: dark light</code>, system typography) to blend natively into the host agent's environment.
+            </div>
+          </article>
+
+          <!-- Law 4 -->
+          <article class="ux-law-item">
+            <div class="ux-law-head">
+              <span class="ux-law-num">04</span>
+              <h3 class="ux-law-title">Active to Sealed Receipt State (No Zombie UIs)</h3>
+            </div>
+            <p class="ux-law-desc">
+              On the classic web, completing a purchase navigates away to a new URL. In a chat, the widget remains forever visible in the scroll history. This creates the danger of "Zombie UIs": an accidental click 3 days later re-triggering an order on a stale card.
+            </p>
+            <div class="ux-law-rule">
+              <strong>Architectural Rule:</strong> Implement an irreversible state transition. Once confirmed, the component destroys its event listeners and heavy graphics contexts (freeing VRAM) and collapses into a compact, read-only "Sealed Receipt" (<em>« Kuro Runner V1 · Deep Indigo, US 9 · Basket Sealed ✅ »</em>).
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -505,76 +492,76 @@ export function initProductStudio(container: HTMLElement): void {
         </p>
       </div>
 
-      <div class="friction-grid">
+      <div class="field-log-grid">
         <!-- Friction 1 -->
-        <div class="friction-card">
-          <div class="friction-tag">SECURITY · SANDBOX IFRAME</div>
-          <h3 class="friction-title">01. The Sandboxed origin: null CORS Trap</h3>
-          <p class="friction-desc">
+        <div class="field-log-item">
+          <span class="field-log-tag">Security · Sandbox Iframe</span>
+          <h3 class="field-log-title">01. The Sandboxed origin: null CORS Trap</h3>
+          <p class="field-log-desc">
             When an agent mounts an interactive Web Component in its chat webview (using <code>srcdoc</code> or isolated iframe without <code>allow-same-origin</code>), the browser enforces <code>origin: "null"</code>. Any outgoing <code>fetch()</code> to store APIs is blocked by browser CORS preflight checks.
           </p>
-          <div class="friction-solution">
-            <strong>Architectural Resolution:</strong> Package self-contained autonomous micro-UIs with inlined state and contracts, or expose an unauthenticated read-only endpoint with <code>Access-Control-Allow-Origin: *</code> specifically for agent handshakes.
+          <div class="field-log-fix">
+            <strong>Fix:</strong> Self-contained micro-UIs with inlined state and contracts, or unauthenticated read-only endpoint with <code>Access-Control-Allow-Origin: *</code> specifically for agent handshakes.
           </div>
         </div>
 
         <!-- Friction 2 -->
-        <div class="friction-card">
-          <div class="friction-tag">GRAPHICS · CSP RESTRICTIONS</div>
-          <h3 class="friction-title">02. CSP connect-src 'none' & 3D WebGL Crash</h3>
-          <p class="friction-desc">
+        <div class="field-log-item">
+          <span class="field-log-tag">Graphics · CSP Restrictions</span>
+          <h3 class="field-log-title">02. CSP connect-src 'none' & 3D WebGL Crash</h3>
+          <p class="field-log-desc">
             Full-fledged Three.js scenes require streaming multi-megabyte <code>.gltf</code> geometries and allocating GPU WebGL contexts. Sandboxed agent webviews enforce strict CSP headers (<code>connect-src 'none'</code>) and often disable hardware acceleration, causing infinite loading spinners.
           </p>
-          <div class="friction-solution">
-            <strong>Architectural Resolution:</strong> Tier 2 Snapshot Baking. Pre-render photorealistic PBR angles into base64 data-URIs during CI/CD. 0 ms mount time, 0 WebGL contexts needed, zero CSP network requests.
+          <div class="field-log-fix">
+            <strong>Fix:</strong> Tier 2 Snapshot Baking. Pre-render photorealistic PBR angles into base64 data-URIs during CI/CD. 0 ms mount time, 0 WebGL contexts needed, zero CSP network requests.
           </div>
         </div>
 
         <!-- Friction 3 -->
-        <div class="friction-card">
-          <div class="friction-tag">RESOURCE LEAKS · GPU FINOPS</div>
-          <h3 class="friction-title">03. VRAM Accumulation in Multi-Turn Chats</h3>
-          <p class="friction-desc">
+        <div class="field-log-item">
+          <span class="field-log-tag">Resource Leaks · GPU FinOps</span>
+          <h3 class="field-log-title">03. VRAM Accumulation in Multi-Turn Chats</h3>
+          <p class="field-log-desc">
             In conversational interfaces, users interact across 20+ turns. If every mounted 3D configurator retains WebGL textures, geometries, and animation frame request loops, the host tab rapidly runs out of GPU memory and gets killed by the OS.
           </p>
-          <div class="friction-solution">
-            <strong>Architectural Resolution:</strong> Receipt State Transition. Upon clicking Order, immediately dispose of geometries and textures, call <code>gl.getExtension('WEBGL_lose_context')?.loseContext()</code>, and collapse into a static 2D order receipt.
+          <div class="field-log-fix">
+            <strong>Fix:</strong> Receipt State Transition. Upon clicking Order, immediately dispose of geometries and textures, call <code>gl.getExtension('WEBGL_lose_context')?.loseContext()</code>, and collapse into a static 2D order receipt.
           </div>
         </div>
 
         <!-- Friction 4 -->
-        <div class="friction-card">
-          <div class="friction-tag">CONTEXT WINDOW · FINOPS</div>
-          <h3 class="friction-title">04. The 15,000 SKU Catalog Bloat Trap</h3>
-          <p class="friction-desc">
+        <div class="field-log-item">
+          <span class="field-log-tag">Context Window · FinOps</span>
+          <h3 class="field-log-title">04. The 15,000 SKU Catalog Bloat Trap</h3>
+          <p class="field-log-desc">
             Serializing an entire e-commerce database catalog into <code>agent-feed.json</code> results in multi-megabyte payloads. Feeding this to an LLM wastes thousands of input tokens per query ($0.50/request) and causes model context degradation.
           </p>
-          <div class="friction-solution">
-            <strong>Architectural Resolution:</strong> Expose generic Action Schemas (<code>order_kuro_shoe</code>, <code>search_catalog</code>) rather than static data dumps. The LLM acts as an orchestrator, resolving parametric inventory Just-in-Time.
+          <div class="field-log-fix">
+            <strong>Fix:</strong> Expose generic Action Schemas (<code>order_kuro_shoe</code>, <code>search_catalog</code>) rather than static data dumps. The LLM acts as an orchestrator, resolving parametric inventory Just-in-Time.
           </div>
         </div>
 
         <!-- Friction 5 -->
-        <div class="friction-card">
-          <div class="friction-tag">WEBVIEW PARSER · MEMORY CEILING</div>
-          <h3 class="friction-title">05. The 700 KB Inline Payload Parse Wall</h3>
-          <p class="friction-desc">
+        <div class="field-log-item">
+          <span class="field-log-tag">Webview Parser · Memory Ceiling</span>
+          <h3 class="field-log-title">05. The 700 KB Inline Payload Parse Wall</h3>
+          <p class="field-log-desc">
             When embedding interactive micro-UIs inside chat webviews, inlining uncompressed base64 PNG assets (704 KB) causes host chat parsers to silently drop the iframe embed to prevent main-thread UI stutters.
           </p>
-          <div class="friction-solution">
-            <strong>Architectural Resolution:</strong> Aggressive build-time asset optimization (converting raw PBR captures to 82% quality JPEGs/WebP, dropping total bundle size from 704 KB down to 112 KB). The component mounts instantly at 60 fps without tripping host limits.
+          <div class="field-log-fix">
+            <strong>Fix:</strong> Aggressive build-time asset optimization (converting raw PBR captures to 82% quality JPEGs/WebP, dropping total bundle size from 704 KB down to 112 KB). The component mounts instantly at 60 fps without tripping host limits.
           </div>
         </div>
 
         <!-- Friction 6 -->
-        <div class="friction-card">
-          <div class="friction-tag">RUNTIME SPEC · ZERO-TRUST ARCHITECTURE</div>
-          <h3 class="friction-title">06. The Live Iframe Security Wall & MCP Apps Sandbox</h3>
-          <p class="friction-desc">
+        <div class="field-log-item">
+          <span class="field-log-tag">Runtime Spec · Zero-Trust</span>
+          <h3 class="field-log-title">06. The Live Iframe Security Wall & MCP Apps Sandbox</h3>
+          <p class="field-log-desc">
             Why can't an agent simply inject <code>&lt;iframe src="https://store.com/widget"&gt;</code> into a chat bubble? Because public chats (ChatGPT, Claude.ai) enforce strict CSPs (<code>frame-src 'self'</code>) to prevent phishing and session hijacking. Furthermore, agents in IDEs have a "developer reflex" (modifying local files rather than consuming the feed as external clients).
           </p>
-          <div class="friction-solution">
-            <strong>Architectural Resolution:</strong> The <strong>MCP Apps specification</strong> (SEP-1865). The host chat downloads the declared bundle into an isolated client-side sandbox (opaque origin, zero cookies, zero network access) communicating exclusively via JSON-RPC 2.0. The first public web contact only occurs upon user click on the checkout handoff.
+          <div class="field-log-fix">
+            <strong>Fix:</strong> The <strong>MCP Apps specification</strong> (SEP-1865). The host chat downloads the declared bundle into an isolated client-side sandbox (opaque origin, zero cookies, zero network access) communicating exclusively via JSON-RPC 2.0. The first public web contact only occurs upon user click on the checkout handoff.
           </div>
         </div>
       </div>
