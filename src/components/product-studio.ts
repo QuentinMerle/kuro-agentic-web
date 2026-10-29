@@ -400,6 +400,30 @@ export function initProductStudio(container: HTMLElement): void {
             <strong>Architectural Resolution:</strong> Expose generic Action Schemas (<code>order_kuro_shoe</code>, <code>search_catalog</code>) rather than static data dumps. The LLM acts as an orchestrator, resolving parametric inventory Just-in-Time.
           </div>
         </div>
+
+        <!-- Friction 5 -->
+        <div class="friction-card">
+          <div class="friction-tag">WEBVIEW PARSER · MEMORY CEILING</div>
+          <h3 class="friction-title">05. The 700 KB Inline Payload Parse Wall</h3>
+          <p class="friction-desc">
+            When embedding interactive micro-UIs inside chat webviews, inlining uncompressed base64 PNG assets (704 KB) causes host chat parsers to silently drop the iframe embed to prevent main-thread UI stutters.
+          </p>
+          <div class="friction-solution">
+            <strong>Architectural Resolution:</strong> Aggressive build-time asset optimization (converting raw PBR captures to 82% quality JPEGs/WebP, dropping total bundle size from 704 KB down to 112 KB). The component mounts instantly at 60 fps without tripping host limits.
+          </div>
+        </div>
+
+        <!-- Friction 6 -->
+        <div class="friction-card">
+          <div class="friction-tag">RUNTIME SPEC · ZERO-TRUST ARCHITECTURE</div>
+          <h3 class="friction-title">06. The Host Container Gap & Dev Reflex</h3>
+          <p class="friction-desc">
+            Generic LLM chats (ChatGPT, Claude.ai) sanitize arbitrary iframes from raw text. In addition, AI agents running in developer environments often exhibit a "developer bias" (editing source code instead of acting as an external read-only consumer).
+          </p>
+          <div class="friction-solution">
+            <strong>Architectural Resolution:</strong> Strict adherence to the <strong>MCP Apps</strong> specification (<code>@modelcontextprotocol/ext-apps</code>). The host application provides a dedicated iframe runtime container, while Tier 1 (text schema) guarantees universal fallback.
+          </div>
+        </div>
       </div>
     </section>
 

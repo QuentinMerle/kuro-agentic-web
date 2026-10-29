@@ -61,6 +61,19 @@ Hey! I want to configure and buy the Kuro Runner V1 from https://kuro-agentic-we
 
 ---
 
+## ⚠️ Real-World Frictions & Architectural Hardening (Field Log)
+
+During empirical stress testing across real agent sandboxes and Edge CDN deployments, six critical frictions were discovered and hardened:
+
+1. **The 700 KB Inline Webview Parse Ceiling:** Inlining uncompressed base64 PNGs (704 KB) causes chat webview parsers to silently drop the iframe embed. Resolved by aggressive build-time asset optimization (converting to 82% quality PBR JPEGs, dropping total weight to **112 KB**).
+2. **The Host Container Gap & Developer Reflex:** General-purpose LLM chats sanitize raw iframes unless the host client implements the **MCP Apps specification** (`@modelcontextprotocol/ext-apps`). Furthermore, agents running in developer environments tend to edit local source code instead of acting as external read-only consumers.
+3. **The Sandboxed `origin: null` CORS Trap:** Sandboxed chat iframes enforce `origin: "null"`. Standard `fetch()` calls fail with CORS preflight errors. Resolved via universal open CORS headers (`Access-Control-Allow-Origin: *`) in `vercel.json`.
+4. **The 3D WebGL Crash & CSP `connect-src 'none'`:** Chat webviews frequently disable hardware acceleration and block multi-megabyte GLTF network streaming. Resolved by **Tier 2 Snapshot Baking** (pre-rendered Three.js PBR angles inlined as data-URIs, 0 ms mount time, 0 MB VRAM).
+5. **VRAM GPU Leaks in Multi-Turn Chats:** Active 3D WebGL scenes across 20+ turns accumulate memory and trigger OS tab discards. Resolved by **Receipt State Transition** (disposing of Three.js textures/geometry and freezing into a static 2D order confirmation receipt).
+6. **The 15,000 SKU Catalog Bloat Trap:** Serializing full database dumps into the JSON feed wastes context tokens and degrades LLM reasoning. Resolved by exposing high-level **Action Contracts** (`order_kuro_shoe`, `search_catalog`) with parametric Just-in-Time hydration.
+
+---
+
 ## 🎨 Design System & Visual Principles
 
 Strictly adheres to the [ai-design-skills](https://github.com/elayadesign/ai-design-skills) specification:
