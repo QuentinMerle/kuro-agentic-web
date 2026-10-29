@@ -36,7 +36,7 @@ export function initProductStudio(container: HTMLElement): void {
       </p>
 
       <div class="proof-signal" style="display: flex; gap: var(--space-200); font-family: var(--font-mono); font-size: 11px; flex-wrap: wrap; justify-content: center;">
-        <span><strong>Author:</strong> Quentin Merle (Vibrisse Studio)</span>
+        <span><strong>Author:</strong> Quentin Merle (<a href="https://www.vibrisse-studio.dev/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Vibrisse Studio</a>)</span>
         <span>·</span>
         <span><strong>Status:</strong> Functional PoC</span>
         <span>·</span>
@@ -478,7 +478,7 @@ export function initProductStudio(container: HTMLElement): void {
       <div class="colophon-card">
         <div class="author-chip">
           <span>✍️</span>
-          <span>Quentin Merle · Front-End Architect & AI Engineer · Vibrisse Studio</span>
+          <span>Quentin Merle · Front-End Architect & AI Engineer · <a href="https://www.vibrisse-studio.dev/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Vibrisse Studio</a></span>
         </div>
         <h2 style="font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.02em; margin-top: var(--space-100);">
           The Agentic Web Architecture in Practice
