@@ -4,7 +4,7 @@
  */
 
 export type ShoeColor = "Obsidian Black" | "Deep Indigo" | "Raw Chalk";
-export type ShoeSize = 40 | 41 | 42 | 43 | 44;
+export type ShoeSize = 7 | 8 | 9 | 10 | 11;
 
 export interface ToolParameterSchema {
   type: string;

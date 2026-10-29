@@ -15,26 +15,26 @@ import { initThreeViewport, type ThreeViewportController } from "./three-viewpor
 export class KuroConfigurator extends HTMLElement {
   private context: "web" | "agent" = "web";
   private selectedColor: ShoeColor = "Deep Indigo";
-  private selectedSize: ShoeSize = 42;
+  private selectedSize: ShoeSize = 9;
   private threeController: ThreeViewportController | null = null;
   private isOrdered = false;
 
   private inventory: Record<string, number> = {
-    "KURO-V1-Obsidian Black-40": 4,
-    "KURO-V1-Obsidian Black-41": 7,
-    "KURO-V1-Obsidian Black-42": 12,
-    "KURO-V1-Obsidian Black-43": 3,
-    "KURO-V1-Obsidian Black-44": 1,
-    "KURO-V1-Deep Indigo-40": 2,
-    "KURO-V1-Deep Indigo-41": 5,
-    "KURO-V1-Deep Indigo-42": 8,
-    "KURO-V1-Deep Indigo-43": 4,
-    "KURO-V1-Deep Indigo-44": 0,
-    "KURO-V1-Raw Chalk-40": 6,
-    "KURO-V1-Raw Chalk-41": 9,
-    "KURO-V1-Raw Chalk-42": 14,
-    "KURO-V1-Raw Chalk-43": 5,
-    "KURO-V1-Raw Chalk-44": 2,
+    "KURO-V1-Obsidian Black-7": 4,
+    "KURO-V1-Obsidian Black-8": 7,
+    "KURO-V1-Obsidian Black-9": 12,
+    "KURO-V1-Obsidian Black-10": 3,
+    "KURO-V1-Obsidian Black-11": 1,
+    "KURO-V1-Deep Indigo-7": 2,
+    "KURO-V1-Deep Indigo-8": 5,
+    "KURO-V1-Deep Indigo-9": 8,
+    "KURO-V1-Deep Indigo-10": 4,
+    "KURO-V1-Deep Indigo-11": 0,
+    "KURO-V1-Raw Chalk-7": 6,
+    "KURO-V1-Raw Chalk-8": 9,
+    "KURO-V1-Raw Chalk-9": 14,
+    "KURO-V1-Raw Chalk-10": 5,
+    "KURO-V1-Raw Chalk-11": 2,
   };
 
   static get observedAttributes(): string[] {
@@ -89,7 +89,7 @@ export class KuroConfigurator extends HTMLElement {
       { name: "Raw Chalk", hex: "#D8D4C7" },
     ];
 
-    const sizes: ShoeSize[] = [40, 41, 42, 43, 44];
+    const sizes: ShoeSize[] = [7, 8, 9, 10, 11];
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -325,7 +325,7 @@ export class KuroConfigurator extends HTMLElement {
             <img class="receipt-img" id="receipt-snapshot" alt="Kuro Runner V1 Receipt Snapshot" />
             <div style="font-size: 16px; font-weight: 600;">Kuro Runner V1</div>
             <div style="font-family: monospace; font-size: 13px; color: #9B9B9B;">
-              ${this.selectedColor} · Size ${this.selectedSize} EU
+              ${this.selectedColor} · Size ${this.selectedSize} US
             </div>
             <div style="font-family: monospace; font-size: 11px; color: #666666;">
               WebGL context disposed · VRAM reclaimed
@@ -361,7 +361,7 @@ export class KuroConfigurator extends HTMLElement {
             </div>
 
             <div>
-              <span class="label">Size (EU)</span>
+              <span class="label">Size (US)</span>
               <div class="size-grid">
                 ${sizes
                   .map((sz) => {

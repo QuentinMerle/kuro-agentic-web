@@ -9,7 +9,7 @@ export function initProductStudio(container: HTMLElement): void {
     { name: "Raw Chalk", hex: "#D8D4C7", desc: "Undyed eco-crafted raw chalk" },
   ];
 
-  const sizes: ShoeSize[] = [40, 41, 42, 43, 44];
+  const sizes: ShoeSize[] = [7, 8, 9, 10, 11];
   let threeController: ThreeViewportController | null = null;
 
   const state = shopStore.getState();
@@ -164,7 +164,7 @@ export function initProductStudio(container: HTMLElement): void {
 
         <!-- Size Selector -->
         <div class="option-group">
-          <span class="option-label">Shoe Size (EU)</span>
+          <span class="option-label">Shoe Size (US)</span>
           <div class="size-grid" role="radiogroup" aria-label="Select shoe size">
             ${sizes
               .map((sz) => {

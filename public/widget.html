@@ -553,22 +553,22 @@
         <!-- Size Selector -->
         <div>
           <div class="label-meta">
-            <span>Size (EU)</span>
-            <span id="size-label" style="color: var(--text-main); font-weight: 600;">42 EU</span>
+            <span>Size (US)</span>
+            <span id="size-label" style="color: var(--text-main); font-weight: 600;">9 US</span>
           </div>
           <div class="size-grid" id="size-picker">
-            <button class="size-btn" data-size="40">40</button>
-            <button class="size-btn" data-size="41">41</button>
-            <button class="size-btn active" data-size="42">42</button>
-            <button class="size-btn" data-size="43">43</button>
-            <button class="size-btn" data-size="44">44</button>
+            <button class="size-btn" data-size="7">7</button>
+            <button class="size-btn" data-size="8">8</button>
+            <button class="size-btn active" data-size="9">9</button>
+            <button class="size-btn" data-size="10">10</button>
+            <button class="size-btn" data-size="11">11</button>
           </div>
         </div>
 
         <!-- Live Stock & Confirmation -->
         <div class="stock-row">
           <span id="stock-count">● 8 pairs available in stock</span>
-          <span style="color: var(--text-faint);">SKU: <span id="sku-preview" style="font-family: var(--font-mono); color: var(--text-muted);">KURO-V1-INDIGO-42</span></span>
+          <span style="color: var(--text-faint);">SKU: <span id="sku-preview" style="font-family: var(--font-mono); color: var(--text-muted);">KURO-V1-INDIGO-9</span></span>
         </div>
 
         <button class="submit-btn" id="confirm-btn">
@@ -587,7 +587,7 @@
 
       <div class="receipt-summary">
         <span class="receipt-title">Kuro Runner V1</span>
-        <span class="receipt-sku" id="receipt-sku-text">Deep Indigo · Size 42 EU</span>
+        <span class="receipt-sku" id="receipt-sku-text">Deep Indigo · Size 9 US</span>
       </div>
 
       <div class="perf-pill">
@@ -600,10 +600,10 @@
           <span style="color: #34d399;">Ready</span>
         </div>
         <div class="handoff-url" id="receipt-url-box">
-          http://localhost:5173/checkout?sku=KURO-V1-Deep-Indigo-42&source=mcp_agent
+          http://localhost:5173/checkout?sku=KURO-V1-Deep-Indigo-9&source=mcp_agent
         </div>
         <a 
-          href="http://localhost:5173/checkout?sku=KURO-V1-Deep-Indigo-42&source=mcp_agent" 
+          href="http://localhost:5173/checkout?sku=KURO-V1-Deep-Indigo-9&source=mcp_agent" 
           target="_blank"
           class="checkout-btn"
           id="checkout-action-btn"
@@ -622,24 +622,24 @@
     (function() {
       // State
       let selectedColor = "Deep Indigo";
-      let selectedSize = 42;
+      let selectedSize = 9;
 
       const inventory = {
-        "KURO-V1-Obsidian Black-40": 4,
-        "KURO-V1-Obsidian Black-41": 7,
-        "KURO-V1-Obsidian Black-42": 12,
-        "KURO-V1-Obsidian Black-43": 3,
-        "KURO-V1-Obsidian Black-44": 1,
-        "KURO-V1-Deep Indigo-40": 2,
-        "KURO-V1-Deep Indigo-41": 5,
-        "KURO-V1-Deep Indigo-42": 8,
-        "KURO-V1-Deep Indigo-43": 4,
-        "KURO-V1-Deep Indigo-44": 0,
-        "KURO-V1-Raw Chalk-40": 6,
-        "KURO-V1-Raw Chalk-41": 9,
-        "KURO-V1-Raw Chalk-42": 14,
-        "KURO-V1-Raw Chalk-43": 5,
-        "KURO-V1-Raw Chalk-44": 2,
+        "KURO-V1-Obsidian Black-7": 4,
+        "KURO-V1-Obsidian Black-8": 7,
+        "KURO-V1-Obsidian Black-9": 12,
+        "KURO-V1-Obsidian Black-10": 3,
+        "KURO-V1-Obsidian Black-11": 1,
+        "KURO-V1-Deep Indigo-7": 2,
+        "KURO-V1-Deep Indigo-8": 5,
+        "KURO-V1-Deep Indigo-9": 8,
+        "KURO-V1-Deep Indigo-10": 4,
+        "KURO-V1-Deep Indigo-11": 0,
+        "KURO-V1-Raw Chalk-7": 6,
+        "KURO-V1-Raw Chalk-8": 9,
+        "KURO-V1-Raw Chalk-9": 14,
+        "KURO-V1-Raw Chalk-10": 5,
+        "KURO-V1-Raw Chalk-11": 2,
       };
 
       // DOM Elements
@@ -660,7 +660,7 @@
         // Update Root data-color for CSS SVG theming
         root.setAttribute("data-color", selectedColor);
         colorLabel.textContent = selectedColor;
-        sizeLabel.textContent = selectedSize + " EU";
+        sizeLabel.textContent = selectedSize + " US";
 
         const sku = `KURO-V1-${selectedColor.replace(" ", "-")}-${selectedSize}`;
         skuPreview.textContent = sku;

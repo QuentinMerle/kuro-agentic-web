@@ -55,7 +55,7 @@ export function initCartDrawer(container: HTMLElement): void {
                     <div>
                       <div style="font-weight: 600; font-size: var(--text-sm);">${item.productName}</div>
                       <div style="font-size: var(--text-xs); color: var(--accent-muted); font-family: var(--font-mono); margin-top: 2px;">
-                        ${item.color} · Size ${item.size} EU
+                        ${item.color} · Size ${item.size} US
                       </div>
                       <div style="font-size: var(--text-xs); color: var(--accent-subtle); font-family: var(--font-mono);">
                         SKU: ${item.sku}

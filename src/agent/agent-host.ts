@@ -4,7 +4,7 @@ export function initAgentHost(container: HTMLElement): void {
   let activeMode: "step1-schema" | "step2-mcp-app" = "step2-mcp-app";
   let orderResult: { sku: string; productName: string; color: string; size: number; price: number } | null = null;
   let textSelectedColor = "Deep Indigo";
-  let textSelectedSize = 42;
+  let textSelectedSize = 9;
 
   async function loadManifest(): Promise<AgentFeedManifest | null> {
     try {
@@ -87,13 +87,13 @@ export function initAgentHost(container: HTMLElement): void {
                     </div>
 
                     <div class="field" style="margin-top: 8px;">
-                      <label>Size (Enum)</label>
+                      <label>Size (Enum - US)</label>
                       <select id="text-size-select" class="select-input">
-                        <option value="40" ${textSelectedSize === 40 ? "selected" : ""}>40 EU</option>
-                        <option value="41" ${textSelectedSize === 41 ? "selected" : ""}>41 EU</option>
-                        <option value="42" ${textSelectedSize === 42 ? "selected" : ""}>42 EU</option>
-                        <option value="43" ${textSelectedSize === 43 ? "selected" : ""}>43 EU</option>
-                        <option value="44" ${textSelectedSize === 44 ? "selected" : ""}>44 EU</option>
+                        <option value="7" ${textSelectedSize === 7 ? "selected" : ""}>7 US</option>
+                        <option value="8" ${textSelectedSize === 8 ? "selected" : ""}>8 US</option>
+                        <option value="9" ${textSelectedSize === 9 ? "selected" : ""}>9 US</option>
+                        <option value="10" ${textSelectedSize === 10 ? "selected" : ""}>10 US</option>
+                        <option value="11" ${textSelectedSize === 11 ? "selected" : ""}>11 US</option>
                       </select>
                     </div>
 

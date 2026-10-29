@@ -23,8 +23,8 @@
         "properties": {
           "size": {
             "type": "number",
-            "enum": [40, 41, 42, 43, 44],
-            "description": "Standard European shoe size (EU)"
+            "enum": [7, 8, 9, 10, 11],
+            "description": "Standard US shoe size (US)"
           },
           "color": {
             "type": "string",

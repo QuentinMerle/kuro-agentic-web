@@ -6,24 +6,24 @@ type Listener = (state: StoreState) => void;
 class ShopStore {
   private state: StoreState = {
     selectedColor: "Deep Indigo",
-    selectedSize: 42,
+    selectedSize: 9,
     cart: [],
     inventory: {
-      "KURO-V1-Obsidian Black-40": 4,
-      "KURO-V1-Obsidian Black-41": 7,
-      "KURO-V1-Obsidian Black-42": 12,
-      "KURO-V1-Obsidian Black-43": 3,
-      "KURO-V1-Obsidian Black-44": 1,
-      "KURO-V1-Deep Indigo-40": 2,
-      "KURO-V1-Deep Indigo-41": 5,
-      "KURO-V1-Deep Indigo-42": 8,
-      "KURO-V1-Deep Indigo-43": 4,
-      "KURO-V1-Deep Indigo-44": 0, // Out of stock test
-      "KURO-V1-Raw Chalk-40": 6,
-      "KURO-V1-Raw Chalk-41": 9,
-      "KURO-V1-Raw Chalk-42": 14,
-      "KURO-V1-Raw Chalk-43": 5,
-      "KURO-V1-Raw Chalk-44": 2,
+      "KURO-V1-Obsidian Black-7": 4,
+      "KURO-V1-Obsidian Black-8": 7,
+      "KURO-V1-Obsidian Black-9": 12,
+      "KURO-V1-Obsidian Black-10": 3,
+      "KURO-V1-Obsidian Black-11": 1,
+      "KURO-V1-Deep Indigo-7": 2,
+      "KURO-V1-Deep Indigo-8": 5,
+      "KURO-V1-Deep Indigo-9": 8,
+      "KURO-V1-Deep Indigo-10": 4,
+      "KURO-V1-Deep Indigo-11": 0, // Out of stock test
+      "KURO-V1-Raw Chalk-7": 6,
+      "KURO-V1-Raw Chalk-8": 9,
+      "KURO-V1-Raw Chalk-9": 14,
+      "KURO-V1-Raw Chalk-10": 5,
+      "KURO-V1-Raw Chalk-11": 2,
     },
     isCartDrawerOpen: false,
     isFeedInspectorOpen: false,
@@ -139,8 +139,8 @@ class ShopStore {
         properties: {
           size: {
             type: "number",
-            enum: [40, 41, 42, 43, 44],
-            description: "EU shoe size available in stock",
+            enum: [7, 8, 9, 10, 11],
+            description: "US shoe size available in stock",
           },
           color: {
             type: "string",
