@@ -77,7 +77,7 @@ export function initThreeViewport(
     const shadowMat = new THREE.MeshBasicMaterial({
       map: shadowTex,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.38,
       depthWrite: false,
     });
     const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);

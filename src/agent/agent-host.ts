@@ -138,28 +138,29 @@ export function initAgentHost(container: HTMLElement): void {
               <div class="msg msg-agent">
                 <div class="msg-author">Agent (Antigravity)</div>
                 <div class="msg-bubble highlight-success">
-                  <div style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">
+                  <div style="font-size: 15px; font-weight: 600; color: #f8fafc; margin-bottom: 6px;">
                     Order Prepared: ${orderResult.productName}
                   </div>
-                  <div style="font-family: monospace; font-size: 12px; color: var(--accent-muted); margin-bottom: 12px;">
+                  <div style="font-family: var(--font-mono); font-size: 12px; color: #a7f3d0; margin-bottom: 12px;">
                     SKU: ${orderResult.sku} · Price: $${orderResult.price}
                   </div>
 
-                  <p style="font-size: 13px; color: var(--accent-muted); margin-bottom: 12px;">
+                  <p style="font-size: 13px; color: #cbd5e1; line-height: 1.55; margin-bottom: 12px;">
                     Sensitive credit card tokens never pass through the LLM. Complete your order via the pre-filled checkout link:
                   </p>
 
-                  <div class="json-viewer" style="font-size: 11px; margin-bottom: 12px; word-break: break-all;">
+                  <div style="font-family: var(--font-mono); font-size: 11px; background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.12); color: #38bdf8; padding: 10px 12px; border-radius: 8px; margin-bottom: 14px; word-break: break-all; line-height: 1.5;">
                     ${deepLinkUrl}
                   </div>
 
                   <a 
                     href="${deepLinkUrl}" 
-                    class="btn btn-primary" 
-                    style="width: 100%; text-align: center; justify-content: center;"
+                    class="btn" 
+                    style="width: 100%; text-align: center; justify-content: center; background: #10b981; color: #ffffff; font-weight: 600; padding: 11px 16px; border-radius: 8px; border: none; font-size: 13.5px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);"
                     onclick="alert('Handoff Simulation: Redirecting to Stripe / Shopify Checkout with locked SKU.'); return false;"
                   >
-                    Proceed to 1-Click Checkout ($${orderResult.price})
+                    <span>Proceed to 1-Click Checkout ($${orderResult.price})</span>
+                    <span>→</span>
                   </a>
                 </div>
               </div>
