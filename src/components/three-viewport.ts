@@ -17,51 +17,58 @@ export function initThreeViewport(
     const scene = new THREE.Scene();
 
     const width = container.clientWidth || 600;
-    const height = container.clientHeight || 480;
+    const height = container.clientHeight || 520;
 
     const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(0, 0.6, 2.2);
+    camera.position.set(0, 0.35, 1.8);
+    camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
       powerPreference: "high-performance",
+      preserveDrawingBuffer: true,
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = 1.3;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-    // Attach to DOM
-    container.innerHTML = "";
+    // Style canvas to fill container underneath overlays
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
+    renderer.domElement.style.position = "absolute";
+    renderer.domElement.style.inset = "0";
+    renderer.domElement.style.zIndex = "1";
+    container.style.position = "relative";
     container.appendChild(renderer.domElement);
 
     // 2. Studio Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
     keyLight.position.set(3, 4, 3);
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0x79a6ff, 1.0);
+    const fillLight = new THREE.DirectionalLight(0x8cb8ff, 1.2);
     fillLight.position.set(-3, 2, -2);
     scene.add(fillLight);
 
-    const rimLight = new THREE.DirectionalLight(0xffeedd, 1.8);
+    const rimLight = new THREE.DirectionalLight(0xffeedd, 1.6);
     rimLight.position.set(0, -2, -3);
     scene.add(rimLight);
 
-    // Subtle contact shadow / floor gradient
-    const shadowGeo = new THREE.PlaneGeometry(3, 3);
+    // Subtle contact shadow floor
+    const shadowGeo = new THREE.PlaneGeometry(2.5, 2.5);
     const shadowCanvas = document.createElement("canvas");
     shadowCanvas.width = 128;
     shadowCanvas.height = 128;
     const ctx = shadowCanvas.getContext("2d")!;
     const grad = ctx.createRadialGradient(64, 64, 10, 64, 64, 64);
-    grad.addColorStop(0, "rgba(0, 0, 0, 0.7)");
-    grad.addColorStop(0.5, "rgba(0, 0, 0, 0.3)");
+    grad.addColorStop(0, "rgba(0, 0, 0, 0.65)");
+    grad.addColorStop(0.5, "rgba(0, 0, 0, 0.2)");
     grad.addColorStop(1, "rgba(0, 0, 0, 0)");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 128, 128);
@@ -75,10 +82,10 @@ export function initThreeViewport(
     });
     const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
     shadowMesh.rotation.x = -Math.PI / 2;
-    shadowMesh.position.y = -0.38;
+    shadowMesh.position.y = -0.32;
     scene.add(shadowMesh);
 
-    // 3. Model Loader
+    // 3. Model Loader & Pivot Container
     const loader = new GLTFLoader();
     const pivot = new THREE.Group();
     scene.add(pivot);
@@ -86,19 +93,19 @@ export function initThreeViewport(
     let shoeMesh: THREE.Object3D | null = null;
     const colorMaterials: THREE.MeshStandardMaterial[] = [];
 
-    // Color definitions
-    const colorMap: Record<ShoeColor, number> = {
-      "Obsidian Black": 0x181818,
-      "Deep Indigo": 0x22355e,
-      "Raw Chalk": 0xd8d4c7,
+    // Distinct PBR color tunings matching our 3 official colorways
+    const colorTunings: Record<ShoeColor, { color: number; roughness: number; metalness: number }> = {
+      "Obsidian Black": { color: 0x333333, roughness: 0.35, metalness: 0.1 },
+      "Deep Indigo": { color: 0x3d5a99, roughness: 0.45, metalness: 0.15 },
+      "Raw Chalk": { color: 0xf5f3ee, roughness: 0.65, metalness: 0.05 },
     };
 
     function applyColor(color: ShoeColor): void {
-      const hex = colorMap[color];
+      const tuning = colorTunings[color] || colorTunings["Deep Indigo"];
       for (const mat of colorMaterials) {
-        mat.color.setHex(hex);
-        // If it had textures, we tint or update
-        mat.roughness = color === "Raw Chalk" ? 0.75 : 0.45;
+        mat.color.setHex(tuning.color);
+        mat.roughness = tuning.roughness;
+        mat.metalness = tuning.metalness;
         mat.needsUpdate = true;
       }
     }
@@ -108,7 +115,7 @@ export function initThreeViewport(
       (gltf) => {
         shoeMesh = gltf.scene;
 
-        // Traverse to find meshes & gather materials
+        // Traverse to find meshes & gather standard materials
         shoeMesh.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
             const mesh = child as THREE.Mesh;
@@ -121,7 +128,6 @@ export function initThreeViewport(
                 : [mesh.material];
               for (const m of materials) {
                 if (m instanceof THREE.MeshStandardMaterial) {
-                  // Clone material to customize without altering gltf cache
                   const clonedMat = m.clone();
                   mesh.material = clonedMat;
                   colorMaterials.push(clonedMat);
@@ -136,32 +142,50 @@ export function initThreeViewport(
         const center = bbox.getCenter(new THREE.Vector3());
         const size = bbox.getSize(new THREE.Vector3());
 
-        // Center model inside pivot
+        // Center model geometry inside the pivot group
         shoeMesh.position.x = -center.x;
         shoeMesh.position.y = -center.y;
         shoeMesh.position.z = -center.z;
 
-        // Scale to fit comfortably
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const targetScale = 1.1 / maxDim;
-        pivot.scale.setScalar(targetScale);
-        pivot.position.y = 0.05;
+        // Add shoeMesh into the pivot!
+        pivot.add(shoeMesh);
 
-        // Initial orientation
+        // Normalize scale to fit frustum comfortably
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const targetScale = 1.3 / (maxDim || 1);
+        pivot.scale.setScalar(targetScale);
+        pivot.position.set(0, 0, 0);
+
+        // Initial orientation (slight 3/4 dynamic perspective)
         pivot.rotation.y = -Math.PI / 4;
-        pivot.rotation.x = 0.15;
+        pivot.rotation.x = 0.18;
 
         applyColor(initialColor);
 
-        // Hide loader in container if present
-        const loaderEl = container.querySelector(".viewport-loading");
-        if (loaderEl) loaderEl.remove();
+        // Smoothly fade out the loader overlay
+        const loaderEl = container.querySelector("#three-loader") as HTMLElement | null;
+        if (loaderEl) {
+          loaderEl.style.transition = "opacity 0.4s var(--ease-out-quint)";
+          loaderEl.style.opacity = "0";
+          setTimeout(() => loaderEl.remove(), 400);
+        }
 
+        console.info("[ThreeViewport] Kuro 3D shoe loaded successfully!");
         resolve(controller);
       },
-      undefined,
+      (xhr) => {
+        const percent = xhr.total ? Math.round((xhr.loaded / xhr.total) * 100) : 0;
+        const loaderText = container.querySelector("#three-loader span");
+        if (loaderText && percent > 0) {
+          loaderText.textContent = `Chargement du modèle 3D (${percent}%)...`;
+        }
+      },
       (err) => {
-        console.error("[ThreeViewport] Error loading shoe.glb:", err);
+        console.error("[ThreeViewport] Error loading /models/shoe.glb:", err);
+        const loaderText = container.querySelector("#three-loader span");
+        if (loaderText) {
+          loaderText.textContent = "Erreur de chargement du modèle 3D.";
+        }
         reject(err);
       }
     );
@@ -171,9 +195,9 @@ export function initThreeViewport(
     let prevMouseX = 0;
     let prevMouseY = 0;
     let targetRotationY = -Math.PI / 4;
-    let targetRotationX = 0.15;
+    let targetRotationX = 0.18;
     let currentRotationY = -Math.PI / 4;
-    let currentRotationX = 0.15;
+    let currentRotationX = 0.18;
     let autoRotate = true;
     let idleTimer = 0;
 
@@ -195,7 +219,7 @@ export function initThreeViewport(
       targetRotationY += deltaX * 0.01;
       targetRotationX += deltaY * 0.01;
 
-      // Restrict vertical rotation
+      // Restrict vertical rotation range
       targetRotationX = Math.max(-0.6, Math.min(0.6, targetRotationX));
     };
 
@@ -233,10 +257,10 @@ export function initThreeViewport(
       animId = requestAnimationFrame(animate);
 
       if (autoRotate && !isDragging) {
-        targetRotationY += 0.004;
+        targetRotationY += 0.005;
       }
 
-      // Smooth damping (ease-out quint simulation)
+      // Smooth damping
       currentRotationY += (targetRotationY - currentRotationY) * 0.08;
       currentRotationX += (targetRotationX - currentRotationX) * 0.08;
 
@@ -247,18 +271,16 @@ export function initThreeViewport(
     };
     animate();
 
-    // 6. Controller object
+    // 6. Controller
     const controller: ThreeViewportController = {
       setColor: (color: ShoeColor) => {
         applyColor(color);
       },
 
       captureSnapshotAndDispose: () => {
-        // Force clean render
         renderer.render(scene, camera);
         const dataUrl = renderer.domElement.toDataURL("image/png");
 
-        // Clean teardown & VRAM release
         cancelAnimationFrame(animId);
         resizeObserver.disconnect();
         container.removeEventListener("pointerdown", onPointerDown);
