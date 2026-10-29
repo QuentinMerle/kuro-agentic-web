@@ -624,7 +624,10 @@
 
       confirmBtn.addEventListener("click", () => {
         const sku = "KURO-V1-" + selectedColor.replace(/ /g, "-") + "-" + selectedSize;
-        const checkoutUrl = "http://localhost:5173/checkout?sku=" + sku + "&source=mcp_agent";
+        const checkoutBase = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") 
+          ? "http://localhost:5173" 
+          : "https://kuro-agentic-web.vercel.app";
+        const checkoutUrl = checkoutBase + "/checkout?sku=" + sku + "&source=mcp_agent";
 
         receiptImg.src = images[selectedColor] || images["Deep Indigo"];
         receiptSkuText.textContent = selectedColor + " · Size " + selectedSize + " US";
