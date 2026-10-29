@@ -44,6 +44,33 @@ export function initProductStudio(container: HTMLElement): void {
       </div>
     </section>
 
+    <!-- TRY IN AGENT PROMPT SECTION -->
+    <section class="try-agent-section">
+      <div class="try-agent-card">
+        <div class="try-agent-header">
+          <div class="try-agent-title">
+            <span>🤖</span>
+            <span>Try it live with your AI Assistant</span>
+            <span class="try-agent-badge">● Zero-Scraping Ready</span>
+          </div>
+          <span style="font-size: var(--text-xs); color: var(--accent-muted); font-family: var(--font-mono);">
+            Compatible with Antigravity, Claude Desktop, Cursor & Windsurf
+          </span>
+        </div>
+
+        <div class="prompt-box">
+          <code class="prompt-text" id="demo-prompt-text">Hey! I want to buy a pair of running shoes from http://localhost:5173/ — check its /agent-feed.json and show me the 3D configurator.</code>
+          <button id="copy-prompt-btn" class="btn btn-primary copy-btn" aria-label="Copy demo prompt">
+            Copy Prompt
+          </button>
+        </div>
+
+        <p style="font-size: var(--text-xs); color: var(--accent-subtle); line-height: 1.5;">
+          Paste this prompt into your agent. Watch it perform a 15 ms cold discovery on <code>/agent-feed.json</code> and mount the interactive 3D configurator directly inside your conversation thread.
+        </p>
+      </div>
+    </section>
+
     <!-- 2. STUDIO 3D HERO INTERACTIVE (Three.js WebGL) -->
     <div class="studio-grid" id="configurator-stage">
       <!-- 3D WebGL Viewport -->
@@ -417,6 +444,20 @@ export function initProductStudio(container: HTMLElement): void {
 
   container.querySelector("#cta-open-inspector-btn")?.addEventListener("click", () => {
     shopStore.toggleFeedInspector(true);
+  });
+
+  const copyBtn = container.querySelector("#copy-prompt-btn") as HTMLButtonElement | null;
+  copyBtn?.addEventListener("click", async () => {
+    const text = container.querySelector("#demo-prompt-text")?.textContent?.trim() || "";
+    try {
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = "Copied! ✅";
+      setTimeout(() => {
+        copyBtn.textContent = "Copy Prompt";
+      }, 2000);
+    } catch {
+      copyBtn.textContent = "Copied! ✅";
+    }
   });
 
   // Setup Tagline Reveal with IntersectionObserver (B11)

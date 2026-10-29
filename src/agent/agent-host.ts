@@ -114,14 +114,14 @@ export function initAgentHost(container: HTMLElement): void {
                   <!-- Sandboxed MCP App Iframe -->
                   <div class="iframe-card">
                     <div class="iframe-badge">
-                      <span>SANDBOX: allow-scripts</span>
+                      <span>SANDBOX: allow-scripts allow-same-origin</span>
                       <span>·</span>
                       <span>JSON-RPC 2.0</span>
                     </div>
                     <iframe 
                       id="mcp-app-iframe"
                       src="/mcp-app.html" 
-                      sandbox="allow-scripts"
+                      sandbox="allow-scripts allow-same-origin"
                       title="Kuro 3D Configurator MCP App"
                       style="width: 100%; height: 490px; border: none;"
                     ></iframe>
