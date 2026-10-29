@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kuro 3D Configurator — MCP App (ui://)</title>
+    <link rel="stylesheet" href="/src/design-system/tokens.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 12px;
+        background: transparent;
+        min-height: auto;
+        display: flex;
+        justify-content: center;
+      }
+      kuro-configurator {
+        width: 100%;
+        max-width: 440px;
+      }
+    </style>
+  </head>
+  <body>
+    <kuro-configurator context="agent"></kuro-configurator>
+
+    <script type="module">
+      import "/src/components/kuro-configurator.ts";
+
+      // Ready handshake for MCP App protocol
+      window.addEventListener("DOMContentLoaded", () => {
+        window.parent.postMessage({
+          jsonrpc: "2.0",
+          method: "ui/notifications/ready",
+          params: { component: "kuro-configurator", version: "1.0.0" }
+        }, "*");
+      });
+    </script>
+  </body>
+</html>

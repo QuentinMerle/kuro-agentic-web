@@ -20,6 +20,15 @@ export function initNavBar(container: HTMLElement): void {
         </nav>
 
         <div class="nav-actions">
+          <a 
+            href="/agent.html" 
+            class="btn btn-feed-pill"
+            style="color: #79C0FF; border-color: #388BFD33;"
+            title="Open simulated IDE / Desktop AI Agent interface"
+          >
+            <span>🤖</span> Agent Chat Mock
+          </a>
+
           <button 
             id="open-inspector-btn" 
             class="btn btn-feed-pill"
