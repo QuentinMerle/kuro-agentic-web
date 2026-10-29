@@ -44,30 +44,63 @@ export function initProductStudio(container: HTMLElement): void {
       </div>
     </section>
 
-    <!-- TRY IN AGENT PROMPT SECTION -->
+    <!-- TRY IN AGENT PROMPT SECTION (Two Progressive Tiers) -->
     <section class="try-agent-section">
       <div class="try-agent-card">
         <div class="try-agent-header">
           <div class="try-agent-title">
             <span>🤖</span>
-            <span>Try it live with your AI Assistant</span>
-            <span class="try-agent-badge">● Zero-Scraping Ready</span>
+            <span>Test with your AI Agent (2 Tiers of Prompt)</span>
+            <span class="try-agent-badge">● Zero-Scraping Protocol</span>
           </div>
           <span style="font-size: var(--text-xs); color: var(--accent-muted); font-family: var(--font-mono);">
             Compatible with Antigravity, Claude Desktop, Cursor & Windsurf
           </span>
         </div>
 
-        <div class="prompt-box">
-          <code class="prompt-text" id="demo-prompt-text">Hey! I want to buy a pair of running shoes from http://localhost:5173/ — check its /agent-feed.json and show me the 3D configurator.</code>
-          <button id="copy-prompt-btn" class="btn btn-primary copy-btn" aria-label="Copy demo prompt">
-            Copy Prompt
-          </button>
-        </div>
+        <div class="prompt-grid">
+          <!-- Tier 1: Text Schema Elicitation -->
+          <div class="prompt-tier-card">
+            <div class="prompt-tier-header">
+              <span class="prompt-tier-badge">LEVEL 1 · TEXT SCHEMA (NO UI)</span>
+              <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent-muted);">15 ms · 0 dependencies</span>
+            </div>
 
-        <p style="font-size: var(--text-xs); color: var(--accent-subtle); line-height: 1.5;">
-          Paste this prompt into your agent. Watch it perform a 15 ms cold discovery on <code>/agent-feed.json</code> and mount the interactive 3D configurator directly inside your conversation thread.
-        </p>
+            <div class="prompt-box">
+              <div class="prompt-box-top">
+                <code class="prompt-text" id="prompt-tier1-text">Hey! Inspect http://localhost:5173/agent-feed.json and order the Kuro Runner V1 using schema text elicitation (no UI).</code>
+                <button id="copy-btn-tier1" class="btn btn-secondary copy-btn" aria-label="Copy Tier 1 prompt">
+                  Copy
+                </button>
+              </div>
+            </div>
+
+            <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
+              <strong>Under the hood:</strong> The agent reads <code>/agent-feed.json</code>, extracts the JSON Schema enums, and prompts you in plain text for pointure (40-44) and colorway.
+            </p>
+          </div>
+
+          <!-- Tier 2: Resilient Micro-UI Widget -->
+          <div class="prompt-tier-card highlight">
+            <div class="prompt-tier-header">
+              <span class="prompt-tier-badge">LEVEL 2 · FEDERATED MICRO-UI (WIDGET)</span>
+              <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--accent-success);">Interactive · CSP-Safe</span>
+            </div>
+
+            <div class="prompt-box">
+              <div class="prompt-box-top">
+                <code class="prompt-text" id="prompt-tier2-text">Hey! I want to configure and buy the Kuro Runner V1 from http://localhost:5173/ — mount the interactive configurator widget in this chat!</code>
+                <button id="copy-btn-tier2" class="btn btn-primary copy-btn" aria-label="Copy Tier 2 prompt">
+                  Copy
+                </button>
+              </div>
+            </div>
+
+            <p style="font-size: var(--text-xs); color: var(--accent-muted); line-height: 1.5; margin: 0;">
+              <strong>Under the hood:</strong> The agent mounts the autonomous <code>&lt;kuro-configurator&gt;</code> widget into the conversation. Live vector visuals, dynamic inventory, and 1-click checkout handoff.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -446,19 +479,29 @@ export function initProductStudio(container: HTMLElement): void {
     shopStore.toggleFeedInspector(true);
   });
 
-  const copyBtn = container.querySelector("#copy-prompt-btn") as HTMLButtonElement | null;
-  copyBtn?.addEventListener("click", async () => {
-    const text = container.querySelector("#demo-prompt-text")?.textContent?.trim() || "";
-    try {
-      await navigator.clipboard.writeText(text);
-      copyBtn.textContent = "Copied! ✅";
-      setTimeout(() => {
-        copyBtn.textContent = "Copy Prompt";
-      }, 2000);
-    } catch {
-      copyBtn.textContent = "Copied! ✅";
-    }
-  });
+  // Setup Copy Handlers for Tier 1 & Tier 2 prompts
+  const setupCopyHandler = (btnId: string, textId: string) => {
+    const btn = container.querySelector(btnId) as HTMLButtonElement | null;
+    const textEl = container.querySelector(textId) as HTMLElement | null;
+    if (!btn || !textEl) return;
+
+    btn.addEventListener("click", async () => {
+      const text = textEl.textContent?.trim() || "";
+      try {
+        await navigator.clipboard.writeText(text);
+        const originalText = btn.textContent;
+        btn.textContent = "Copied! ✅";
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 2000);
+      } catch {
+        btn.textContent = "Copied! ✅";
+      }
+    });
+  };
+
+  setupCopyHandler("#copy-btn-tier1", "#prompt-tier1-text");
+  setupCopyHandler("#copy-btn-tier2", "#prompt-tier2-text");
 
   // Setup Tagline Reveal with IntersectionObserver (B11)
   setupTaglineReveal(container);
