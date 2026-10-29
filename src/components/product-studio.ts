@@ -12,6 +12,7 @@ export function initProductStudio(container: HTMLElement): void {
   const sizes: ShoeSize[] = [7, 8, 9, 10, 11];
   let threeController: ThreeViewportController | null = null;
 
+  const origin = window.location.origin;
   const state = shopStore.getState();
   const currentSku = `KURO-V1-${state.selectedColor}-${state.selectedSize}`;
   const stock = state.inventory[currentSku] ?? 0;
@@ -68,7 +69,7 @@ export function initProductStudio(container: HTMLElement): void {
 
             <div class="prompt-box">
               <div class="prompt-box-top">
-                <code class="prompt-text" id="prompt-tier1-text">Hey! Inspect http://localhost:5173/agent-feed.json and order the Kuro Runner V1 using schema text elicitation (no UI).</code>
+                <code class="prompt-text" id="prompt-tier1-text">Hey! Inspect ${origin}/agent-feed.json and order the Kuro Runner V1 using schema text elicitation (no UI).</code>
                 <button id="copy-btn-tier1" class="btn btn-secondary copy-btn" aria-label="Copy Tier 1 prompt">
                   Copy
                 </button>
@@ -89,7 +90,7 @@ export function initProductStudio(container: HTMLElement): void {
 
             <div class="prompt-box">
               <div class="prompt-box-top">
-                <code class="prompt-text" id="prompt-tier2-text">Hey! I want to configure and buy the Kuro Runner V1 from http://localhost:5173/ — mount the interactive configurator widget in this chat!</code>
+                <code class="prompt-text" id="prompt-tier2-text">Hey! I want to configure and buy the Kuro Runner V1 from ${origin}/ — mount the interactive configurator widget in this chat!</code>
                 <button id="copy-btn-tier2" class="btn btn-primary copy-btn" aria-label="Copy Tier 2 prompt">
                   Copy
                 </button>
