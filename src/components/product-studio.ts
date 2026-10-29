@@ -355,7 +355,77 @@ export function initProductStudio(container: HTMLElement): void {
       </div>
     </section>
 
-    <!-- 5. REAL-WORLD FRICTION LOGBOOK (Field Experience) -->
+    <!-- 5. CHAT UX/UI LAWS SECTION (The 4 Laws of Agentic Interfaces) -->
+    <section class="content-section" id="ux-laws">
+      <div class="section-header">
+        <span class="section-label">Agentic Front-End Engineering</span>
+        <h2 class="section-title">Designing for a Chat Stream : The 4 Laws of Agentic UX/UI</h2>
+        <p class="section-subtitle">
+          Embedding an interactive front-end into a conversational feed is not about shrinking an e-commerce website into an iframe. 
+          A chat window is a strict vertical chronological timeline imposing new ergonomics.
+        </p>
+      </div>
+
+      <div class="friction-grid">
+        <!-- Law 1 -->
+        <div class="friction-card">
+          <div class="friction-tag" style="color: #79C0FF; background: rgba(121,192,255,0.08); border-color: rgba(121,192,255,0.25);">
+            RULE 01 · MICRO-VIEWPORT & FOCUS
+          </div>
+          <h3 class="friction-title">The Single-Purpose UI (Anti-WeChat Fallacy)</h3>
+          <p class="friction-desc">
+            In an IDE side panel (380–500px) or desktop chat (600–750px), real estate is heavily constrained. Eliminate all traditional website chrome: no giant brand headers, no global navigation bars, no cookie banners, no footers.
+          </p>
+          <div class="friction-solution" style="color: #79C0FF; border-left-color: #79C0FF;">
+            <strong>Architectural Rule:</strong> Reject the fantasy of "Chat as universal OS". Chats excel at linear intent convergence, but fail at non-linear tasks (comparing 5 tables, dense carts). The in-chat UI must be surgical: resolve a sensory micro-decision (color, size, fit) and immediately yield control back to the prompt flow.
+          </div>
+        </div>
+
+        <!-- Law 2 -->
+        <div class="friction-card">
+          <div class="friction-tag" style="color: #F85149; background: rgba(248,81,73,0.08); border-color: rgba(248,81,73,0.25);">
+            RULE 02 · VERTICAL FLOW PRESERVATION
+          </div>
+          <h3 class="friction-title">Zero Scroll Hijacking (Wheel Trapping)</h3>
+          <p class="friction-desc">
+            Chat feeds rely on continuous vertical scrolling (<code>overflow-y: auto</code>). If an embedded component captures pointer wheel or touch gestures carelessly (e.g. 3D orbit zoom or internal list scroll), the user gets trapped and cannot scroll up to read the agent's prompt reasoning.
+          </p>
+          <div class="friction-solution" style="color: #F85149; border-left-color: #F85149;">
+            <strong>Architectural Rule:</strong> Enforce strict bounded height (<code>max-height: 480px</code>), disable unprompted scroll trapping via <code>touch-action: pan-y</code>, and require an explicit click or focus gesture before capturing continuous orbital gestures.
+          </div>
+        </div>
+
+        <!-- Law 3 -->
+        <div class="friction-card">
+          <div class="friction-tag" style="color: #A371F7; background: rgba(163,113,247,0.08); border-color: rgba(163,113,247,0.25);">
+            RULE 03 · SEAMLESS HOST THEMING
+          </div>
+          <h3 class="friction-title">Zero-Flicker Host Token Inheritance</h3>
+          <p class="friction-desc">
+            Nothing destroys conversational immersion faster than an iframe flashing a stark <code>#FFFFFF</code> background inside a deeply styled Dark Mode IDE or chat application. An embedded micro-UI cannot impose rigid isolated styles.
+          </p>
+          <div class="friction-solution" style="color: #A371F7; border-left-color: #A371F7;">
+            <strong>Architectural Rule:</strong> Consume host-injected CSS variables and design tokens (<code>--host-bg-primary</code>, <code>--host-text-primary</code>, <code>--host-border-color</code>, <code>color-scheme: dark light</code>, system typography) to blend natively into the host agent's environment.
+          </div>
+        </div>
+
+        <!-- Law 4 -->
+        <div class="friction-card">
+          <div class="friction-tag" style="color: var(--accent-success); background: rgba(34,197,94,0.08); border-color: rgba(34,197,94,0.25);">
+            RULE 04 · PERSISTENT STATE LIFECYCLE
+          </div>
+          <h3 class="friction-title">Active to Sealed Receipt State (No Zombie UIs)</h3>
+          <p class="friction-desc">
+            On the classic web, completing a purchase navigates away to a new URL. In a chat, the widget remains forever visible in the scroll history. This creates the danger of "Zombie UIs": an accidental click 3 days later re-triggering an order on a stale card.
+          </p>
+          <div class="friction-solution" style="color: var(--accent-success); border-left-color: var(--accent-success);">
+            <strong>Architectural Rule:</strong> Implement an irreversible state transition. Once confirmed, the component destroys its event listeners and heavy graphics contexts (freeing VRAM) and collapses into a compact, read-only "Sealed Receipt" (<em>« Kuro Runner V1 · Deep Indigo, US 9 · Basket Sealed ✅ »</em>).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. REAL-WORLD FRICTION LOGBOOK (Field Experience) -->
     <section class="content-section" id="frictions">
       <div class="section-header">
         <span class="section-label">Engineering Lab Log</span>
@@ -458,6 +528,16 @@ export function initProductStudio(container: HTMLElement): void {
           </button>
           <div class="faq-answer">
             An external public API requires provisioning server infrastructure, managing OAuth authentication flows, and maintaining duplicate business validation logic. With WebMCP, the browser tab already holds in-memory application state, session cookies, and compiled JavaScript logic: your front-end is already your API.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Why not just load the complete existing website inside the chat iframe?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Loading a full responsive website inside a 400px chat panel creates a disastrous user experience: navigation bars collide, cookie banners obscure the view, and internal scrolling hijacks the chat conversation flow. Conversational front-ends require surgical Single-Purpose Micro-UIs designed with strict bounded height, zero chrome, host token inheritance, and an irreversible "Receipt State" once the action is confirmed.
           </div>
         </div>
 

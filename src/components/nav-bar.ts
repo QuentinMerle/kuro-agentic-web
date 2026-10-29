@@ -17,6 +17,7 @@ export function initNavBar(container: HTMLElement): void {
           <a href="#test-bench" class="nav-link">Bench</a>
           <a href="#configurator-stage" class="nav-link nav-secondary">Storefront</a>
           <a href="#telemetry" class="nav-link">Telemetry</a>
+          <a href="#ux-laws" class="nav-link">Chat UX</a>
           <a href="#frictions" class="nav-link">Frictions</a>
           <a href="#faq" class="nav-link nav-secondary">Q&A</a>
         </nav>

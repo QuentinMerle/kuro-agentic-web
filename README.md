@@ -66,6 +66,21 @@ Hey! I want to configure and buy the Kuro Runner V1 from https://kuro-agentic-we
 
 ---
 
+## 🎨 Designing for a Chat Stream: The 4 Laws of Agentic UX/UI
+
+Embedding an interactive front-end component inside a conversational agent is not about shrinking an existing responsive website into an iframe. A chat stream is a strict chronological vertical feed imposing new ergonomics:
+
+1. **Micro-Viewport & Single-Purpose Focus (The Anti-WeChat Fallacy):**  
+   In a 380–500px IDE side panel or 650px chat window, real estate is strictly rationed. Eliminate all traditional website chrome: no headers, no global navigation, no cookie banners, no footers. Furthermore, reject the fantasy of "Chat as the universal OS": chats excel at linear intent convergence, but are disastrous for dense non-linear workflows (comparing 5 tables, editing timelines). In-chat UIs must be surgical: resolve a sensory micro-decision (color, size, fit) and immediately yield control back to the prompt.
+2. **Zero Scroll Hijacking (Wheel Trapping Mitigation):**  
+   Chat streams depend on vertical continuous scroll (`overflow-y: auto`). An embedded component that greedily captures wheel or drag gestures (e.g., 3D orbit zoom or internal list scroll) traps the user's pointer (*wheel trapping*), preventing them from scrolling up to read the agent's reasoning. Enforce bounded heights (`max-height: 480px`), set `touch-action: pan-y`, and require an explicit click before capturing continuous orbital gestures.
+3. **Zero-Flicker Host Token Inheritance:**  
+   Nothing destroys immersion faster than an iframe flashing a stark `#FFFFFF` background inside a deep Dark Mode IDE. Embedded micro-UIs must consume host-injected CSS variables and design tokens (`--host-bg-primary`, `--host-text-primary`, `--host-border-color`, `color-scheme: dark light`, system typography) to seamlessly blend into the agent's host UI.
+4. **Active to Sealed Receipt State (Eliminating Zombie UIs):**  
+   On the classic web, completing a purchase navigates away (`/checkout/success`). In a chat, the widget remains embedded forever in the conversational history. An accidental click 3 days later on a stale "Order" button could trigger unwanted actions. Micro-UIs must implement an irreversible lifecycle: once submitted, event listeners and GPU contexts are destroyed (releasing VRAM), collapsing into a compact read-only "Sealed Receipt" (*« Kuro Runner V1 · Deep Indigo, US 9 · Basket Sealed ✅ »*).
+
+---
+
 ## ⚠️ Real-World Frictions & Architectural Hardening (Field Log)
 
 During empirical stress testing across real agent sandboxes and Edge CDN deployments, six critical frictions were discovered and hardened:
