@@ -165,6 +165,11 @@ This boundary is the exact problem addressed by the emerging **MCP Apps specific
 2. **Download & Hermetic Isolation:** The host client fetches the declared bundle, runs it inside a locked sandbox (`sandbox="allow-scripts"` strictly without `allow-same-origin`, resulting in an opaque `null` origin), and severs direct network access.
 3. **Structured JSON-RPC Bridge:** The widget communicates with the host chat exclusively via typed `postMessage` (JSON-RPC 2.0).
 
+> ⚠️ **Architectural Distinction: MCP Server vs. MCP Apps**  
+> It is essential to avoid conflating these two layers:  
+> - **MCP Server (Classic):** A headless backend process or local daemon (operating over `stdio` or HTTP `SSE`) designed to supply tools, resources, and prompt templates directly to the LLM runtime. It operates strictly in the data plane (JSON in, JSON out) with zero visual rendering.  
+> - **MCP Apps (SEP-1865 / WebMCP):** A front-end specification for running *client-side interactive webviews* directly inside the user's conversational canvas. It operates in the interaction plane, enabling users to touch, inspect, and approve state mutations at 60 fps before returning cryptographic execution receipts.
+
 ```
 [Chat Host Client] <--- postMessage (JSON-RPC 2.0) ---> [Sandboxed Iframe (origin: null)]
         │                                                           │
@@ -332,6 +337,29 @@ The solution lies in **frictionless cryptographic delegation**:
 - **WebAuthn, FIDO2 Passkeys, and OS Wallets (Apple Pay, Google Pay):** The agent prepares and seals the basket (`/checkout?sku=KURO-V1-Deep-Indigo-9&source=agent_feed`), and the user authorizes the transaction with Touch ID or Face ID. Credentials never pass through the model's context window.
 
 > **"The agent prepares the basket; the human signs the mandate."**
+
+---
+
+## 11. Synthesis: The Agent/Host Ping-Pong (Beyond the Single-Shot Action)
+
+### The Paradigm Shift: From a Static Execution Model to a Living Loop
+Unlike the basic e-commerce scenario (request → form → validation), complex technical workflows—financial simulations, parametric CAD tools, IDE refactoring, collaborative spreadsheets—demand continuous feedback loops. The AI agent and the client-side front-end runtime (JavaScript / WebAssembly) engage in a permanent architectural ping-pong.
+
+### 1. The Exchange Mechanism
+The agent invokes a tool; the site's local in-memory JavaScript/Wasm engine computes state mutations in single-digit milliseconds, then returns a compact structured JSON payload (delta results, spatial constraints, telemetry).  
+The LLM digests this feedback, refines its reasoning trajectory, and immediately issues subsequent actions. This creates a synchronous dialogue where the ephemeral micro-UI in the chat stream updates in real-time at 60 fps without a single full page reload.
+
+### 2. Prerequisite Technical Primitives
+- **The Stateful Context:** Traditional web interactions treat HTTP requests as stateless. In contrast, the WebMCP bridge maintains an active, in-memory JavaScript session so the front-end preserves ongoing state mutations and undo stacks across turns.
+- **Bidirectional JSON-RPC Events:** Asymmetric notification channels (`tools/call` from agent to host, `notifications/state-update` from host to agent) allowing both the model and the UI to broadcast state mutations reactively.
+
+### 3. Production Bottlenecks & Systemic Limits
+- **LLM Token Generation Latency:** Client-side JS/Wasm executes in milliseconds, but LLMs require hundreds of milliseconds to generate tokens. The interaction pace will never feel like a high-FPS twitch game; it is fundamentally an augmented, iterative dialogue.
+- **State Context Drift:** As multi-turn exchanges lengthen, the risk of state hallucination surges if the client mutates data off-screen without broadcasting strict telemetry updates back to the LLM.
+- **Token Budget Saturation:** If the front-end transmits bloated data structures on every turn, the LLM context window exhausts in minutes. Lean delta serialization is mandatory.
+
+### The Philosophical Conclusion
+> « We are colliding with the exact same engineering brick walls encountered across every prior technological epoch—state synchronization, cache coherence, distributed consistency, and security boundaries—now transposed onto LLM runtimes. *The technologies evolve, but the architectural battles remain eternal.* »
 
 ---
 
