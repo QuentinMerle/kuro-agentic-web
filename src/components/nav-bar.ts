@@ -20,6 +20,7 @@ export function initNavBar(container: HTMLElement): void {
             <a href="#telemetry" class="nav-link nav-secondary">Telemetry</a>
             <a href="#configurator-stage" class="nav-link">3D Specimen</a>
             <a href="#ux-laws" class="nav-link nav-secondary">UX Axioms</a>
+            <a href="#synthesis" class="nav-link">Synthesis</a>
             <a href="#test-bench" class="nav-link nav-secondary">Test Bench</a>
           </nav>
 

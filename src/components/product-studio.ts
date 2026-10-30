@@ -128,6 +128,15 @@ export function initProductStudio(container: HTMLElement): void {
                 <strong>The Architectural Resolution :</strong> MCP Apps standardizes host-isolated sandboxes (opaque <code>null</code> origin, zero direct network access) communicating exclusively via typed <code>postMessage</code> JSON-RPC 2.0.
               </div>
             </div>
+
+            <div class="spine-disclaimer-mcp">
+              <div style="font-weight: 700; color: #0369a1; display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                <span>💡</span> Architectural Distinction : MCP Server vs. MCP Apps
+              </div>
+              <div style="color: var(--accent-muted); font-size: 11px; line-height: 1.5;">
+                A classic <strong>MCP Server</strong> runs as a headless backend process (via <code>stdio</code> or HTTP <code>SSE</code>) providing text/JSON tools directly to the model. <strong>MCP Apps</strong> (SEP-1865 / WebMCP) standardizes <em>client-side interactive webviews</em> in the chat canvas, allowing users to touch, inspect, and approve state mutations directly.
+              </div>
+            </div>
           </article>
 
           <!-- Act 3 -->
@@ -970,7 +979,116 @@ export function initProductStudio(container: HTMLElement): void {
       </figcaption>
     </figure>
 
-    <!-- 7. FAQ ACCORDION -->
+    <!-- 7. SYNTHESIS & ARCHITECTURAL REFLECTION -->
+    <section class="content-section" id="synthesis">
+      <div class="section-header">
+        <span class="section-label">Architectural Synthesis & Discussion</span>
+        <h2 class="section-title">The Agent/Host Ping-Pong : Beyond the Single-Shot Action</h2>
+        <p class="section-subtitle">
+          Transitioning from a static request-response model to a living, bidirectional conversational loop.
+        </p>
+      </div>
+
+      <div class="synthesis-container">
+        <!-- Lead Manifesto -->
+        <div class="synthesis-lead-card">
+          <div class="synthesis-lead-badge">
+            <span>⚡</span> The Paradigm Shift
+          </div>
+          <p class="synthesis-lead-text">
+            « Unlike the basic sneaker purchase scenario (request → form → validation), complex technical workflows—financial simulations, parametric CAD tools, IDEs, collaborative spreadsheets—demand continuous feedback. The AI agent and the front-end runtime (JavaScript / WebAssembly) engage in a permanent architectural ping-pong. »
+          </p>
+        </div>
+
+        <!-- 3 Pillars Grid -->
+        <div class="synthesis-grid">
+          <!-- Pillar 1 -->
+          <article class="synthesis-card">
+            <div class="synthesis-card-head">
+              <div class="synthesis-card-icon" style="background: rgba(37, 99, 235, 0.08); color: #2563eb;">
+                🔄
+              </div>
+              <div>
+                <h3 class="synthesis-card-title">The Exchange Mechanism</h3>
+                <span class="synthesis-card-subtitle">Living Synchronous Loop</span>
+              </div>
+            </div>
+            <div class="synthesis-card-body">
+              <p>
+                The agent invokes a tool; the site's local in-memory JavaScript/Wasm engine computes state mutations in single-digit milliseconds, then returns a structured JSON payload (delta results, spatial constraints, telemetry).
+              </p>
+              <div class="synthesis-card-item">
+                <strong>60 FPS Chat Canvas Updates</strong>
+                The LLM digests this feedback, refines its reasoning trajectory, and immediately dispatches subsequent actions. The ephemeral micro-UI in the chat stream updates live without a full page reload.
+              </div>
+            </div>
+          </article>
+
+          <!-- Pillar 2 -->
+          <article class="synthesis-card">
+            <div class="synthesis-card-head">
+              <div class="synthesis-card-icon" style="background: rgba(16, 185, 129, 0.08); color: #059669;">
+                🧱
+              </div>
+              <div>
+                <h3 class="synthesis-card-title">Required Technical Primitives</h3>
+                <span class="synthesis-card-subtitle">Infrastructure Prereqs</span>
+              </div>
+            </div>
+            <div class="synthesis-card-body">
+              <div class="synthesis-card-item">
+                <strong>1. The Stateful Context</strong>
+                Unlike the traditional stateless web (HTTP), the WebMCP bridge maintains an active in-memory JavaScript session so ongoing mutations and undo stacks are preserved between turns.
+              </div>
+              <div class="synthesis-card-item">
+                <strong>2. Bidirectional JSON-RPC Events</strong>
+                Asymmetric notification channels (<code>tools/call</code> from agent → host, <code>notifications/state-update</code> from host → agent) allowing both the model and the UI to broadcast state mutations reactively.
+              </div>
+            </div>
+          </article>
+
+          <!-- Pillar 3 -->
+          <article class="synthesis-card">
+            <div class="synthesis-card-head">
+              <div class="synthesis-card-icon" style="background: rgba(225, 29, 72, 0.08); color: #e11d48;">
+                ⚠️
+              </div>
+              <div>
+                <h3 class="synthesis-card-title">Production Bottlenecks</h3>
+                <span class="synthesis-card-subtitle">Physical System Limits</span>
+              </div>
+            </div>
+            <div class="synthesis-card-body">
+              <div class="synthesis-card-item">
+                <strong>• LLM Token Generation Latency</strong>
+                Front-end JS computes in milliseconds, but LLMs require hundreds of milliseconds to generate tokens. The pace is an augmented conversation, never a high-FPS twitch game.
+              </div>
+              <div class="synthesis-card-item">
+                <strong>• Context Drift & Hallucination</strong>
+                As multi-turn exchanges lengthen, state hallucination risks surge if the UI mutates data off-screen without broadcasting strict telemetry updates back to the LLM.
+              </div>
+              <div class="synthesis-card-item">
+                <strong>• Token Budget Saturation</strong>
+                If the front-end returns bloated payloads on every turn, the LLM context window exhausts in minutes. Lean delta serialization is mandatory.
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Philosophical Conclusion Banner -->
+        <div class="synthesis-quote-card">
+          <div class="synthesis-quote-label">The Philosophical Conclusion</div>
+          <blockquote class="synthesis-quote-text">
+            « We are colliding with the exact same engineering brick walls encountered across every prior technological epoch—state synchronization, cache coherence, distributed consistency, and security boundaries—now transposed onto LLM runtimes. The technologies evolve, but the architectural battles remain eternal. »
+          </blockquote>
+          <div class="synthesis-quote-sub">
+            — Quentin Merle · Engineering REX #04
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. FAQ ACCORDION -->
     <section class="content-section" id="faq">
       <div class="section-header">
         <span class="section-label">Frequently Asked Questions</span>
@@ -981,6 +1099,20 @@ export function initProductStudio(container: HTMLElement): void {
       </div>
 
       <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What is the architectural difference between an MCP Server and MCP Apps (WebMCP)?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p style="margin-bottom: 8px;">This distinction is essential to understand where execution takes place:</p>
+            <ul style="margin: 0 0 8px 20px; line-height: 1.6;">
+              <li><strong>MCP Server (Model Context Protocol) :</strong> A backend or local process (running via <code>stdio</code> or HTTP <code>SSE</code>) designed to give LLMs headless access to databases, files, and external APIs. It lives entirely in the data plane and returns text/JSON payloads with zero visual rendering.</li>
+              <li><strong>MCP Apps / WebMCP (SEP-1865) :</strong> A client-side standard for embedding ephemeral, sandboxed Micro-UIs directly inside conversational canvases (ChatGPT, Claude, Cursor). It lives in the visual/interaction plane, communicating bidirectionally with the host agent via typed JSON-RPC <code>postMessage</code> to provide 60 fps tactile feedback, spatial inspection, and sovereign biometric checkout.</li>
+            </ul>
+          </div>
+        </div>
+
         <div class="faq-item">
           <button class="faq-question">
             <span>Why not simply expose a standard REST or GraphQL API?</span>
