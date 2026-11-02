@@ -1,6 +1,12 @@
 # From Scraping to the "RSS for AI": Anatomy of an Agentic Front-End
 
-*By Quentin Merle — Front-End Architect & AI Engineer at [Vibrisse Studio](https://www.vibrisse-studio.dev/) · [Live Demonstrator](https://kuro-agentic-web.vercel.app/) · [Source Code](https://github.com/QuentinMerle/kuro-agentic-web)*
+*By Quentin Merle — Front-End Architect & AI Engineer at [Vibrisse Studio](https://www.vibrisse-studio.dev/)*
+
+> 🧭 **Quick Links & Lab Resources:**
+> - 🧪 **Interactive Demonstrator & Scrollytelling:** [kuro-agentic-web.vercel.app](https://kuro-agentic-web.vercel.app/)
+> - 📦 **GitHub Repository (Open Source):** [github.com/QuentinMerle/kuro-agentic-web](https://github.com/QuentinMerle/kuro-agentic-web)
+> - 🤖 **Simulated Agent Host Chat:** [kuro-agentic-web.vercel.app/agent.html](https://kuro-agentic-web.vercel.app/agent.html)
+> - 📄 **Machine-Readable Contracts:** [/agent-feed.json](https://kuro-agentic-web.vercel.app/agent-feed.json) · [/llms.txt](https://kuro-agentic-web.vercel.app/llms.txt)
 
 > **Workshop Note & Methodological Disclaimer:**  
 > This paper is neither a dogmatic pitch for yet another standard nor a broad prediction about an inevitable future. It is an engineering field log born from direct confrontation with browser runtimes, memory limits, and contemporary protocols. The solutions documented here were stress-tested inside real agent webviews to evaluate what actually holds up in production—and what breaks.
