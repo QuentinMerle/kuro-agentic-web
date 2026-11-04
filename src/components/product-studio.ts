@@ -20,11 +20,11 @@ export function initProductStudio(container: HTMLElement): void {
 
   // Mount the complete landing page DOM ONCE
   container.innerHTML = `
-    <!-- 1. DEEPMIND RESEARCH MASTHEAD -->
+    <!-- 1. HERO LAB MASTHEAD -->
     <header class="hero-section" aria-labelledby="hero-title">
       <div class="hero-tag">
         <span class="hero-tag-pulse"></span>
-        <span>Research Paper // Agentic Web Interaction · October 2026</span>
+        <span>Live Interactive Lab · Vibrisse Studio</span>
       </div>
 
       <h1 id="hero-title" class="hero-heading">
@@ -33,56 +33,57 @@ export function initProductStudio(container: HTMLElement): void {
       </h1>
 
       <p class="hero-subheading">
-        An empirical research study benchmarking in-DOM tool exposition via WebMCP against cold action syndication 
-        via <code>/agent-feed.json</code> and sandboxed Micro-UIs in autonomous AI agent runtimes.
+        Stop spawning 1.2 GB headless Chromium browsers to click buttons. Connect AI agents to web apps with 1.75 KB static feeds, sandboxed micro-UIs, and zero heavy scraping.
       </p>
 
       <div class="proof-signal">
-        <span><strong>Author:</strong> Quentin Merle (<a href="https://www.vibrisse-studio.dev/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Vibrisse Studio</a>)</span>
+        <span><strong>Lab:</strong> Quentin Merle (<a href="https://www.vibrisse-studio.dev/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Vibrisse Studio</a>)</span>
         <span>·</span>
-        <span><strong>Spec:</strong> W3C WebMCP & MCP Apps (SEP-1865)</span>
+        <span><strong>Tech:</strong> WebMCP & MCP Apps (SEP-1865)</span>
         <span>·</span>
         <span><strong>Runtime:</strong> Production Edge CDN</span>
         <span>·</span>
-        <span><a href="https://github.com/QuentinMerle/kuro-agentic-web" target="_blank" rel="noopener noreferrer" style="color: var(--accent-blue); text-decoration: underline;">GitHub Repository</a></span>
+        <span><a href="https://github.com/QuentinMerle/kuro-agentic-web" target="_blank" rel="noopener noreferrer" style="color: var(--accent-blue); text-decoration: underline;">GitHub Repo</a></span>
+        <span>·</span>
+        <span><a href="/agent.html" style="color: var(--accent-blue); text-decoration: underline;">Simulated Host (/agent)</a></span>
       </div>
     </header>
 
-    <!-- 2. KEY RESEARCH FINDINGS (DeepMind 3-Card Summary) -->
-    <section class="takeaways-grid" aria-label="Key Research Findings">
+    <!-- 2. KEY TAKEAWAYS (3-Card Summary) -->
+    <section class="takeaways-grid" aria-label="Key Findings">
       <div class="takeaway-card">
         <div class="takeaway-icon">⚡</div>
-        <div class="takeaway-title">Discovery Latency & Cost</div>
-        <p class="takeaway-desc">51 ms cold JSON manifest read vs 2,800 ms DOM parsing. 0 MB browser memory overhead vs 400 MB bloated SPA bundle.</p>
+        <div class="takeaway-title">50 ms vs. 1,850 ms</div>
+        <p class="takeaway-desc">A 1.75 KB static JSON feed discovered in 50 ms on Edge CDN, replacing slow 1.2 GB headless Chromium browsers.</p>
       </div>
       <div class="takeaway-card">
         <div class="takeaway-icon">🛡️</div>
-        <div class="takeaway-title">Security & Sandbox Isolation</div>
-        <p class="takeaway-desc">Opaque null-origin iframe boundary isolates host chat. WebAuthn biometric signatures prevent prompt injection tampering.</p>
+        <div class="takeaway-title">Isolated & Secure</div>
+        <p class="takeaway-desc">Sandboxed micro-UIs via MCP Apps with zero direct network access, sealed by 1-tap Touch ID biometric confirmation.</p>
       </div>
       <div class="takeaway-card">
         <div class="takeaway-icon">📦</div>
-        <div class="takeaway-title">Asset Strategy & FinOps</div>
-        <p class="takeaway-desc">112 KB pre-baked PBR snapshots replace heavy 8.2 MB WebGL runtimes, eliminating 1,320 MB RSS client memory leaks.</p>
+        <div class="takeaway-title">112 KB vs. 8 MB 3D</div>
+        <p class="takeaway-desc">Pre-rendered PBR snapshots that never crash your GPU or VRAM, eliminating memory leaks in multi-turn chats.</p>
       </div>
     </section>
 
-    <!-- 3. CHAPTER 1: THE CRISIS (Single-Column Reading Pane) -->
+    <!-- 3. CHAPTER 1: THE BIG MISMATCH -->
     <article class="reading-prose" id="the-crisis">
-      <h2>1. The Collapse of Human DOMs for Machine Reasoning</h2>
+      <h2>1. The Big Mismatch: 1.2 GB Browsers vs. Blind Text Prompts</h2>
       <p>
-        For thirty years, the World Wide Web was optimized for human retinas with 200 ms latency tolerances. To sell a sneaker, modern e-commerce architectures assemble heavy React trees, mega-bundles of CSS, client trackers, and hydration scripts.
+        To let an AI agent buy shoes on a website today, the industry came up with a strange solution: start a 1.2 GB headless Chromium browser in the background, take screenshots every two seconds, and pray a vision model clicks the right button. It burns memory, lags by two seconds, and breaks whenever a CSS class is updated.
       </p>
       <p>
-        When autonomous AI agents (Operator, ChatGPT Atlas, Claude Computer Use) browse the web today, they are forced to act like clumsy robotic tourists. They download 15 MB of visual bloat, burn 4,000 tokens of context window simply reading navigation menus, and attempt to click coordinates that drift with every viewport resize.
+        At the same time, for human users, teams try to squeeze all of e-commerce into a chat box. We are expected to buy a $180 pair of running shoes by typing prompts, completely blind, as if screens were stuck in 1978.
       </p>
 
       <blockquote>
-        « The web was architected for human retinas with 200ms latency tolerance. Autonomous agents operate with 0ms patience and strict context window economics. The 2010 DOM is an unsustainable host for 2026 intelligence. »
+        « The agentic web is caught in an awkward trap: brutal visual scraping on one side, and blind text prompts on the other. We need a clean, static feed for machines, and an on-demand micro-UI when humans need to see what they buy. »
       </blockquote>
 
       <p>
-        The fundamental insight of this research is that <strong>agentic commerce requires a dual-plane architecture</strong>: a cold, deterministic JSON plane for the model's tool discovery (the « RSS of AI »), coupled with a secure, ephemeral Micro-UI sandboxed for human validation when spatial or aesthetic decisions are required.
+        Here is how we solved this with a <strong>dual architecture</strong>: a fast, deterministic JSON feed for agent tool discovery (the « RSS of AI »), paired with an isolated micro-UI that mounts inside the chat only when a visual decision is needed.
       </p>
     </article>
 
@@ -103,12 +104,12 @@ export function initProductStudio(container: HTMLElement): void {
               Schema Text Elicitation <span class="spine-badge spine-badge-emerald">100% Universal</span>
             </h3>
             <p class="spine-lead">
-              The store exposes its action contracts via a static 1.75 KB JSON manifest (<code>/agent-feed.json</code>). Any external agent (ChatGPT, Claude, Cursor, CLI) discovers actions in 50 ms via a simple HTTP GET with 0 MB browser RAM, prompting the user for size and colorway.
+              The store exposes its tools via a static 1.75 KB JSON feed (<code>/agent-feed.json</code>). Any external agent (ChatGPT, Claude, Cursor, CLI) discovers actions in 50 ms via a simple HTTP GET with 0 MB browser RAM, prompting the user for size and colorway.
             </p>
             <div class="spine-callout spine-callout-amber">
               <span>⚠</span>
               <div>
-                <strong>The Cognitive Ceiling :</strong> Buying a $185 pair of technical sneakers without seeing them is absurd. Pure text breaks down for aesthetic and spatial decisions; we need visual UI on demand.
+                <strong>The Problem with Pure Text:</strong> Buying a $185 pair of technical sneakers without seeing them is absurd. Pure text breaks down for aesthetic and spatial decisions; we need visual UI on demand.
               </div>
             </div>
           </article>
@@ -125,7 +126,7 @@ export function initProductStudio(container: HTMLElement): void {
             <div class="spine-callout spine-callout-cyan">
               <span>⚡</span>
               <div>
-                <strong>The Architectural Resolution :</strong> MCP Apps standardizes host-isolated sandboxes (opaque <code>null</code> origin, zero direct network access) communicating exclusively via typed <code>postMessage</code> JSON-RPC 2.0.
+                <strong>The Fix with MCP Apps:</strong> MCP Apps standardizes host-isolated sandboxes (opaque <code>null</code> origin, zero direct network access) communicating exclusively via typed <code>postMessage</code> JSON-RPC 2.0.
               </div>
             </div>
 
@@ -151,7 +152,7 @@ export function initProductStudio(container: HTMLElement): void {
             <div class="spine-callout spine-callout-emerald">
               <span>●</span>
               <div>
-                <strong>The Architectural Pivot :</strong> Snapshot Baking PBR. Pre-rendered photorealistic hero angles inlined in an autonomous 112 KB bundle (0 ms WebGL, 0 MB VRAM, 100% CSP compliant). Three.js is demoted to conditional Tier 3.
+                <strong>The Snapshot Solution:</strong> Snapshot Baking PBR. Pre-rendered photorealistic hero angles inlined in an autonomous 112 KB bundle (0 ms WebGL, 0 MB VRAM, 100% CSP compliant). Three.js is demoted to conditional Tier 3.
               </div>
             </div>
           </article>
@@ -163,12 +164,12 @@ export function initProductStudio(container: HTMLElement): void {
               Who Holds the Credit Card? <span class="spine-badge spine-badge-purple">ACP · AP2 · Passkeys</span>
             </h3>
             <p class="spine-lead">
-              Confiding raw payment cards to an LLM prompt is a strict PCI-DSS violation and a prompt injection nightmare. Conversely, redirecting to a 15-field traditional checkout form completely destroys the agentic speed advantage.
+              Giving raw credit card details to an LLM prompt is a strict PCI-DSS violation and a prompt injection nightmare. Conversely, redirecting to a 15-field traditional checkout form completely destroys the agentic speed advantage.
             </p>
             <div class="spine-callout spine-callout-purple">
               <span>✦</span>
               <div>
-                <strong>Cryptographic Delegation :</strong> Emerging protocols (OpenAI/Stripe ACP, Google AP2, WebAuthn Passkeys). The agent locks the basket URL, and the human confirms with Touch ID / Apple Pay. <em>« The agent prepares the basket, the human validates the signature. »</em>
+                <strong>The Biometric Handoff:</strong> Emerging protocols (OpenAI/Stripe ACP, Google AP2, WebAuthn Passkeys). The agent locks the basket URL, and the human confirms with Touch ID / Apple Pay. <em>« The agent prepares the basket, the human validates the signature. »</em>
               </div>
             </div>
           </article>
@@ -466,23 +467,23 @@ export function initProductStudio(container: HTMLElement): void {
       </figcaption>
     </figure>
 
-    <!-- 5. CHAPTER 2: THE 3D GPU DILEMMA (Reading Column) -->
+    <!-- 5. CHAPTER 2: THE 3D GPU CRASH -->
     <article class="reading-prose" id="gpu-dilemma">
-      <h2>2. Why Client-Side 3D WebGL Fails in Autonomous Sandboxes</h2>
+      <h2>2. What Broke First: When 3D WebGL Crashes the Chat</h2>
       <p>
-        A widespread initial intuition is to embed high-fidelity 3D WebGL configurators directly into chat streams. While technically possible in isolation, our empirical benchmarks reveal that running in-flight Three.js render loops inside multi-turn agent sessions triggers three critical failure modes:
+        At first, we tried putting our full Three.js 3D configurator (8 MB GLTF) directly inside the chat widget. It ran at 60 fps on our Mac, but crashed in real agent sandboxes for three physical reasons:
       </p>
       <p>
-        <strong>1. GPU Sandboxing Isolation :</strong> Enterprise agent containers (ChatGPT Canvas, Claude Desktop, Cursor) enforce strict Content Security Policies (CSP) such as <code>connect-src 'none'</code> or disable WebGL contexts to prevent hardware side-channel attacks.
+        <strong>1. GPU Disabled :</strong> Most agent webviews (Electron or sandboxed Chromium) disable WebGL2 hardware acceleration for security. The canvas stays completely black.
       </p>
       <p>
-        <strong>2. VRAM Accumulation :</strong> In a 20-turn conversational session, retaining multiple Three.js scenes easily exceeds 1,320 MB RSS, causing the browser tab or IDE host process to be summarily terminated by the OS.
+        <strong>2. Blocked Network Calls :</strong> Sandboxes enforce strict Content Security Policies (<code>connect-src 'none'</code>) to stop data leaks. Downloading the 8 MB 3D file fails immediately.
       </p>
       <p>
-        <strong>3. The Snapshot Baking Pivot :</strong> The production solution is build-time headless baking (Puppeteer / Playwright). We pre-render 3D geometries into ultra-optimized 112 KB WebP snapshots. Zero client VRAM, zero CSP network requests, 0 ms mount time.
+        <strong>3. The Snapshot Baking Fix :</strong> Instead of forcing heavy 3D runtimes into the chat, we pre-render studio photos into a self-contained 112 KB bundle. Zero GPU memory used, zero network requests, 0 ms loading delay.
       </p>
       <p>
-        Below is the raw Three.js specimen used to benchmark WebGL memory consumption against pre-rendered assets.
+        Below is the live Three.js 3D model we used to benchmark memory consumption against our lightweight 112 KB baked snapshots.
       </p>
     </article>
 
@@ -613,15 +614,15 @@ export function initProductStudio(container: HTMLElement): void {
     <section class="tagline-section" aria-label="Architecture Manifesto">
       <div class="tagline-badge">Architectural Manifesto</div>
       <p class="tagline-text" id="reveal-target">
-        The front-end no longer needs to be reverse-engineered by blind headless scrapers. It is already the fastest, most secure native execution layer on the Web.
+        The front-end does not need to be reverse-engineered by blind headless scrapers. It is already the fastest, most reliable execution layer on the Web.
       </p>
     </section>
 
     <!-- 4. EMPIRICAL BENCHMARK & TELEMETRY (Field Measurements) -->
     <section class="content-section" id="telemetry">
       <div class="section-header">
-        <span class="section-label">Field Telemetry & Resource Profiling</span>
-        <h2 class="section-title">Architectural Cost & Footprint Autopsy</h2>
+        <span class="section-label">Field Benchmarks & Telemetry</span>
+        <h2 class="section-title">Real Numbers: Headless Scraping vs. Feeds</h2>
         <p class="section-subtitle">
           Real measurements comparing Puppeteer/Computer Use headless scraping against native in-DOM WebMCP and federated /agent-feed.json syndication.
         </p>
@@ -686,8 +687,8 @@ export function initProductStudio(container: HTMLElement): void {
     <!-- 5. CHAT UX/UI LAWS SECTION (The 4 Laws of Agentic Interfaces) -->
     <section class="content-section" id="ux-laws">
       <div class="section-header">
-        <span class="section-label">Agentic Front-End Engineering</span>
-        <h2 class="section-title">Designing for a Chat Stream : The 4 Laws of Agentic UX/UI</h2>
+        <span class="section-label">Front-End UX Rules</span>
+        <h2 class="section-title">Designing for Chat: The 4 Laws of Agentic UI</h2>
         <p class="section-subtitle">
           Embedding an interactive front-end into a conversational feed is not about shrinking an e-commerce website into an iframe. 
           A chat window is a strict vertical chronological timeline imposing new ergonomics.
@@ -701,7 +702,7 @@ export function initProductStudio(container: HTMLElement): void {
             <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #92400e;">Interface Axioms</span>
           </div>
           <p style="font-size: 14.5px; color: var(--accent-muted); line-height: 1.65; margin: 0;">
-            A conversational interface is fundamentally an append-only timeline. Every pixel injected must respect the host environment's focus, gesture cascade, and finite lifecycle.
+            A chat feed is a vertical stream that forgives very little. Every component injected into it must respect the host app's focus, scroll gestures, and memory limits.
           </p>
           <div class="host-constraint-card">
             <div class="host-constraint-card-title">
@@ -725,7 +726,7 @@ export function initProductStudio(container: HTMLElement): void {
               In an IDE side panel (380–500px) or desktop chat (600–750px), real estate is heavily constrained. Eliminate all traditional website chrome: no giant brand headers, no global navigation bars, no cookie banners, no footers.
             </p>
             <div class="ux-law-rule ux-law-rule-gold">
-              <strong>Architectural Rule:</strong> Reject the fantasy of "Chat as universal OS". Chats excel at linear intent convergence, but fail at non-linear tasks (comparing 5 tables, dense carts). The in-chat UI must be surgical: resolve a sensory micro-decision (color, size, fit) and immediately yield control back to the prompt flow.
+              <strong>Architectural Rule:</strong> Reject the fantasy of "Chat as universal OS". Chats excel at linear intent convergence, but fail at non-linear tasks (comparing 5 tables, dense carts). The in-chat UI must be focused: resolve a quick sensory decision (color, size, fit) and immediately yield control back to the text flow.
             </div>
           </article>
 
@@ -777,8 +778,8 @@ export function initProductStudio(container: HTMLElement): void {
     <!-- 6. REAL-WORLD FRICTION LOGBOOK (Field Experience) -->
     <section class="content-section" id="frictions">
       <div class="section-header">
-        <span class="section-label">Engineering Lab Log</span>
-        <h2 class="section-title">Production Frictions & Architectural Hardening</h2>
+        <span class="section-label">Field Log</span>
+        <h2 class="section-title">What Broke in Production (and How We Fixed It)</h2>
         <p class="section-subtitle">
           Real failure modes discovered when stress-testing Web Components and WebMCP inside enterprise agent sandboxes.
         </p>
@@ -982,8 +983,8 @@ export function initProductStudio(container: HTMLElement): void {
     <!-- 7. SYNTHESIS & ARCHITECTURAL REFLECTION -->
     <section class="content-section" id="synthesis">
       <div class="section-header">
-        <span class="section-label">Architectural Synthesis & Discussion</span>
-        <h2 class="section-title">The Agent/Host Ping-Pong : Beyond the Single-Shot Action</h2>
+        <span class="section-label">How It Works in Real Time</span>
+        <h2 class="section-title">The Ping-Pong Loop: Beyond Single Actions</h2>
         <p class="section-subtitle">
           Transitioning from a static request-response model to a living, bidirectional conversational loop.
         </p>
@@ -1092,7 +1093,7 @@ export function initProductStudio(container: HTMLElement): void {
     <section class="content-section" id="faq">
       <div class="section-header">
         <span class="section-label">Frequently Asked Questions</span>
-        <h2 class="section-title">Engineering Objections Addressed</h2>
+        <h2 class="section-title">Frequently Asked Questions</h2>
         <p class="section-subtitle">
           What technical directors and software architects need to know before adopting this pattern.
         </p>
